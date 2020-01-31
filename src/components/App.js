@@ -1,7 +1,7 @@
 import React from 'react';
 // import logo from './logo.svg';
 // import '../App.css';
-import { topCard } from '../actions'; // {} only for named expport, not default export
+// import { topCard } from '../actions'; // {} only for named expport, not default export
 import Game from './Game'
 
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import {playCardCreator} from '../actions';
+import {playCardCreator, nextTurnCreator} from '../actions';
 
 import Card from './Card'
 
@@ -11,35 +11,27 @@ class Hand extends Component {
     let playerHand
     let faceUp
     let cardClick
+    // let turn = this.props.turn
 
-    switch (this.props.player) {
-      case 1:
-        playerHand = this.props.hand1
-        faceUp = true
-        cardClick = this.props.playCard
-        break;
+  
+    playerHand = this.props[`hand${this.props.player}`]
     
-      case 2:
-        playerHand = this.props.hand2
-        faceUp = false
-        cardClick = () => {}
-        break;
+    this.props.player === 1? faceUp = true : faceUp = true  // change to see all cars up for testing
     
-      case 3:
-        playerHand = this.props.hand3
-        faceUp = false
-        cardClick = () => {}
-        break;
-    
-      case 4:
-        playerHand = this.props.hand4
-        faceUp = false
-        cardClick = () => {}
-        break;
-    
-      default:
-        break;
+    if (this.props.player === this.props.turn){
+      cardClick = (card) => { 
+        this.props.playCard(card)
+        // this.props.nextTurn() // built in next turn into playCard but leaving this open in case we need to add other stuff
+      }
+    }else{
+      cardClick = () => {}
     }
+
+
+
+    
+
+
     
     return playerHand.map((eachCard) => {
       return ( 
@@ -51,7 +43,7 @@ class Hand extends Component {
   }
   
   render () {
-    console.log("player#", this.props.player)
+    // console.log("player#", this.props.player)
     return (
       <div className = "hand"> Hand {this.props.player}
       {this.renderHand()}
@@ -61,18 +53,20 @@ class Hand extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state)
+  // console.log("state", state)
   return { 
-    hand1:state.hand1,
-    hand2:state.hand2,
-    hand3:state.hand3,
-    hand4:state.hand4
+    hand1: state.hand1,
+    hand2: state.hand2,
+    hand3: state.hand3,
+    hand4: state.hand4,
+    turn: state.turn
   }  
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    playCard: (card) => dispatch(playCardCreator(card))
+    playCard: (card) => dispatch(playCardCreator(card)),
+    nextTurn: () => dispatch(nextTurnCreator()),
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Hand)

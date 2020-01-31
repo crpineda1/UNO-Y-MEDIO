@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator} from '../actions';
+import { createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator, nextTurnCreator} from '../actions';
 
 
 import Hand from './Hand';
@@ -15,15 +15,25 @@ class Table extends Component {
     return oldDeck.sort(() => Math.random() - 0.5)
   }
 
+  dealCards = () => {
+    for (let i = 0;  i < 28; i++) {
+      this.props.pickCard()
+      this.props.nextTurn()
+      
+    }
+  }
+
   render () {
     let newDeck = this.shuffleDeck(this.props.cards)
 
     this.props.createDeck(newDeck)
+    
 
     console.log("TopCard",newDeck[0])
 
     return (
       <div> Table
+        <button onClick = {this.dealCards}>Deal Cards</button>
         <div className = "table"> 
           <Deck topCard = {newDeck[0]}/>
           <Pile />
@@ -41,16 +51,20 @@ class Table extends Component {
 
 const mapStateToProps = (state) => {
   console.log("state", state)
-  return { cards: state.cards,
+  return { 
+    cards: state.cards,
+
+
           }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     createDeck: (deck) => dispatch(createDeckCreator(deck)),
-    dealCards: () => dispatch(createDeckCreator()),
+    dealCards: () => dispatch(dealCardsCreator()),
     playCard: () => dispatch(playCardCreator()),
     pickCard: () => dispatch(pickCardCreator()),
+    nextTurn: () => dispatch(nextTurnCreator()),
 
 
   }

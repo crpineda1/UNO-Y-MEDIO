@@ -8,10 +8,9 @@ class Card extends Component {
 
   
   render () {
-    console.log(this.props.card)
+    // console.log(this.props.card)
     return (
-        <div 
-          id = {this.props.card}
+        <div
           key = {this.props.card.code}
           Color = {this.props.card.color}
           Value = {this.props.card.value}

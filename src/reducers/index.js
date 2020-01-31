@@ -174,32 +174,16 @@ let defaultState = {
     { color: 'green', value: 'S', code:'GS', points:20, img:green_S },
     { color: 'green', value: '22', code:'G22', points:20, img:green_22 }
   ],
-  deck: [],
-  pile: [{ color: 'black', value: '0', code:'B0', points:0, img:card_back }],
-  hand1: [
-    { color: 'red', value: '1', code:'R1', points:1, img:red_1 },
-    { color: 'yellow', value: '1', code:'Y1', points:1, img:yellow_1 },
-    { color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },
-    { color: 'green', value: '1', code:'G1', points:1, img:green_1 }
-  ],
-  hand2: [
-    { color: 'red', value: '2', code:'R2', points:2, img:red_2 },
-    { color: 'yellow', value: '2', code:'Y2', points:2, img:yellow_2 },
-    { color: 'blue', value: '2', code:'B2', points:2, img:blue_2 },
-    { color: 'green', value: '2', code:'G2', points:2, img:green_2 }
-  ],
-  hand3:  [
-    { color: 'red', value: '3', code:'R3', points:3, img:red_3 },
-    { color: 'yellow', value: '3', code:'Y3', points:3, img:yellow_3 },
-    { color: 'blue', value: '3', code:'B3', points:3, img:blue_3 },
-    { color: 'green', value: '3', code:'G3', points:3, img:green_3 }
-  ],
-  hand4: [
-    { color: 'red', value: '4', code:'R4', points:4, img:red_4 },
-    { color: 'yellow', value: '4', code:'Y4', points:4, img:yellow_4 },
-    { color: 'blue', value: '4', code:'B4', points:4, img:blue_4 },
-    { color: 'green', value: '4', code:'G4', points:4, img:green_4 }
-  ]
+  deck: [{ color: 'black', value: '0', code:'B0', points:0, img:card_back }],
+  pile: [{ color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },{ color: 'black', value: '0', code:'B0', points:0, img:card_back }],
+  hand1: [],
+  hand2: [],
+  hand3: [],
+  hand4: [],
+  turn: 1,
+  currentColor: 'blue',
+  currentValue: '1',
+
 
 }
 
@@ -208,22 +192,96 @@ let reducer = (prevState=defaultState, action) => {
   let newDeck
   let newPile
   let card
+  let nextTurn
 
   switch(action.type){
     case 'CREATE_DECK': 
+      console.log("create deck")
       return {...prevState, deck: action.payload }
+
+
     case 'DEAL_CARDS': 
-      return {...prevState }
+      console.log('deal cards')
+      
+      newDeck = [...prevState.deck]
+      let cardsToDeal = newDeck.splice(0,16)
+      console.log("cards to deal",cardsToDeal)
+      
+      return {...prevState, deck: newDeck }
+
+
+
     case 'PLAY_CARD': 
-      newHand = [...prevState.hand1]
-      newHand.splice(prevState.hand1.indexOf(action.payload),1)
-      newPile = [...prevState.pile,action.payload]
-      return {...prevState, pile: newPile, hand1: newHand}
+      console.log("play card")
+ 
+      
+      // console.log("pilecard color",card.color)
+      // console.log("pilecard value",card.value)
+      // console.log("playcard color",action.payload.color)
+      // console.log("playcard value",action.payload.value)
+      // console.log("store color",prevState.currentColor)
+      // console.log("store value",prevState.currentValue)
+      // console.log("turn",prevState.turn)
+      // console.log("next card",prevState.deck[0])
+
+      
+      // switch(prevState.turn) {
+      //   case 1:
+      //     newHand = [...prevState.hand1]
+      //     break;
+      //   case 2:
+      //     newHand = [...prevState.hand2]
+      //     break;
+      //   case 3:
+      //     newHand = [...prevState.hand3]
+      //     break;
+      //   case 4:
+      //     newHand = [...prevState.hand4]
+      //     break;
+      
+      //   default:
+      //     break;
+      // }
+
+      newHand = [...prevState[`hand${prevState.turn}`]]
+
+      newHand.splice(prevState[`hand${prevState.turn}`].indexOf(action.payload),1)
+      newPile = [action.payload,...prevState.pile]
+      
+      prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+      
+      
+      if (prevState.currentColor === action.payload.color || prevState.currentValue === action.payload.value || 'black' === action.payload.color) {
+        
+        return {...prevState, pile: newPile, [`hand${prevState.turn}`]: newHand, currentColor: action.payload.color, currentValue: action.payload.value, turn: nextTurn} 
+      } else {
+        return {...prevState}
+      }
+
+      
+      
+    case 'NEXT_TURN':
+      console.log("next turn")
+
+      console.log(prevState.turn)
+
+      if (prevState.turn === 4) {
+        return{...prevState, turn: 1}
+      } else {
+        return{...prevState, turn: prevState.turn+1}
+      }
+
+
+
     case 'PICK_CARD':
+      console.log("pick card")
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
-      newHand = [...prevState.hand1,card]
-      return {...prevState, deck: newDeck, hand1: newHand }
+      newHand = [...prevState[`hand${prevState.turn}`],card]
+      return {...prevState, deck: newDeck, [`hand${prevState.turn}`]: newHand }
+
+
+    
     default: 
       return {...prevState }
   }

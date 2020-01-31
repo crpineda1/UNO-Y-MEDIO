@@ -9,10 +9,9 @@ import Card from './Card'
 class Deck extends Component {
  
   
-  
   render () {
     
-    let faceUp = false
+    let faceUp = true
 
     return (
       <div className = "deck"> Deck 
@@ -23,14 +22,14 @@ class Deck extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state)
+  // console.log("state", state)
   return { 
     deck: state.deck
   }  
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log(dispatch)
+  // console.log(dispatch)
   return {
     pickCard: () => dispatch(pickCardCreator())
   }
