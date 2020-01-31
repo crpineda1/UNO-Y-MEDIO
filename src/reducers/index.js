@@ -174,13 +174,50 @@ let defaultState = {
     { color: 'green', value: 'S', code:'GS', points:20, img:green_S },
     { color: 'green', value: '22', code:'G22', points:20, img:green_22 }
   ],
-  deck: [{ color: 'black', value: '0', code:'B0', points:0, img:card_back }],
+  deck: [ {color: 'blue', value: '0', code:'B0', points:0, img:blue_0 },
+  { color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },
+  { color: 'blue', value: '2', code:'B2', points:2, img:blue_2 },
+  { color: 'blue', value: '3', code:'B3', points:3, img:blue_3 },
+  { color: 'blue', value: '4', code:'B4', points:4, img:blue_4 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '6', code:'B6', points:6, img:blue_6 },
+  { color: 'blue', value: '7', code:'B7', points:7, img:blue_7 },
+  { color: 'blue', value: '8', code:'B8', points:8, img:blue_8 },
+  { color: 'blue', value: '9', code:'B9', points:9, img:blue_9 },
+  { color: 'blue', value: 'R', code:'BR', points:20, img:blue_R },
+  { color: 'blue', value: 'S', code:'BS', points:20, img:blue_S },
+  { color: 'blue', value: '22', code:'B22', points:20, img:blue_22 },
+  { color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },
+  { color: 'blue', value: '2', code:'B2', points:2, img:blue_2 },
+  { color: 'blue', value: '3', code:'B3', points:3, img:blue_3 },
+  { color: 'blue', value: '4', code:'B4', points:4, img:blue_4 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
+  { color: 'blue', value: '6', code:'B6', points:6, img:blue_6 },
+  { color: 'blue', value: '7', code:'B7', points:7, img:blue_7 },
+  { color: 'blue', value: '8', code:'B8', points:8, img:blue_8 },
+  { color: 'blue', value: '9', code:'B9', points:9, img:blue_9 },
+  { color: 'blue', value: 'R', code:'BR', points:20, img:blue_R },
+  { color: 'blue', value: 'S', code:'BS', points:20, img:blue_S },
+  { color: 'blue', value: '22', code:'B22', points:20, img:blue_22 },
+    { color: 'black', value: '0', code:'B0', points:0, img:card_back },
+    
+  ],
   pile: [{ color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },{ color: 'black', value: '0', code:'B0', points:0, img:card_back }],
-  hand1: [],
-  hand2: [],
-  hand3: [],
-  hand4: [],
+  
+  hand1: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
+  hand2: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
+  hand3: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
+  hand4: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
+  
   turn: 1,
+  orderClockwise: true, 
   currentColor: 'blue',
   currentValue: '1',
 
@@ -193,6 +230,7 @@ let reducer = (prevState=defaultState, action) => {
   let newPile
   let card
   let nextTurn
+  let newOrder
 
   switch(action.type){
     case 'CREATE_DECK': 
@@ -217,8 +255,8 @@ let reducer = (prevState=defaultState, action) => {
       
       // console.log("pilecard color",card.color)
       // console.log("pilecard value",card.value)
-      // console.log("playcard color",action.payload.color)
-      // console.log("playcard value",action.payload.value)
+      console.log("playcard color",action.payload.color)
+      console.log("playcard value",action.payload.value)
       // console.log("store color",prevState.currentColor)
       // console.log("store value",prevState.currentValue)
       // console.log("turn",prevState.turn)
@@ -245,15 +283,66 @@ let reducer = (prevState=defaultState, action) => {
 
       newHand = [...prevState[`hand${prevState.turn}`]]
 
+      // remove the played card from the current player's hand
       newHand.splice(prevState[`hand${prevState.turn}`].indexOf(action.payload),1)
+
+      // add the played card to the top of the pile 
       newPile = [action.payload,...prevState.pile]
       
-      prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+
+      // choose who plays next based on orderClockwise or counterclockwise 
+      if (prevState.orderClockwise){
+        prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+      } else {
+        prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
+      }
       
+      
+      // check for skip
+      if (action.payload.value === 'S'){
+        if (prevState.orderClockwise){
+          if (prevState.turn === 4){  
+            nextTurn = 2
+          } else if(prevState.turn === 3){
+            nextTurn = 1
+          }else{ 
+          nextTurn += 1
+          } 
+        } else{
+          if (prevState.turn === 2){  
+            nextTurn = 4
+          } else if(prevState.turn === 1){
+            nextTurn = 3
+          }else{ 
+          nextTurn -= 1
+          } 
+        }
+      }
+      
+
+
+      // check for reverse
+      if (action.payload.value === 'R'){ 
+         newOrder = !prevState.orderClockwise
+         
+         if (newOrder){
+           prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+          } else {
+            prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
+          }
+        } else { 
+        newOrder = prevState.orderClockwise 
+      }
+
+      // check for +2
+      // if (action.payload.value === '22'){
+      // }
+
+
       
       if (prevState.currentColor === action.payload.color || prevState.currentValue === action.payload.value || 'black' === action.payload.color) {
         
-        return {...prevState, pile: newPile, [`hand${prevState.turn}`]: newHand, currentColor: action.payload.color, currentValue: action.payload.value, turn: nextTurn} 
+        return {...prevState, pile: newPile, [`hand${prevState.turn}`]: newHand, currentColor: action.payload.color, currentValue: action.payload.value, turn: nextTurn, orderClockwise: newOrder} 
       } else {
         return {...prevState}
       }

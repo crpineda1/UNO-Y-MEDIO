@@ -11,7 +11,7 @@ class Hand extends Component {
     let playerHand
     let faceUp
     let cardClick
-    // let turn = this.props.turn
+
 
   
     playerHand = this.props[`hand${this.props.player}`]
@@ -21,7 +21,7 @@ class Hand extends Component {
     if (this.props.player === this.props.turn){
       cardClick = (card) => { 
         this.props.playCard(card)
-        // this.props.nextTurn() // built in next turn into playCard but leaving this open in case we need to add other stuff
+
       }
     }else{
       cardClick = () => {}

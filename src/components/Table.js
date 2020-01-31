@@ -16,20 +16,24 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    for (let i = 0;  i < 28; i++) {
+    for (let i = 0;  i < 28; i++) {  // RESET TO 28 ONCE DONE TESTING
       this.props.pickCard()
       this.props.nextTurn()
       
     }
   }
 
+  
+
+
+
   render () {
     let newDeck = this.shuffleDeck(this.props.cards)
 
-    this.props.createDeck(newDeck)
+    // this.props.createDeck(newDeck) // DISABLE FOR TESTING WITH SAMPLE DECK OF SPECIFIC CARDS
     
 
-    console.log("TopCard",newDeck[0])
+    // console.log("TopCard",newDeck[0])
 
     return (
       <div> Table
@@ -51,8 +55,12 @@ class Table extends Component {
 
 const mapStateToProps = (state) => {
   console.log("state", state)
+  console.log("Order", state.turn)
+  console.log("VALUE", state.currentValue)
+  console.log("TURN", state.turn)
   return { 
     cards: state.cards,
+
 
 
           }
