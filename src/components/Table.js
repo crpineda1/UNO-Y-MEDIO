@@ -23,20 +23,30 @@ class Table extends Component {
     }
   }
 
-  
+  plus2 = () => {
+    if(this.props.value === "22") {
+      console.log("pick2")
+      this.props.pickCard()
+      this.props.pickCard()
+      this.props.nextTurn()
+    }
+  }
 
 
 
   render () {
     let newDeck = this.shuffleDeck(this.props.cards)
 
-    // this.props.createDeck(newDeck) // DISABLE FOR TESTING WITH SAMPLE DECK OF SPECIFIC CARDS
+    if (this.props.deck.length === 0){
+      this.props.createDeck(newDeck) // DISABLE FOR TESTING WITH SAMPLE DECK OF SPECIFIC CARDS
+    }
     
 
     // console.log("TopCard",newDeck[0])
 
     return (
-      <div> Table
+      <div> Table 
+        <button onClick = {this.plus2}>plus 2</button>
         <button onClick = {this.dealCards}>Deal Cards</button>
         <div className = "table"> 
           <Deck topCard = {newDeck[0]}/>
@@ -60,6 +70,9 @@ const mapStateToProps = (state) => {
   console.log("TURN", state.turn)
   return { 
     cards: state.cards,
+    deck: state.deck,
+    value: state.currentValue,
+    turn: state.currentTurn
 
 
 

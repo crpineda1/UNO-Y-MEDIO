@@ -339,7 +339,7 @@ let reducer = (prevState=defaultState, action) => {
       // }
 
 
-      
+      // check if card matches color, value, or if black(+4 or wild card)
       if (prevState.currentColor === action.payload.color || prevState.currentValue === action.payload.value || 'black' === action.payload.color) {
         
         return {...prevState, pile: newPile, [`hand${prevState.turn}`]: newHand, currentColor: action.payload.color, currentValue: action.payload.value, turn: nextTurn, orderClockwise: newOrder} 
