@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {pickCardCreator} from '../actions';
+
 import Card from './Card'
 
 
@@ -7,12 +9,14 @@ import Card from './Card'
 class Deck extends Component {
  
   
+  
   render () {
-    console.log("deck:", this.props.deck)
+    
+    let faceUp = false
 
     return (
-      <div> Deck 
-      <Card card = {this.props.deck[0]}/>
+      <div className = "deck"> Deck 
+      <Card card = {this.props.deck[0]} visible = {faceUp} handleClick = {this.props.pickCard}/>
     </div>
     )
   }
@@ -20,7 +24,15 @@ class Deck extends Component {
 
 const mapStateToProps = (state) => {
   console.log("state", state)
-  return { deck: state.deck }
+  return { 
+    deck: state.deck
+  }  
 }
 
-export default connect(mapStateToProps)(Deck)
+const mapDispatchToProps = (dispatch) => {
+  console.log(dispatch)
+  return {
+    pickCard: () => dispatch(pickCardCreator())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Deck)

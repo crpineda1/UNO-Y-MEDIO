@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Table from './Table'
 import { connect } from 'react-redux';
-import { topCard } from '../actions'; // {} only for named expport, not default export
+import { topCard } from '../actions'; // {} only for named export, not default export
 
 class Game extends Component {
   

@@ -8,11 +8,12 @@ class Pile extends Component {
  
   
   render () {
-    console.log("pile:", this.props.pile)
+    console.log("pile:", this.props.pile[0])
+    let faceUp = true
 
     return (
-      <div> Pile 
-      <Card card = {this.props.pile[0]}/>
+      <div className = "pile"> Pile 
+      <Card card = {this.props.pile[this.props.pile.length-1]} visible = {faceUp} handleClick = {() =>{}}/>
     </div>
     )
   }
