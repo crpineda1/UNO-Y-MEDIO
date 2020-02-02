@@ -31,3 +31,7 @@ code {
 .table{
   display: flex;
 }
+
+.navbar{
+  display: flex;
+}

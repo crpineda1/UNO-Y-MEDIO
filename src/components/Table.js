@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator} from '../actions';
-
+import {connect} from 'react-redux';
+import {createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator} from '../actions';
 
 import Hand from './Hand';
 import Deck from './Deck';
@@ -17,16 +16,19 @@ class Table extends Component {
 
   dealCards = () => {
     let i = 0
-    
-    for (let i = 0; i < 28; i++) {
+    let delay = 150
 
+    for (let i = 0; i < 28; i++) {
+      setTimeout(() => {
         this.props.pickCard()
         this.props.nextTurn()
         console.log("deal counter", i)        
+      }, i * delay);
 
     }
-
-    this.props.pileCard()
+    setTimeout(() => {
+      this.props.pileCard()
+    }, 28 * delay);
     }
 
   plus2 = () => {
@@ -34,8 +36,8 @@ class Table extends Component {
       console.log("pick2")
       this.props.pickCard()
       this.props.pickCard()
-      this.props.nextTurn()
       this.props.actionOff()
+      this.props.nextTurn()
     }
   }
 
@@ -62,11 +64,9 @@ class Table extends Component {
     }
   }
 
-
-
   displayColorButtons = () => {
-    console.log("display color buttons")
-    console.log(this.props.color)
+    // console.log("display color buttons")
+    // console.log(this.props.color)
 
     if (this.props.value === "WC" && this.props.color === "black") {
       console.log('WC buttons')
@@ -87,36 +87,70 @@ class Table extends Component {
     }
   } 
   
+  unoCallPenalty = () => {
+    if (this.props.unoPenalty) {
+      alert("UNO CALL PENALTY, DRAW 4 CARDS")
+      this.props.pickCard()
+      this.props.pickCard()
+      this.props.pickCard()
+      this.props.pickCard()
+      this.props.actionOff() // disables action of skip if applicable 
+      this.props.nextTurn()
 
+    }
+  }
+
+  pass = () => {
+    this.props.nextTurn()
+  }
+
+  skipTurn = () => {
+    if(this.props.value === "S" && this.props.action) {
+      console.log("skip turn")
+      this.props.nextTurn()
+      this.props.actionOff()
+    }
+  }
+
+  showRules = () => {
+    alert("You can only play a card that matches the color or symbol in the pile. Wild cards allow you to alter the color. Draw Two cards forces the next player to draw two cards and forfeit his/her turn. Wild Draw Four cards allows you to alter the color and forces the next player to draw four cards and forfeit thier turn. Reverse card changest the direction of play. Skip forces the next player to forfeit thier turn.")
+  }
+
+  checkWinner = (player) => {
+    alert(`PLAYER ${player} WINS`)
+    this.props.endGame()
+  }
 
 
   render () {
     let newDeck = this.shuffleDeck(this.props.cards)
 
-
     if (this.props.deck.length === 0){
-      this.props.createDeck(newDeck) // DISABLE FOR TESTING WITH SAMPLE DECK OF SPECIFIC CARDS
+      this.props.createDeck(newDeck) 
     }
-    
-
-    // console.log("TopCard",newDeck[0])
 
     return (
       <div> Table 
-        <div>Current Color {this.props.color}</div>
+        <div>Current Color: {this.props.color}</div>
         <div>Direction: {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
-        <button onClick = {this.dealCards}>Deal Cards</button>
+        <div>Current Turn: {this.props.turn}</div>
+        <button onClick = {this.showRules}>RULES</button>
+        <button onClick = {this.dealCards}>DEAL CARDS</button>
+        <button onClick = {this.props.unoCall}>UNO CALL</button>
+        <button onClick = {this.pass}>PASS</button>
         {this.plus2()}
         {this.displayColorButtons()}
+        {this.unoCallPenalty()}
+        {this.skipTurn()}
         
         <div className = "table"> 
           <Deck topCard = {newDeck[0]}/>
           <Pile />
           <div className = "hands">
-          <Hand player = {1} />
-          <Hand player = {2} />
-          <Hand player = {3} />
-          <Hand player = {4} />
+          <Hand player = {1} checkWinner = {this.checkWinner}/>
+          <Hand player = {2} checkWinner = {this.checkWinner}/>
+          <Hand player = {3} checkWinner = {this.checkWinner}/>
+          <Hand player = {4} checkWinner = {this.checkWinner}/>
           </div>
         </div>
       </div>
@@ -125,12 +159,15 @@ class Table extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state)
-  console.log("Order Clockwise?", state.orderClockwise)
-  console.log("VALUE", state.currentValue)
-  console.log("TURN", state.turn)
-  console.log("color", state.currentColor)
-  console.log("hand 4 #", state.hand4.length)
+  console.log("state: ", state)
+  console.log("VALUE: ", state.currentValue)
+  console.log("TURN: ", state.turn)
+  console.log("Order Clockwise? ", state.orderClockwise)
+  console.log("color: ", state.currentColor)
+  console.log("uno call: ", state.unoCall)
+  console.log("uno penalty: ", state.unoPenalty)
+  console.log("action activated: ", state.actionCard)
+
   return { 
     cards: state.cards,
     deck: state.deck,
@@ -139,6 +176,7 @@ const mapStateToProps = (state) => {
     color: state.currentColor,
     action: state.actionCard,
     order: state.orderClockwise,
+    unoPenalty: state.unoPenalty
 
 
   }
@@ -154,6 +192,7 @@ const mapDispatchToProps = (dispatch) => {
     changeColor: (color) => dispatch(changeColorCreator(color)),
     actionOff: () => dispatch(actionOffCreator()),
     pileCard: () => dispatch(pileCardCreator()),
+    unoCall: () => dispatch(unoCallCreator()),
 
 
   }

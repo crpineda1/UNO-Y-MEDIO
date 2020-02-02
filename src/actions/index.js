@@ -7,6 +7,9 @@ const NEXT_TURN = "NEXT_TURN";
 const CHANGE_COLOR = "CHANGE_COLOR"; 
 const ACTION_OFF = "ACTION_OFF"; 
 const PILE_CARD = "PILE_CARD"; 
+const UNO_CALL = "UNO_CALL"; 
+const LOGIN_USER = "LOGIN_USER"; 
+
 
 const createDeckCreator = (cards) => ({type: CREATE_DECK, payload: cards})
 const dealCardsCreator = () => ({type: DEAL_CARDS})
@@ -16,6 +19,8 @@ const nextTurnCreator = () => ({type:NEXT_TURN})
 const changeColorCreator = (color) => ({type:CHANGE_COLOR, payload: color})
 const actionOffCreator = () => ({type:ACTION_OFF})
 const pileCardCreator = () => ({type:PILE_CARD})
+const unoCallCreator = () => ({type:UNO_CALL})
+const loginUserCreator = (info) => ({type:LOGIN_USER, payload: info})
 
 
 // const handleChangeCreator = (text) =>({type: HANDLE_CHANGE, payload: { text }})
@@ -30,6 +35,8 @@ export {
   changeColorCreator,
   actionOffCreator,
   pileCardCreator,
+  unoCallCreator,
+  loginUserCreator,
     
 }
 

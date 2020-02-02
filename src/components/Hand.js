@@ -15,8 +15,14 @@ class Hand extends Component {
 
   
     playerHand = this.props[`hand${this.props.player}`]
+
+    // check for win
+    if (playerHand.length === 0){
+      this.props.checkWinner(this.props.player)
+
+    }
     
-    this.props.player === this.props.turn? faceUp = true : faceUp = false  // change to true to see all cars up for testing
+    this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
     
     if (this.props.player === this.props.turn){
       cardClick = (card) => { 
@@ -25,11 +31,6 @@ class Hand extends Component {
     }else{
       cardClick = () => {}
     }
-
-
-
-    
-
 
     
     return playerHand.map((eachCard) => {

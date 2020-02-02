@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import Table from './Table'
 import { connect } from 'react-redux';
-import { topCard } from '../actions'; // {} only for named export, not default export
+
+import Navbar from './Navbar';
+
 
 class Game extends Component {
+
+  endGame = () => {this.props.history.push("/leaderboard")}
+  logOut = () => {this.props.history.push("/auth")}
   
   render () {
     // this.props === {deck: state.deck} 
@@ -11,8 +16,9 @@ class Game extends Component {
     console.log("game props",this.props.deck)
     return (
       <div> Game 
+        <Navbar logout = {this.logOut}/>
+        <Table endGame = {this.endGame}/>
 
-        <Table />
       </div>
     )
   }
