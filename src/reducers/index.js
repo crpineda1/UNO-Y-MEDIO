@@ -174,52 +174,19 @@ let defaultState = {
     { color: 'green', value: 'S', code:'GS', points:20, img:green_S },
     { color: 'green', value: '22', code:'G22', points:20, img:green_22 }
   ],
-  deck: [ {color: 'blue', value: '0', code:'B0', points:0, img:blue_0 },
-  { color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },
-  { color: 'blue', value: '2', code:'B2', points:2, img:blue_2 },
-  { color: 'blue', value: '3', code:'B3', points:3, img:blue_3 },
-  { color: 'blue', value: '4', code:'B4', points:4, img:blue_4 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '6', code:'B6', points:6, img:blue_6 },
-  { color: 'blue', value: '7', code:'B7', points:7, img:blue_7 },
-  { color: 'blue', value: '8', code:'B8', points:8, img:blue_8 },
-  { color: 'blue', value: '9', code:'B9', points:9, img:blue_9 },
-  { color: 'blue', value: 'R', code:'BR', points:20, img:blue_R },
-  { color: 'blue', value: 'S', code:'BS', points:20, img:blue_S },
-  { color: 'blue', value: '22', code:'B22', points:20, img:blue_22 },
-  { color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },
-  { color: 'blue', value: '2', code:'B2', points:2, img:blue_2 },
-  { color: 'blue', value: '3', code:'B3', points:3, img:blue_3 },
-  { color: 'blue', value: '4', code:'B4', points:4, img:blue_4 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '5', code:'B5', points:5, img:blue_5 },
-  { color: 'blue', value: '6', code:'B6', points:6, img:blue_6 },
-  { color: 'blue', value: '7', code:'B7', points:7, img:blue_7 },
-  { color: 'blue', value: '8', code:'B8', points:8, img:blue_8 },
-  { color: 'blue', value: '9', code:'B9', points:9, img:blue_9 },
-  { color: 'blue', value: 'R', code:'BR', points:20, img:blue_R },
-  { color: 'blue', value: 'S', code:'BS', points:20, img:blue_S },
-  { color: 'blue', value: '22', code:'B22', points:20, img:blue_22 },
-    { color: 'black', value: '0', code:'B0', points:0, img:card_back },
-    
-  ],
-  pile: [{ color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },{ color: 'black', value: '0', code:'B0', points:0, img:card_back }],
+  deck: [],
+  pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
   
-  hand1: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
-  hand2: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
-  hand3: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
-  hand4: [{color: 'blue', value: 'S', code:'BS', points:1, img:blue_S },{color: 'blue', value: 'R', code:'BR', points:1, img:blue_R },{ color: 'blue', value: '22', code:'B22', points:20, img:blue_22 }],
+  hand1: [],
+  hand2: [],
+  hand3: [],
+  hand4: [],
   
   turn: 1,
   orderClockwise: true, 
   currentColor: 'blue',
   currentValue: '1',
+  actionCard: false,
 
 
 }
@@ -231,6 +198,7 @@ let reducer = (prevState=defaultState, action) => {
   let card
   let nextTurn
   let newOrder
+  let activateCard
 
   switch(action.type){
     case 'CREATE_DECK': 
@@ -334,15 +302,24 @@ let reducer = (prevState=defaultState, action) => {
         newOrder = prevState.orderClockwise 
       }
 
-      // check for +2
-      // if (action.payload.value === '22'){
-      // }
+      // check for black card (+4, WC) and do not change turn to allow player to choose new color
+      if (action.payload.color === "black"){
+        nextTurn = prevState.turn
+      }
+
+      // check for +2 card and auto draw 2 cards for the next player and skip turn
+      if (action.payload.value === "22"){
+        activateCard = true
+      } else {
+        activateCard = false
+      }
+
 
 
       // check if card matches color, value, or if black(+4 or wild card)
       if (prevState.currentColor === action.payload.color || prevState.currentValue === action.payload.value || 'black' === action.payload.color) {
         
-        return {...prevState, pile: newPile, [`hand${prevState.turn}`]: newHand, currentColor: action.payload.color, currentValue: action.payload.value, turn: nextTurn, orderClockwise: newOrder} 
+        return {...prevState, pile: newPile, [`hand${prevState.turn}`]: newHand, currentColor: action.payload.color, currentValue: action.payload.value, turn: nextTurn, orderClockwise: newOrder, actionCard: activateCard} 
       } else {
         return {...prevState}
       }
@@ -354,12 +331,16 @@ let reducer = (prevState=defaultState, action) => {
 
       console.log(prevState.turn)
 
-      if (prevState.turn === 4) {
-        return{...prevState, turn: 1}
-      } else {
-        return{...prevState, turn: prevState.turn+1}
-      }
 
+      if (prevState.orderClockwise){
+        prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+       } else {
+         prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
+       }
+
+
+        return{...prevState, turn: nextTurn}
+      
 
 
     case 'PICK_CARD':
@@ -368,9 +349,27 @@ let reducer = (prevState=defaultState, action) => {
       card = newDeck.shift() 
       newHand = [...prevState[`hand${prevState.turn}`],card]
       return {...prevState, deck: newDeck, [`hand${prevState.turn}`]: newHand }
-
-
     
+
+    case 'PILE_CARD':
+      console.log("pick card")
+      newDeck = [...prevState.deck]
+      card = newDeck.shift() 
+      newPile = [card,...prevState.pile]
+      return {...prevState, deck: newDeck, pile: newPile, currentColor: card.color, currentValue: card.value}
+    
+    
+    case 'CHANGE_COLOR':
+      console.log("change color",action.payload.value)
+    
+      return {...prevState, currentColor: action.payload }
+    
+    case 'ACTION_OFF':
+      console.log("ACTION OFF")
+    
+      return {...prevState, actionCard: false }
+
+
     default: 
       return {...prevState }
   }

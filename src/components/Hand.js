@@ -16,12 +16,11 @@ class Hand extends Component {
   
     playerHand = this.props[`hand${this.props.player}`]
     
-    this.props.player === 1? faceUp = true : faceUp = true  // change to see all cars up for testing
+    this.props.player === this.props.turn? faceUp = true : faceUp = false  // change to true to see all cars up for testing
     
     if (this.props.player === this.props.turn){
       cardClick = (card) => { 
         this.props.playCard(card)
-
       }
     }else{
       cardClick = () => {}

@@ -11,7 +11,7 @@ class Deck extends Component {
   
   render () {
     
-    let faceUp = true
+    let faceUp = false
 
     return (
       <div className = "deck"> Deck 
