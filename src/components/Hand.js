@@ -11,7 +11,7 @@ class Hand extends Component {
     let playerHand
     let faceUp
     let cardClick
-
+ 
 
   
     playerHand = this.props[`hand${this.props.player}`]
@@ -47,8 +47,8 @@ class Hand extends Component {
     // console.log("player#", this.props.player)
     return (
       <div className = "hand"> Hand {this.props.player}
-      {this.renderHand()}
-    </div>
+        {this.renderHand()}
+      </div>
     )
   }
 }
@@ -59,7 +59,7 @@ const mapStateToProps = (state) => {
   // console.log("hand3", state.hand3)
   // console.log("hand4", state.hand4)
   // console.log("turn", state.turn)
-  console.log("gameActive", state.gameActive)
+  // console.log("gameActive", state.gameActive)
   
   return { 
     hand1: state.hand1,

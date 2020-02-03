@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, loadLeaderboardCreator} from '../actions';
 
-import Hand from './Hand';
 import Deck from './Deck';
 import Pile from './Pile';
+import Hand from './Hand';
+import CPU from './CPU';
 
 
 class Table extends Component {
@@ -16,7 +17,7 @@ class Table extends Component {
 
   dealCards = () => {
     let delay = 150
-    let cards = 8    // reset to 28 for game play
+    let cards = 28    // reset to 28 for game play
     for (let i = 0; i < cards; i++) { 
       setTimeout(() => {
         this.props.pickCard()
@@ -144,13 +145,14 @@ class Table extends Component {
         {this.displayColorButtons()}
         {this.unoCallPenalty()}
         {this.skipTurn()}
-        {this.props.loadLeaderboard()}
+
         
         <div className = "table"> 
           <Deck topCard = {newDeck[0]}/>
           <Pile />
           <div className = "hands">
-          <Hand player = {1} checkWinner = {this.checkWinner}/>
+          {/* <Hand player = {1} checkWinner = {this.checkWinner}/> */}
+          <CPU player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4}/>
           <Hand player = {2} checkWinner = {this.checkWinner}/>
           <Hand player = {3} checkWinner = {this.checkWinner}/>
           <Hand player = {4} checkWinner = {this.checkWinner}/>
@@ -197,10 +199,11 @@ const mapDispatchToProps = (dispatch) => {
     pileCard: () => dispatch(pileCardCreator()),
     unoCall: () => dispatch(unoCallCreator()),
     toggleGame: () => dispatch(toggleGameCreator()),
-    loadLeaderboard: () => dispatch(loadLeaderboardCreator()),
+    // loadLeaderboard: () => dispatch(loadLeaderboardCreator()),
 
 
 
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Table)
+ 

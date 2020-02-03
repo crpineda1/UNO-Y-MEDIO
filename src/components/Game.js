@@ -11,14 +11,14 @@ class Game extends Component {
   endGame = () => {this.props.history.push("/leaderboard")}
   logOut = () => {
     this.props.history.push("/auth")
-    // this.props.clearGame() // not working (consider refreshe upon rendering)
+    // this.props.clearGame() // not working (consider refresh upon rendering to clear game)
   }
 
   
   render () {
     // this.props === {deck: state.deck} 
-    console.log("game props",this.props)
-    console.log("game props",this.props.deck)
+    // console.log("game props",this.props)
+    // console.log("game props",this.props.deck)
     return (
       <div> Game 
         <Navbar logout = {this.logOut} leaderboard = {this.endGame}/>
