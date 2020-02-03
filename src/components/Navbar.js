@@ -11,6 +11,7 @@ class Navbar extends Component {
         <div className = "navbar"> Navbar items: 
           <div> Mini Uno logo </div>
           <button onClick = {this.props.logout}> LOGOUT</button>
+          <button onClick = {this.props.leaderboard}> END GAME</button>
         </div>
 
       </Fragment>

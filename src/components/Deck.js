@@ -11,7 +11,7 @@ class Deck extends Component {
   
   render () {
     
-    let faceUp = false
+    let faceUp = true // swtich to true to see the top card in the deck
 
     return (
       <div className = "deck"> Deck 

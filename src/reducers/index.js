@@ -175,13 +175,12 @@ let defaultState = {
     { color: 'green', value: '22', code:'G22', points:20, img:green_22 }
   ],
   deck: [],
-  pile:  [{ color: 'red', value: '0', code:'R0', points:0, img:red_0 },{color: 'black', value: '0', code:'B0', points:0, img:card_back },{ color: 'red', value: 'S', code:'RS', points:20, img:red_S },],
+  pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
   
-  hand1: [{ color: 'red', value: '0', code:'R0', points:0, img:red_0 },{ color: 'red', value: '0', code:'R0', points:0, img:red_0 },{ color: 'red', value: 'S', code:'RS', points:20, img:red_S },
-  ],
-  hand2: [{ color: 'blue', value: '1', code:'B1', points:1, img:blue_1 },{ color: 'red', value: '0', code:'R0', points:0, img:red_0 },{ color: 'red', value: 'S', code:'RS', points:20, img:red_S },],
-  hand3: [{ color: 'red', value: '0', code:'R0', points:0, img:red_0 },{ color: 'red', value: 'S', code:'RS', points:20, img:red_S },{ color: 'red', value: 'S', code:'RS', points:20, img:red_S },],
-  hand4: [{ color: 'red', value: '0', code:'R0', points:0, img:red_0 },{ color: 'red', value: 'R', code:'RR', points:20, img:red_R },{ color: 'red', value: 'S', code:'RS', points:20, img:red_S },],
+  hand1: [],
+  hand2: [],
+  hand3: [],
+  hand4: [],
   
   turn: 1,
   orderClockwise: true, 
@@ -191,9 +190,10 @@ let defaultState = {
   unoCall: false,
   unoPenalty: false,
 
-  userID: null,
+  userId: null,
   username: '',
-
+  gameActive: false,
+  allGames: [],
 
 }
 
@@ -418,10 +418,27 @@ let reducer = (prevState=defaultState, action) => {
       console.log("LOGIN USER")
     
       return {...prevState, userId: action.payload.userId, username: action.payload.username }
+    
+    case 'TOGGLE_GAME':
+      console.log("ACTIVATE GAME")
+    
+      return {...prevState, gameActive: !prevState.gameActive }
+
+    case 'LOAD_LEADERBOARD':
+      console.log("LOAD LEADERBOARD")
+      console.log("API response", action.payload.status)
+      console.log("all users", action.payload.data)
+    
+      return {...prevState, allGames: action.payload.data }
+
+    case 'CLEAR_GAME':
+      console.log("END_GAME")
+    
+      // return {...prevState, }  // NOT WORKING activate later
 
 
     default: 
-      return {...prevState }
+      return {...prevState}
   }
 }
 

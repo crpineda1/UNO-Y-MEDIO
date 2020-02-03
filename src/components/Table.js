@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator} from '../actions';
+import {createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, loadLeaderboardCreator} from '../actions';
 
 import Hand from './Hand';
 import Deck from './Deck';
@@ -15,21 +15,22 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    let i = 0
     let delay = 150
-
-    for (let i = 0; i < 28; i++) {
+    let cards = 8    // reset to 28 for game play
+    for (let i = 0; i < cards; i++) { 
       setTimeout(() => {
         this.props.pickCard()
         this.props.nextTurn()
         console.log("deal counter", i)        
       }, i * delay);
-
+      
     }
     setTimeout(() => {
       this.props.pileCard()
-    }, 28 * delay);
-    }
+      this.props.toggleGame()
+    }, (cards+1) * delay)
+
+  }
 
   plus2 = () => {
     if(this.props.value === "22" && this.props.action) {
@@ -119,6 +120,7 @@ class Table extends Component {
   checkWinner = (player) => {
     alert(`PLAYER ${player} WINS`)
     this.props.endGame()
+
   }
 
 
@@ -142,6 +144,7 @@ class Table extends Component {
         {this.displayColorButtons()}
         {this.unoCallPenalty()}
         {this.skipTurn()}
+        {this.props.loadLeaderboard()}
         
         <div className = "table"> 
           <Deck topCard = {newDeck[0]}/>
@@ -193,6 +196,9 @@ const mapDispatchToProps = (dispatch) => {
     actionOff: () => dispatch(actionOffCreator()),
     pileCard: () => dispatch(pileCardCreator()),
     unoCall: () => dispatch(unoCallCreator()),
+    toggleGame: () => dispatch(toggleGameCreator()),
+    loadLeaderboard: () => dispatch(loadLeaderboardCreator()),
+
 
 
   }

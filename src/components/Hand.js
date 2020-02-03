@@ -17,8 +17,9 @@ class Hand extends Component {
     playerHand = this.props[`hand${this.props.player}`]
 
     // check for win
-    if (playerHand.length === 0){
-      this.props.checkWinner(this.props.player)
+    if (playerHand.length == 0 && this.props.gameActive ){
+      console.log("winner:", this.props.player)
+      this.props.checkWinner(this.props.player) // DISABLED, WILL TROUBLESHOOT LATER
 
     }
     
@@ -53,13 +54,20 @@ class Hand extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("state", state)
+  // console.log("hand1", state.hand1)
+  // console.log("hand2", state.hand2)
+  // console.log("hand3", state.hand3)
+  // console.log("hand4", state.hand4)
+  // console.log("turn", state.turn)
+  console.log("gameActive", state.gameActive)
+  
   return { 
     hand1: state.hand1,
     hand2: state.hand2,
     hand3: state.hand3,
     hand4: state.hand4,
-    turn: state.turn
+    turn: state.turn,
+    gameActive: state.gameActive
   }  
 }
 

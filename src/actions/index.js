@@ -9,6 +9,9 @@ const ACTION_OFF = "ACTION_OFF";
 const PILE_CARD = "PILE_CARD"; 
 const UNO_CALL = "UNO_CALL"; 
 const LOGIN_USER = "LOGIN_USER"; 
+const TOGGLE_GAME = "TOGGLE_GAME"; 
+const LOAD_LEADERBOARD = "LOAD_LEADERBOARD"; 
+const CLEAR_GAME = "CLEAR_GAME"; 
 
 
 const createDeckCreator = (cards) => ({type: CREATE_DECK, payload: cards})
@@ -21,6 +24,18 @@ const actionOffCreator = () => ({type:ACTION_OFF})
 const pileCardCreator = () => ({type:PILE_CARD})
 const unoCallCreator = () => ({type:UNO_CALL})
 const loginUserCreator = (info) => ({type:LOGIN_USER, payload: info})
+const toggleGameCreator = (info) => ({type:TOGGLE_GAME, payload: info})
+const clearGameCreator = () => ({type:CLEAR_GAME})
+
+const loadLeaderboardCreator = () => {
+  
+  return(dispatch) => {
+    fetch("http://localhost:3000/usergames")
+    .then(resp => resp.json())
+    .then(data => { dispatch({type:LOAD_LEADERBOARD, payload: data })})
+  }
+}
+  
 
 
 // const handleChangeCreator = (text) =>({type: HANDLE_CHANGE, payload: { text }})
@@ -37,6 +52,9 @@ export {
   pileCardCreator,
   unoCallCreator,
   loginUserCreator,
+  toggleGameCreator,
+  clearGameCreator,
+  loadLeaderboardCreator,
     
 }
 
