@@ -214,7 +214,7 @@ let reducer = (prevState=defaultState, action) => {
       return {...prevState, deck: action.payload }
 
 
-    case 'DEAL_CARDS': 
+    case 'DEAL_CARDS':  // not being used, consider deleting
       console.log('deal cards')
       
       newDeck = [...prevState.deck]
@@ -324,7 +324,7 @@ let reducer = (prevState=defaultState, action) => {
           [`hand${prevState.turn}`]: newHand, 
           currentColor: action.payload.color, 
           currentValue: action.payload.value, 
-          turn: nextTurn,
+          // turn: nextTurn,
           orderClockwise: newOrder, 
           actionCard: activateCard, 
           unoCall: deactivateUnoCall, 

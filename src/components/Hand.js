@@ -28,6 +28,7 @@ class Hand extends Component {
     if (this.props.player === this.props.turn){
       cardClick = (card) => { 
         this.props.playCard(card)
+        this.props.nextTurn()
       }
     }else{
       cardClick = () => {}
@@ -73,7 +74,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    playCard: (card) => dispatch(playCardCreator(card)),
+    // playCard: (card) => dispatch(playCardCreator(card)),
     nextTurn: () => dispatch(nextTurnCreator()),
   }
 }

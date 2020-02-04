@@ -91,7 +91,7 @@ class Table extends Component {
   
   unoCallPenalty = () => {
     if (this.props.unoPenalty) {
-      alert("UNO CALL PENALTY, DRAW 4 CARDS")
+      alert(`UNO CALL PENALTY. Player ${this.props.turn} DRAW 4 CARDS`)
       this.props.pickCard()
       this.props.pickCard()
       this.props.pickCard()
@@ -151,11 +151,14 @@ class Table extends Component {
           <Deck topCard = {newDeck[0]}/>
           <Pile />
           <div className = "hands">
-          {/* <Hand player = {1} checkWinner = {this.checkWinner}/> */}
-          <CPU player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4}/>
+          <Hand player = {1} checkWinner = {this.checkWinner}/>
+          {/* <CPU player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           <Hand player = {2} checkWinner = {this.checkWinner}/>
+          {/* <CPU player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           <Hand player = {3} checkWinner = {this.checkWinner}/>
+          {/* <CPU player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           <Hand player = {4} checkWinner = {this.checkWinner}/>
+          {/* <CPU player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           </div>
         </div>
       </div>
