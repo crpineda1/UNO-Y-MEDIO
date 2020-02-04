@@ -11,8 +11,8 @@ class CPU extends Component {
     let playerHand
     let faceUp
     let cardClick
-    let playCard
-    let delay = 1000 // in milliseconds
+    let playCard = null
+    let delay = 500 // in milliseconds
 
   
     playerHand = this.props[`hand${this.props.player}`]
@@ -20,7 +20,7 @@ class CPU extends Component {
     // check for win
     if (playerHand.length == 0 && this.props.gameActive ){
       console.log("winner:", this.props.player)
-      this.props.checkWinner(this.props.player) // DISABLED, WILL TROUBLESHOOT LATER
+      this.props.checkWinner(this.props.player) 
 
     }
     
@@ -34,14 +34,20 @@ class CPU extends Component {
 
 
 
-    // CPU logic
+    // Choose card
     setTimeout(() => {
       
       if (this.props.player === this.props.turn && this.props.gameActive){
         
+        // choose color after black card played
+        if (this.props.currentColor === "black"){
+          this.props.wildCard("red")
+          this.props.plus4("red")
+        } 
+
         // select which card to play
         
-        setTimeout(() => {
+        // setTimeout(() => {
           if (playerHand.find( card => card.color === this.props.currentColor)){
             playCard =  playerHand.find( card => card.color === this.props.currentColor)
           } else {
@@ -55,36 +61,45 @@ class CPU extends Component {
               }
             }
           }
-        }, delay+1000);
+          // }, delay+500);
           
-        console.log("playCard", playCard)
-        // play card
-        setTimeout(() => {
-          if (playCard === "pick from pile"){
-            // this.props.pickCard()
-            console.log("player",this.props.player,"draw card")
-          } else {
-            playerHand.length === 2? this.props.unoCall(): console.log("no uno call") 
-            // this.props.playCard(playCard)  // disable for testing
-            console.log("player",this.props.player,"play card:",playCard.color,playCard.value)
-            if (playCard.color === "black"){
-              this.props.wildCard("red")
-              this.props.plus4("red")
+          
+          // play card
+          // setTimeout(() => {
+            console.log("play Card", playCard)
+            if(playCard){
+              if (playCard === "pick from pile"){
+                this.props.pickCard()
+                console.log("player",this.props.player,"draw card")
+              } else {
+                playerHand.length === 2? this.props.unoCall(): console.log("no uno call") 
+                
+                this.props.playCard(playCard)  // disable for testing
+                // console.log("player",this.props.player,"play card:",playCard.color,playCard.value)
+                
+                if (["0","1","2","3","4","5","6","7","8","9","R"].includes(playCard.value)) {
+                  this.props.nextTurn()
+                }
+              }
+              
             }
-          }
-        }, delay+2000);
+          // }, delay)
           
       } else {
+        playCard = null
         console.log("not my turn, Player:", this.props.player,"turn:", this.props.turn)
       }
 
-    }, delay);
+    }, delay)
+
 
     // For human player wait for click event 
-    if (this.props.player === this.props.turn){ 
+    if (this.props.player === this.props.turn){
       cardClick = (card) => { 
         this.props.playCard(card)
-
+        if (["0","1","2","3","4","5","6","7","8","9","R"].includes(card.value)) {
+          this.props.nextTurn()
+        }
       }
     }else{
       cardClick = () => {}
@@ -134,8 +149,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     playCard: (card) => dispatch(playCardCreator(card)),
     nextTurn: () => dispatch(nextTurnCreator()),
-    pickCard: () => dispatch(pickCardCreator()),
-    nextTurn: () => dispatch(nextTurnCreator())
+    pickCard: () => dispatch(pickCardCreator())
+
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CPU)

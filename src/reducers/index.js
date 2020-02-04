@@ -178,14 +178,16 @@ let defaultState = {
   pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
   
   hand1: [],
-  hand2: [],
+  hand2: [{ color: 'black', value: '44', code:'B44', points:50, img:black_4 },
+  { color: 'black', value: 'WC', code:'BWC', points:50, img:black_WC },
+  ],
   hand3: [],
   hand4: [],
   
   turn: 1,
   orderClockwise: true, 
-  currentColor: 'red',
-  currentValue: '0',
+  currentColor: '',
+  currentValue: '',
   actionCard: false,
   unoCall: false,
   unoPenalty: false,
@@ -249,14 +251,14 @@ let reducer = (prevState=defaultState, action) => {
       
 
       // choose who plays next based on orderClockwise or counterclockwise 
-      if (prevState.orderClockwise){
-        prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
-      } else {
-        prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
-      }
+      // if (prevState.orderClockwise){
+      //   prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+      // } else {
+      //   prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
+      // }
       
       
-      // check for skip
+      // check for SKIP
       if (action.payload.value === 'S'){
         activateCard = true
         nextTurn = prevState.turn
@@ -283,7 +285,7 @@ let reducer = (prevState=defaultState, action) => {
       
 
 
-      // check for reverse
+      // check for REVERSE
       if (action.payload.value === 'R'){ 
          newOrder = !prevState.orderClockwise
         if (newOrder){
@@ -295,10 +297,10 @@ let reducer = (prevState=defaultState, action) => {
         newOrder = prevState.orderClockwise 
       }
 
-      // check for black card (+4, WC) and do not change turn to allow player to choose new color
-      if (action.payload.color === "black"){
-        nextTurn = prevState.turn
-      }
+      // check for BLACK CARD (+4, WC) and do not change turn to allow player to choose new color
+      // if (action.payload.color === "black"){
+      //   nextTurn = prevState.turn
+      // }
       
       // check for +2 card and auto draw 2 cards for the next player and skip turn
       if (action.payload.value === "22"){

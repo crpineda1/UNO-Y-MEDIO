@@ -12,29 +12,30 @@ class Hand extends Component {
     let faceUp
     let cardClick
  
-
-  
     playerHand = this.props[`hand${this.props.player}`]
-
+    
+    // show cards (face up)
+    this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
+    
     // check for win
     if (playerHand.length == 0 && this.props.gameActive ){
       console.log("winner:", this.props.player)
-      this.props.checkWinner(this.props.player) // DISABLED, WILL TROUBLESHOOT LATER
-
+      this.props.checkWinner(this.props.player) 
     }
-    
-    this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
-    
+     
+    // activate card play when its your turn
     if (this.props.player === this.props.turn){
       cardClick = (card) => { 
         this.props.playCard(card)
-        this.props.nextTurn()
+        if (["0","1","2","3","4","5","6","7","8","9","R"].includes(card.value)) {
+          this.props.nextTurn()
+        }
       }
     }else{
       cardClick = () => {}
     }
 
-    
+    // render cards
     return playerHand.map((eachCard) => {
       return ( 
        <div>
@@ -45,7 +46,6 @@ class Hand extends Component {
   }
   
   render () {
-    // console.log("player#", this.props.player)
     return (
       <div className = "hand"> Hand {this.props.player}
         {this.renderHand()}
@@ -74,7 +74,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // playCard: (card) => dispatch(playCardCreator(card)),
+    playCard: (card) => dispatch(playCardCreator(card)),
     nextTurn: () => dispatch(nextTurnCreator()),
   }
 }

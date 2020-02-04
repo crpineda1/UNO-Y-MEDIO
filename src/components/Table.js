@@ -33,17 +33,64 @@ class Table extends Component {
 
   }
 
-  plus2 = () => {
-    if(this.props.value === "22" && this.props.action) {
-      console.log("pick2")
-      this.props.pickCard()
-      this.props.pickCard()
-      this.props.actionOff()
-      this.props.nextTurn()
-    }
-  }
-
-  plus4 = (color) => {
+  gameAction = () =>{
+    
+    // activate plus2 
+      if(this.props.value === "22" && this.props.action) {
+        console.log("pick2")
+        this.props.nextTurn()
+        this.props.pickCard()
+        this.props.pickCard()
+        this.props.actionOff()
+        this.props.nextTurn()
+      } 
+      
+      // activate skip
+      else if(this.props.value === "S" && this.props.action) {
+        console.log("skip turn")
+        this.props.actionOff()
+          this.props.nextTurn()
+          this.props.nextTurn()
+        }
+        
+        
+        //  activate UNO call penalty
+        else if (this.props.unoPenalty) {
+          alert(`UNO CALL PENALTY. Player ${this.props.turn} DRAW 4 CARDS`)
+          this.props.pickCard()
+          this.props.pickCard()
+          this.props.pickCard()
+          this.props.pickCard()
+          this.props.actionOff() // disables action of skip if applicable 
+          this.props.nextTurn()
+          
+        } 
+        
+        
+        
+      } // end of game action
+      
+      displayColorButtons = () => {
+        if (this.props.value === "WC" && this.props.color === "black") {
+          console.log('WC buttons')
+          return <div>
+          <button onClick= {() => this.wildCard("red")}>Switch Red WC</button>
+          <button onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
+          <button onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
+          <button onClick= {() => this.wildCard("green")}>Switch Green WC</button>
+          </div>  
+        } else if (this.props.value === "44" && this.props.color === "black") {
+          console.log('+4 buttons')
+          return <div>
+          <button onClick= {() => this.plus4("red")}>Switch Red +4</button>
+          <button onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
+          <button onClick= {() => this.plus4("blue")}>Switch Blue +4</button>
+          <button onClick= {() => this.plus4("green")}>Switch Green +4</button>
+          </div>  
+        }
+      }    
+        
+        plus4 = (color) => {
     if(this.props.value === "44") {
       console.log("new color", color)
       this.props.changeColor(color)
@@ -66,52 +113,8 @@ class Table extends Component {
     }
   }
 
-  displayColorButtons = () => {
-    // console.log("display color buttons")
-    // console.log(this.props.color)
-
-    if (this.props.value === "WC" && this.props.color === "black") {
-      console.log('WC buttons')
-      return <div>
-      <button onClick= {() => this.wildCard("red")}>Switch Red WC</button>
-      <button onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
-      <button onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
-      <button onClick= {() => this.wildCard("green")}>Switch Green WC</button>
-      </div>  
-    } else if (this.props.value === "44" && this.props.color === "black") {
-      console.log('+4 buttons')
-      return <div>
-      <button onClick= {() => this.plus4("red")}>Switch Red +4</button>
-      <button onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
-      <button onClick= {() => this.plus4("blue")}>Switch Blue +4</button>
-      <button onClick= {() => this.plus4("green")}>Switch Green +4</button>
-      </div>  
-    }
-  } 
-  
-  unoCallPenalty = () => {
-    if (this.props.unoPenalty) {
-      alert(`UNO CALL PENALTY. Player ${this.props.turn} DRAW 4 CARDS`)
-      this.props.pickCard()
-      this.props.pickCard()
-      this.props.pickCard()
-      this.props.pickCard()
-      this.props.actionOff() // disables action of skip if applicable 
-      this.props.nextTurn()
-
-    }
-  }
-
   pass = () => {
     this.props.nextTurn()
-  }
-
-  skipTurn = () => {
-    if(this.props.value === "S" && this.props.action) {
-      console.log("skip turn")
-      this.props.nextTurn()
-      this.props.actionOff()
-    }
   }
 
   showRules = () => {
@@ -141,10 +144,11 @@ class Table extends Component {
         <button onClick = {this.dealCards}>DEAL CARDS</button>
         <button onClick = {this.props.unoCall}>UNO CALL</button>
         <button onClick = {this.pass}>PASS</button>
-        {this.plus2()}
+        {/* {this.plus2()} */}
         {this.displayColorButtons()}
-        {this.unoCallPenalty()}
-        {this.skipTurn()}
+        {/* {this.unoCallPenalty()} */}
+        {/* {this.skipTurn()} */}
+        {this.gameAction()}
 
         
         <div className = "table"> 
@@ -153,8 +157,8 @@ class Table extends Component {
           <div className = "hands">
           <Hand player = {1} checkWinner = {this.checkWinner}/>
           {/* <CPU player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
-          <Hand player = {2} checkWinner = {this.checkWinner}/>
-          {/* <CPU player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
+          {/* <Hand player = {2} checkWinner = {this.checkWinner}/> */}
+          <CPU player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
           <Hand player = {3} checkWinner = {this.checkWinner}/>
           {/* <CPU player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           <Hand player = {4} checkWinner = {this.checkWinner}/>
