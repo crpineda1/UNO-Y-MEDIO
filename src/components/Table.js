@@ -22,7 +22,7 @@ class Table extends Component {
       setTimeout(() => {
         this.props.pickCard()
         this.props.nextTurn()
-        console.log("deal counter", i)        
+        // console.log("deal counter", i)        
       }, i * delay);
       
     }
@@ -161,8 +161,8 @@ class Table extends Component {
           <CPU player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
           <Hand player = {3} checkWinner = {this.checkWinner}/>
           {/* <CPU player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
-          <Hand player = {4} checkWinner = {this.checkWinner}/>
-          {/* <CPU player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
+          {/* <Hand player = {4} checkWinner = {this.checkWinner}/> */}
+          <CPU player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
           </div>
         </div>
       </div>
@@ -171,14 +171,14 @@ class Table extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state: ", state)
-  console.log("VALUE: ", state.currentValue)
-  console.log("TURN: ", state.turn)
-  console.log("Order Clockwise? ", state.orderClockwise)
-  console.log("color: ", state.currentColor)
-  console.log("uno call: ", state.unoCall)
-  console.log("uno penalty: ", state.unoPenalty)
-  console.log("action activated: ", state.actionCard)
+  // console.log("state: ", state)
+  // console.log("VALUE: ", state.currentValue)
+  // console.log("TURN: ", state.turn)
+  // console.log("Order Clockwise? ", state.orderClockwise)
+  // console.log("color: ", state.currentColor)
+  // console.log("uno call: ", state.unoCall)
+  // console.log("uno penalty: ", state.unoPenalty)
+  // console.log("action activated: ", state.actionCard)
 
   return { 
     cards: state.cards,

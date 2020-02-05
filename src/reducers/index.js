@@ -178,9 +178,7 @@ let defaultState = {
   pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
   
   hand1: [],
-  hand2: [{ color: 'black', value: '44', code:'B44', points:50, img:black_4 },
-  { color: 'black', value: 'WC', code:'BWC', points:50, img:black_WC },
-  ],
+  hand2: [],
   hand3: [],
   hand4: [],
   

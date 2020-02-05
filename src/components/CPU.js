@@ -12,7 +12,7 @@ class CPU extends Component {
     let faceUp
     let cardClick
     let playCard = null
-    let delay = 500 // in milliseconds
+    let delay = 1000 // milliseconds
 
   
     playerHand = this.props[`hand${this.props.player}`]
@@ -26,24 +26,24 @@ class CPU extends Component {
     
     this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
    
-    console.log("player", this.props.player)
-    console.log("turn", this.props.turn)
-    console.log("game active:", this.props.gameActive)
-    console.log("color:", this.props.currentColor)
-    console.log("value:", this.props.currentValue)
+    // console.log("player", this.props.player)
+    // console.log("turn", this.props.turn)
+    // console.log("game active:", this.props.gameActive)
+    // console.log("color:", this.props.currentColor)
+    // console.log("value:", this.props.currentValue)
 
 
 
     // Choose card
+    
     setTimeout(() => {
-      
       if (this.props.player === this.props.turn && this.props.gameActive){
-        
+          
         // choose color after black card played
         if (this.props.currentColor === "black"){
           this.props.wildCard("red")
           this.props.plus4("red")
-        } 
+        } else
 
         // select which card to play
         
@@ -61,36 +61,41 @@ class CPU extends Component {
               }
             }
           }
-          // }, delay+500);
+        // }, delay+500)
           
-          
-          // play card
-          // setTimeout(() => {
-            console.log("play Card", playCard)
-            if(playCard){
+        // play card
+        // setTimeout(() => {
+          // console.log("player:", this.props.player,"play Card", playCard)
+          if (playCard){
+            // setTimeout(() => {
               if (playCard === "pick from pile"){
                 this.props.pickCard()
                 console.log("player",this.props.player,"draw card")
               } else {
                 playerHand.length === 2? this.props.unoCall(): console.log("no uno call") 
                 
-                this.props.playCard(playCard)  // disable for testing
-                // console.log("player",this.props.player,"play card:",playCard.color,playCard.value)
+                // setTimeout(() => {
+                  this.props.playCard(playCard)  // disable for testing
+                  console.log("player",this.props.player,"play card:",playCard.color,playCard.value)
                 
-                if (["0","1","2","3","4","5","6","7","8","9","R"].includes(playCard.value)) {
-                  this.props.nextTurn()
-                }
+                  if (["0","1","2","3","4","5","6","7","8","9","R"].includes(playCard.value)) {
+                    this.props.nextTurn()
+                  }
+                // }, delay+1000);
               }
-              
-            }
-          // }, delay)
+            // }, delay+600)
+          }
+        // }, delay+600)
           
+          
+        
       } else {
         playCard = null
         console.log("not my turn, Player:", this.props.player,"turn:", this.props.turn)
       }
-
+      
     }, delay)
+
 
 
     // For human player wait for click event 
