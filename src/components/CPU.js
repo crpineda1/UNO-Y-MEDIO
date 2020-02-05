@@ -123,7 +123,7 @@ class CPU extends Component {
   render () {
     // console.log("player#", this.props.player)
     return (
-      <div className = "hand"> Hand {this.props.player}
+      <div className = "hand"> {this.props.type} {this.props.player}
         {this.renderHand()}
       </div>
     )

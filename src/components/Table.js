@@ -16,7 +16,7 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    let delay = 50   // reset to 150 for game play
+    let delay = 150   // reset to 150 for game play
     let cards = 28    // reset to 28 for game play
     for (let i = 0; i < cards; i++) { 
       setTimeout(() => {
@@ -45,27 +45,27 @@ class Table extends Component {
         this.props.nextTurn()
       } 
       
-      // activate skip
-      else if(this.props.value === "S" && this.props.action) {
-        console.log("skip turn")
-        this.props.actionOff()
-          this.props.nextTurn()
-          this.props.nextTurn()
-        }
+    // activate skip
+    if(this.props.value === "S" && this.props.action) {
+      console.log("skip turn")
+      this.props.actionOff()
+        this.props.nextTurn()
+        this.props.nextTurn()
+    }
         
         
-        //  activate UNO call penalty
-        else if (this.props.unoPenalty) {
-          alert(`UNO CALL PENALTY. Player ${this.props.turn} DRAW 4 CARDS`)
-          this.props.pickCard()
-          this.props.pickCard()
-          this.props.pickCard()
-          this.props.pickCard()
-          this.props.actionOff() // disables action of skip if applicable 
-          // this.props.nextTurn()
-          
-        } 
-        
+    //  activate UNO call penalty
+    if (this.props.unoPenalty) {
+      alert(`UNO CALL PENALTY. Player ${this.props.turn} DRAW 4 CARDS`)
+      this.props.pickCard()
+      this.props.pickCard()
+      this.props.pickCard()
+      this.props.pickCard()
+      this.props.actionOff() // disables action of skip if applicable 
+      // this.props.nextTurn()
+      
+    } 
+    
         
         
       } // end of game action
@@ -127,6 +127,7 @@ class Table extends Component {
 
   }
 
+  
 
   render () {
     let newDeck = this.shuffleDeck(this.props.cards)
@@ -134,6 +135,12 @@ class Table extends Component {
     if (this.props.deck.length === 0){
       this.props.createDeck(newDeck) 
     }
+
+    let player2 = this.props.turn === 2? <CPU type = {"CPU"} player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>:<Hand type = {"Hand"} player = {2} checkWinner = {this.checkWinner}/>
+    let player3 = this.props.turn === 3? <CPU type = {"CPU"} player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>:<Hand type = {"Hand"} player = {3} checkWinner = {this.checkWinner}/>
+    let player4 = this.props.turn === 4? <CPU type = {"CPU"} player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>:<Hand type = {"Hand"} player = {4} checkWinner = {this.checkWinner}/>
+   
+
 
     return (
       <div> Table 
@@ -155,14 +162,17 @@ class Table extends Component {
           <Deck topCard = {newDeck[0]}/>
           <Pile />
           <div className = "hands">
-          <Hand player = {1} checkWinner = {this.checkWinner}/>
-          {/* <CPU player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
-          {/* <Hand player = {2} checkWinner = {this.checkWinner}/> */}
-          <CPU player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
-          <Hand player = {3} checkWinner = {this.checkWinner}/>
-          {/* <CPU player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
-          {/* <Hand player = {4} checkWinner = {this.checkWinner}/> */}
-          <CPU player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
+          <Hand type = {"Hand"} player = {1} checkWinner = {this.checkWinner}/>
+          {/* <CPU type = {"CPU"} player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
+          {/* <Hand type = {"Hand"} player = {2} checkWinner = {this.checkWinner}/> */}
+          <CPU type = {"CPU"} player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
+          {/* {player2} */}
+          <Hand type = {"Hand"} player = {3} checkWinner = {this.checkWinner}/>
+          {/* <CPU type = {"CPU"} player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
+          {/* {player3} */}
+          {/* <Hand type = {"Hand"} player = {4} checkWinner = {this.checkWinner}/> */}
+          <CPU type = {"CPU"} player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
+          {/* {player4} */}
           </div>
         </div>
       </div>
