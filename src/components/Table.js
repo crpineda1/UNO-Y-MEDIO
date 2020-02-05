@@ -136,10 +136,7 @@ class Table extends Component {
       this.props.createDeck(newDeck) 
     }
 
-    let player2 = this.props.turn === 2? <CPU type = {"CPU"} player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>:<Hand type = {"Hand"} player = {2} checkWinner = {this.checkWinner}/>
-    let player3 = this.props.turn === 3? <CPU type = {"CPU"} player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>:<Hand type = {"Hand"} player = {3} checkWinner = {this.checkWinner}/>
-    let player4 = this.props.turn === 4? <CPU type = {"CPU"} player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>:<Hand type = {"Hand"} player = {4} checkWinner = {this.checkWinner}/>
-   
+  
 
 
     return (
@@ -166,13 +163,10 @@ class Table extends Component {
           {/* <CPU type = {"CPU"} player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           {/* <Hand type = {"Hand"} player = {2} checkWinner = {this.checkWinner}/> */}
           <CPU type = {"CPU"} player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
-          {/* {player2} */}
           <Hand type = {"Hand"} player = {3} checkWinner = {this.checkWinner}/>
           {/* <CPU type = {"CPU"} player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
-          {/* {player3} */}
           {/* <Hand type = {"Hand"} player = {4} checkWinner = {this.checkWinner}/> */}
           <CPU type = {"CPU"} player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
-          {/* {player4} */}
           </div>
         </div>
       </div>
