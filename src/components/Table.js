@@ -16,7 +16,7 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    let delay = 150
+    let delay = 50   // reset to 150 for game play
     let cards = 28    // reset to 28 for game play
     for (let i = 0; i < cards; i++) { 
       setTimeout(() => {
@@ -62,7 +62,7 @@ class Table extends Component {
           this.props.pickCard()
           this.props.pickCard()
           this.props.actionOff() // disables action of skip if applicable 
-          this.props.nextTurn()
+          // this.props.nextTurn()
           
         } 
         

@@ -12,7 +12,7 @@ class CPU extends Component {
     let faceUp
     let cardClick
     let playCard = null
-    let delay = 1000 // milliseconds
+    let delay = 500 // milliseconds
 
   
     playerHand = this.props[`hand${this.props.player}`]
@@ -34,20 +34,21 @@ class CPU extends Component {
 
 
 
+    // *** CPU logic ***
     // Choose card
     
     setTimeout(() => {
       if (this.props.player === this.props.turn && this.props.gameActive){
-          
-        // choose color after black card played
-        if (this.props.currentColor === "black"){
-          this.props.wildCard("red")
-          this.props.plus4("red")
-        } else
-
-        // select which card to play
         
         // setTimeout(() => {
+          // choose color after black card played
+          if (this.props.currentColor === "black"){
+            this.props.wildCard("red")
+            this.props.plus4("red")
+          } else
+
+          // select which card to play
+        
           if (playerHand.find( card => card.color === this.props.currentColor)){
             playCard =  playerHand.find( card => card.color === this.props.currentColor)
           } else {
@@ -61,7 +62,7 @@ class CPU extends Component {
               }
             }
           }
-        // }, delay+500)
+        // }, delay)
           
         // play card
         // setTimeout(() => {
@@ -77,20 +78,19 @@ class CPU extends Component {
                 // setTimeout(() => {
                   this.props.playCard(playCard)  // disable for testing
                   console.log("player",this.props.player,"play card:",playCard.color,playCard.value)
-                
                   if (["0","1","2","3","4","5","6","7","8","9","R"].includes(playCard.value)) {
                     this.props.nextTurn()
                   }
+                  playCard = null
                 // }, delay+1000);
               }
             // }, delay+600)
           }
-        // }, delay+600)
+        // }, delay)
           
           
         
       } else {
-        playCard = null
         console.log("not my turn, Player:", this.props.player,"turn:", this.props.turn)
       }
       
