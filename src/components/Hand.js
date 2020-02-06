@@ -18,7 +18,7 @@ class Hand extends Component {
     this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
     
     // check for win
-    if (playerHand.length == 0 && this.props.gameActive ){
+    if (playerHand.length === 0 && this.props.gameActive ){
       console.log("winner:", this.props.player)
       this.props.checkWinner(this.props.player) 
     }
@@ -27,9 +27,7 @@ class Hand extends Component {
     if (this.props.player === this.props.turn){
       cardClick = (card) => { 
         this.props.playCard(card)
-        if (["0","1","2","3","4","5","6","7","8","9","R"].includes(card.value)) {
-          this.props.nextTurn()
-        }
+        
       }
     }else{
       cardClick = () => {}

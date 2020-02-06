@@ -35,3 +35,11 @@ code {
 .navbar{
   display: flex;
 }
+
+.logoImg{
+  height: 200px;
+}
+
+.cowImg{
+  height: 200px;
+}

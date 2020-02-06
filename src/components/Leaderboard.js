@@ -13,7 +13,7 @@ class Leaderboard extends Component{
    return games.map( game => {
       console.log(game)
       
-      return <div id = {game.id}>
+      return <div key = {game.id}>
                   Game:{game.game_id}
                   User:{game.user_id}
                   Result:{game.win? "Win":"Loss"}
@@ -26,7 +26,7 @@ class Leaderboard extends Component{
 
     return(
       <div>Leaderboard
-        <button onClick = {() =>this.props.history.push('/auth')}> Log Out</button>
+        <button onClick = {() =>this.props.history.push('/')}> Log Out</button>
         <button onClick = {() =>this.props.history.push('/game')}> Start Game</button>
         {this.loadTable(this.props.allGames)}
       </div>

@@ -12,13 +12,13 @@ class CPU extends Component {
     let faceUp
     let cardClick
     let playCard = null
-    let delay = 500 // milliseconds
+    let delay = 750 // milliseconds
 
   
     playerHand = this.props[`hand${this.props.player}`]
 
     // check for win
-    if (playerHand.length == 0 && this.props.gameActive ){
+    if (playerHand.length === 0 && this.props.gameActive ){
       console.log("winner:", this.props.player)
       this.props.checkWinner(this.props.player) 
 
@@ -37,15 +37,14 @@ class CPU extends Component {
     // *** CPU logic ***
     // Choose card
     
-    setTimeout(() => {
+    // setTimeout(() => {
       if (this.props.player === this.props.turn && this.props.gameActive){
         
-        // setTimeout(() => {
+        setTimeout(() => {
           // choose color after black card played
           if (this.props.currentColor === "black"){
-            this.props.wildCard("red")
-            this.props.plus4("red")
-          } else
+            this.props.currentValue === "WC"? this.props.wildCard("red"):this.props.plus4("red")
+          }
 
           // select which card to play
         
@@ -78,15 +77,13 @@ class CPU extends Component {
                 // setTimeout(() => {
                   this.props.playCard(playCard)  // disable for testing
                   console.log("player",this.props.player,"play card:",playCard.color,playCard.value)
-                  if (["0","1","2","3","4","5","6","7","8","9","R"].includes(playCard.value)) {
-                    this.props.nextTurn()
-                  }
+                  
                   playCard = null
                 // }, delay+1000);
               }
             // }, delay+600)
           }
-        // }, delay)
+        }, delay)
           
           
         
@@ -94,7 +91,7 @@ class CPU extends Component {
         console.log("not my turn, Player:", this.props.player,"turn:", this.props.turn)
       }
       
-    }, delay)
+    // }, delay)
 
 
 

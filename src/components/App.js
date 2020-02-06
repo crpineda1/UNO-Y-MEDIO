@@ -5,20 +5,20 @@ import React from 'react';
 import Game from './Game'
 import Auth from './Auth';
 import Leaderboard from './Leaderboard';
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 
-import logo from '../images/_UNO_Y_MEDIO_logo.png'
+
 
 
 
 function App() {
   return (
     <div>
-      App UNO Y MEDIO
+
       
       <Switch>
-        <Route exact path="/" render={() => <img src= {logo} />} />
-        <Route exact path="/auth" component={Auth} />
+
+        <Route exact path="/" component={Auth} />
         <Route exact path="/leaderboard" component={Leaderboard}/>
         <Route exact path="/game" component={Game}/>
 

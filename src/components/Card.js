@@ -11,10 +11,7 @@ class Card extends Component {
     // console.log(this.props.card)
     return (
         <div
-          key = {this.props.card.code}
-          Color = {this.props.card.color}
-          Value = {this.props.card.value}
-          Points = {this.props.card.points} 
+          key = {this.props.card.code} 
           onClick = {() => this.props.handleClick(this.props.card)}
           >
           <img className = "cardImg" src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>

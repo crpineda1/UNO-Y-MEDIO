@@ -5,6 +5,9 @@ import Signup from './Signup';
 import {connect} from 'react-redux';
 import {loginUserCreator} from '../actions';
 
+import logo from '../images/_UNO_Y_MEDIO_logo.png'
+import cow from '../images/_cow.png'
+
 
 class Auth extends Component {
 
@@ -56,8 +59,11 @@ class Auth extends Component {
 
     return(
       <Fragment>
-        <div> Auth </div>
+        <img className = "logoImg" src= {logo} alt = {"logo"} />
+        <br />
         {form}
+        <br />
+        <img className = "cowImg" src= {cow} alt = {"logo"}/>
       </Fragment>
     )
   }

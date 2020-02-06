@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+
 
 import card_back from '../images/back_logo.png'
 
@@ -189,6 +189,7 @@ let defaultState = {
   actionCard: false,
   unoCall: false,
   unoPenalty: false,
+  regCard: false,
 
   userId: null,
   username: '',
@@ -207,6 +208,7 @@ let reducer = (prevState=defaultState, action) => {
   let activateCard = false
   let activateUnoPenalty = false
   let deactivateUnoCall = false
+  let newRegCard = false
 
   switch(action.type){
     case 'CREATE_DECK': 
@@ -226,13 +228,13 @@ let reducer = (prevState=defaultState, action) => {
 
 
     case 'PLAY_CARD': 
-      console.log("play card")
+      // console .log("play card")
  
       
       // console.log("pilecard color",card.color)
       // console.log("pilecard value",card.value)
-      console.log("playcard color",action.payload.color)
-      console.log("playcard value",action.payload.value)
+      // console.log("playcard color",action.payload.color)
+      // console.log("playcard value",action.payload.value)
       // console.log("store color",prevState.currentColor)
       // console.log("store value",prevState.currentValue)
       // console.log("turn",prevState.turn)
@@ -286,11 +288,11 @@ let reducer = (prevState=defaultState, action) => {
       // check for REVERSE
       if (action.payload.value === 'R'){ 
          newOrder = !prevState.orderClockwise
-        if (newOrder){
-          prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
-        } else {
-          prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
-        }
+        // if (newOrder){
+        //   prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+        // } else {
+        //   prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
+        // }
       } else { 
         newOrder = prevState.orderClockwise 
       }
@@ -318,8 +320,11 @@ let reducer = (prevState=defaultState, action) => {
           nextTurn = prevState.turn
         }
         
+        if (["0","1","2","3","4","5","6","7","8","9","R"].includes(action.payload.value)) {
+          newRegCard = true
+        }
         
-        
+        console.log("AI ACTIVE", false)
         return {...prevState, pile: newPile, 
           [`hand${prevState.turn}`]: newHand, 
           currentColor: action.payload.color, 
@@ -328,7 +333,10 @@ let reducer = (prevState=defaultState, action) => {
           orderClockwise: newOrder, 
           actionCard: activateCard, 
           unoCall: deactivateUnoCall, 
-          unoPenalty: activateUnoPenalty
+          unoPenalty: activateUnoPenalty,
+          regCard: newRegCard,
+          gameActive: false,
+
         } 
 
       } else {
@@ -338,7 +346,7 @@ let reducer = (prevState=defaultState, action) => {
       
       
     case 'NEXT_TURN':
-      console.log("next turn")
+      // console.log("next turn")
       
       // console.log("prev turn", prevState.turn)
       // console.log("prev value", prevState.currentValue)
@@ -381,7 +389,7 @@ let reducer = (prevState=defaultState, action) => {
 
 
     case 'PICK_CARD':
-      console.log("pick card")
+      console.log("pick card", prevState.turn)
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
       newHand = [...prevState[`hand${prevState.turn}`],card]
@@ -397,15 +405,15 @@ let reducer = (prevState=defaultState, action) => {
     
     
     case 'CHANGE_COLOR':
-      console.log("change color",action.payload.value)
+      console.log("change color",action.payload)
     
       return {...prevState, currentColor: action.payload }
  
       
     case 'ACTION_OFF':
-      console.log("ACTION OFF")
+      // console.log("ACTION OFF")
     
-      return {...prevState, actionCard: false }
+      return {...prevState, actionCard: false, regCard: false, unoPenalty: false }
 
 
     case 'UNO_CALL':
@@ -420,7 +428,7 @@ let reducer = (prevState=defaultState, action) => {
       return {...prevState, userId: action.payload.userId, username: action.payload.username }
     
     case 'TOGGLE_GAME':
-      console.log("ACTIVATE GAME")
+      console.log("AI ACTIVE", !prevState.gameActive)
     
       return {...prevState, gameActive: !prevState.gameActive }
 
@@ -431,11 +439,17 @@ let reducer = (prevState=defaultState, action) => {
     
       return {...prevState, allGames: action.payload.data }
 
-    case 'CLEAR_GAME':
+    case 'CLEAR_UNOPENALTY':
+      console.log("END_GAME")
+    
+      return {...prevState, }  // NOT WORKING activate later
+    
+    
+      case 'CLEAR_GAME':
       console.log("END_GAME")
     
       // return {...prevState, }  // NOT WORKING activate later
-
+      break; // replace with return
 
     default: 
       return {...prevState}
