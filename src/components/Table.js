@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {createDeckCreator, dealCardsCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator,} from '../actions';
+import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator,} from '../actions';
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
-import CPU from './CPU';
+
 import AI from './AI';
 
 
@@ -41,7 +41,7 @@ class Table extends Component {
     
     // activate plus2 
     if(this.props.value === "22" && this.props.action) {
-      console.log("pick2")
+      // console.log("pick2")
       // this.props.toggleGame()
       this.props.nextTurn()
       this.props.pickCard()
@@ -87,9 +87,9 @@ class Table extends Component {
   
   plus4 = (color) => {
     if(this.props.value === "44") {
-      console.log("new color", color)
+      // console.log("new color", color)
       this.props.changeColor(color)
-      console.log("pick4")
+      // console.log("pick4")
       // this.props.toggleGame()
       this.props.nextTurn()
       this.props.pickCard()
@@ -103,8 +103,8 @@ class Table extends Component {
   
   wildCard = (color) =>{
     if(this.props.value === "WC"){
-      console.log("wild card")
-      console.log("new color", color)
+      // console.log("wild card")
+      // console.log("new color", color)
       this.props.changeColor(color)
       // this.props.toggleGame()
       this.props.nextTurn()
@@ -130,7 +130,7 @@ class Table extends Component {
   displayColorButtons = (turn) => {
     if([].includes(turn)){
       if (this.props.value === "WC" && this.props.color === "black") {
-        console.log('WC buttons')
+        // console.log('WC buttons')
         return <div>
         <button onClick= {() => this.wildCard("red")}>Switch Red WC</button>
         <button onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
@@ -138,7 +138,7 @@ class Table extends Component {
         <button onClick= {() => this.wildCard("green")}>Switch Green WC</button>
         </div>  
       } else if (this.props.value === "44" && this.props.color === "black") {
-        console.log('+4 buttons')
+        // console.log('+4 buttons')
         return <div>
         <button onClick= {() => this.plus4("red")}>Switch Red +4</button>
         <button onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
@@ -164,7 +164,7 @@ class Table extends Component {
 
     let AiPlayer 
     if ([1,2,3,4].includes(this.props.turn) && this.props.gameActive){
-      console.log("AI ENGAGED", this.props.turn)
+      // console.log("AI ENGAGED", this.props.turn)
       AiPlayer = <div>{this.AiMove(this.props.turn)}</div>
     }
 
@@ -187,14 +187,10 @@ class Table extends Component {
           <Pile />
           <div className = "hands">
           <Hand type = {"Hand"} player = {1} checkWinner = {this.checkWinner}/>
-          {/* <CPU type = {"CPU"} player = {1} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           <Hand type = {"Hand"} player = {2} checkWinner = {this.checkWinner}/>
-          {/* <CPU type = {"CPU"} player = {2} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           <Hand type = {"Hand"} player = {3} checkWinner = {this.checkWinner}/>
-          {/* <CPU type = {"CPU"} player = {3} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
           <Hand type = {"Hand"} player = {4} checkWinner = {this.checkWinner}/>
-          {/* <CPU type = {"CPU"} player = {4} checkWinner = {this.checkWinner} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/> */}
-          {AiPlayer}
+         {AiPlayer}
           </div>
         </div>
       </div>
@@ -205,7 +201,7 @@ class Table extends Component {
 const mapStateToProps = (state) => {
   // console.log("state: ", state)
   // console.log("VALUE: ", state.currentValue)
-  console.log("TURN: ", state.turn)
+  // console.log("TURN: ", state.turn)
   // console.log("Order Clockwise? ", state.orderClockwise)
   // console.log("color: ", state.currentColor)
   // console.log("uno call: ", state.unoCall)
@@ -231,7 +227,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createDeck: (deck) => dispatch(createDeckCreator(deck)),
-    dealCards: () => dispatch(dealCardsCreator()),
     playCard: () => dispatch(playCardCreator()),
     pickCard: () => dispatch(pickCardCreator()),
     nextTurn: () => dispatch(nextTurnCreator()),

@@ -11,7 +11,6 @@ class AI extends Component {
     let playerHand
     let playCard = null
     let colors =["red","blue","yellow","green"]
-    let randColor = colors[Math.floor(Math.random() * colors.length)]
     let delay = 1000 // milliseconds
 
   
@@ -55,14 +54,14 @@ class AI extends Component {
           this.props.pickCard()
           console.log("player",this.props.player,"draw card")
         } else {
-          playerHand.length === 2? this.props.unoCall(): console.log("no uno call") 
+          playerHand.length === 2? this.props.unoCall(): // console.log("no uno call") 
           
           this.props.playCard(playCard)  // disable for testing
           console.log("AI",this.props.player,"play card:",playCard.color,playCard.value)
           
           // CHOOSE RANDOM COLOR AFTER BLACK CARD WAS PLAYED
           if (playCard.color === "black"){
-             
+            let randColor = colors[Math.floor(Math.random() * colors.length)]
             playCard.value === "WC"? this.props.wildCard(randColor):this.props.plus4(randColor)
           }
           
@@ -96,8 +95,8 @@ const mapStateToProps = (state) => {
   // console.log("hand2", state.hand2)
   // console.log("hand3", state.hand3)
   // console.log("hand4", state.hand4)
-  console.log("turn", state.turn)
-  console.log("gameActive", state.gameActive)
+  // console.log("turn", state.turn)
+  // console.log("gameActive", state.gameActive)
   
   return { 
     hand1: state.hand1,

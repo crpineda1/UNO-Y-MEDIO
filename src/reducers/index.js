@@ -212,25 +212,12 @@ let reducer = (prevState=defaultState, action) => {
 
   switch(action.type){
     case 'CREATE_DECK': 
-      console.log("create deck")
+      // console.log("create deck")
       return {...prevState, deck: action.payload }
-
-
-    case 'DEAL_CARDS':  // not being used, consider deleting
-      console.log('deal cards')
-      
-      newDeck = [...prevState.deck]
-      let cardsToDeal = newDeck.splice(0,16)
-      console.log("cards to deal",cardsToDeal)
-      
-      return {...prevState, deck: newDeck }
-
-
 
     case 'PLAY_CARD': 
       // console .log("play card")
- 
-      
+
       // console.log("pilecard color",card.color)
       // console.log("pilecard value",card.value)
       // console.log("playcard color",action.payload.color)
@@ -287,12 +274,8 @@ let reducer = (prevState=defaultState, action) => {
 
       // check for REVERSE
       if (action.payload.value === 'R'){ 
-         newOrder = !prevState.orderClockwise
-        // if (newOrder){
-        //   prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
-        // } else {
-        //   prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
-        // }
+        console.log("new direction")
+        newOrder = !prevState.orderClockwise
       } else { 
         newOrder = prevState.orderClockwise 
       }
@@ -324,7 +307,7 @@ let reducer = (prevState=defaultState, action) => {
           newRegCard = true
         }
         
-        console.log("AI ACTIVE", false)
+        // console.log("AI ACTIVE", false)
         return {...prevState, pile: newPile, 
           [`hand${prevState.turn}`]: newHand, 
           currentColor: action.payload.color, 
@@ -382,14 +365,14 @@ let reducer = (prevState=defaultState, action) => {
           prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
         }
       }
-      console.log("new turn", nextTurn)
+      // console.log("new turn", nextTurn)
 
       return{...prevState, turn: nextTurn, unoPenalty: false}
       
 
 
     case 'PICK_CARD':
-      console.log("pick card", prevState.turn)
+      // console.log("pick card", prevState.turn)
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
       newHand = [...prevState[`hand${prevState.turn}`],card]
@@ -397,7 +380,7 @@ let reducer = (prevState=defaultState, action) => {
     
 
     case 'PILE_CARD':
-      console.log("pick card")
+      // console.log("pick card")
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
       newPile = [card,...prevState.pile]
@@ -417,33 +400,27 @@ let reducer = (prevState=defaultState, action) => {
 
 
     case 'UNO_CALL':
-      console.log("UNO CALL")
+      // console.log("UNO CALL")
     
       return {...prevState, unoCall: true }
 
 
     case 'LOGIN_USER':
-      console.log("LOGIN USER")
+      // console.log("LOGIN USER")
     
       return {...prevState, userId: action.payload.userId, username: action.payload.username }
     
     case 'TOGGLE_GAME':
-      console.log("AI ACTIVE", !prevState.gameActive)
+      // console.log("AI ACTIVE", !prevState.gameActive)
     
       return {...prevState, gameActive: !prevState.gameActive }
 
     case 'LOAD_LEADERBOARD':
-      console.log("LOAD LEADERBOARD")
-      console.log("API response", action.payload.status)
-      console.log("all users", action.payload.data)
+      // console.log("LOAD LEADERBOARD")
+      // console.log("API response", action.payload.status)
+      // console.log("all users", action.payload.data)
     
       return {...prevState, allGames: action.payload.data }
-
-    case 'CLEAR_UNOPENALTY':
-      console.log("END_GAME")
-    
-      return {...prevState, }  // NOT WORKING activate later
-    
     
       case 'CLEAR_GAME':
       console.log("END_GAME")
