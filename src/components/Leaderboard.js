@@ -11,7 +11,7 @@ class Leaderboard extends Component{
 
   loadTable = (games) => {
    return games.map( game => {
-      console.log(game)
+      // console.log(game)
       
       return <div key = {game.id}>
                   Game:{game.game_id}
@@ -35,7 +35,7 @@ class Leaderboard extends Component{
   }
 }
 const mapStateToProps = (state) => {
-  console.log("state: ", state.allGames)
+  // console.log("state: ", state.allGames)
 
   return { 
     allGames: state.allGames,

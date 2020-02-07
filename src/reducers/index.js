@@ -192,7 +192,11 @@ let defaultState = {
   regCard: false,
 
   userId: null,
-  username: '',
+  gameId: null,
+  player1: '',
+  player2:'Cartman',
+  player3:'Stan',
+  player4:'Kyle',
   gameActive: false,
   allGames: [],
 
@@ -408,7 +412,7 @@ let reducer = (prevState=defaultState, action) => {
     case 'LOGIN_USER':
       // console.log("LOGIN USER")
     
-      return {...prevState, userId: action.payload.userId, username: action.payload.username }
+      return {...prevState, userId: action.payload.userId, player1: action.payload.username }
     
     case 'TOGGLE_GAME':
       // console.log("AI ACTIVE", !prevState.gameActive)
@@ -422,29 +426,30 @@ let reducer = (prevState=defaultState, action) => {
     
       return {...prevState, allGames: action.payload.data }
     
-      case 'CLEAR_GAME':
-      console.log("END_GAME")
+    case 'CLEAR_GAME':
+      console.log("CLEAR_GAME")
     
-      return {...prevState,
-      
-        deck: [],
-        pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
+      // return {...prevState,
+      //   deck: [],
+      //   pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
         
-        hand1: [],
-        hand2: [],
-        hand3: [],
-        hand4: [],
+      //   hand1: [],
+      //   hand2: [],
+      //   hand3: [],
+      //   hand4: [],
         
-        turn: 1,
-        orderClockwise: true, 
-        currentColor: '',
-        currentValue: '',
-        actionCard: false,
-        unoCall: false,
-        unoPenalty: false,
-        regCard: false,
-      }  // NOT WORKING activate later
-      // break; // replace with return
+      //   turn: 1,
+      //   orderClockwise: true, 
+      //   currentColor: '',
+      //   currentValue: '',
+      //   actionCard: false,
+      //   unoCall: false,
+      //   unoPenalty: false,
+      //   regCard: false,
+      // }  
+
+      break;
+
 
     default: 
       return {...prevState}

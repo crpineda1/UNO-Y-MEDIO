@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator,} from '../actions';
+import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, clearGameCreator, saveGameCreator,} from '../actions';
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
@@ -122,8 +122,13 @@ class Table extends Component {
   }
   
   checkWinner = (player) => {
-    alert(`PLAYER ${player} WINS`)
+    let points = this.props.allHands.map(card => card.points)
+    let total = points.reduce((acc, pts) => acc + pts)
+    alert(`${player} WINS ${total} POINTS`)
+    console.log("winner",player, total)
+    // this.props.saveGame({id: this.props.userId, name: player, points: total})
     this.props.endGame()
+    // this.props.clearGame() // not working yet
     
   }
   
@@ -186,10 +191,10 @@ class Table extends Component {
           <Deck topCard = {newDeck[0]}/>
           <Pile />
           <div className = "hands">
-          <Hand type = {"Hand"} player = {1} checkWinner = {this.checkWinner}/>
-          <Hand type = {"Hand"} player = {2} checkWinner = {this.checkWinner}/>
-          <Hand type = {"Hand"} player = {3} checkWinner = {this.checkWinner}/>
-          <Hand type = {"Hand"} player = {4} checkWinner = {this.checkWinner}/>
+          <Hand player = {1} checkWinner = {this.checkWinner}/>
+          <Hand player = {2} checkWinner = {this.checkWinner}/>
+          <Hand player = {3} checkWinner = {this.checkWinner}/>
+          <Hand player = {4} checkWinner = {this.checkWinner}/>
          {AiPlayer}
           </div>
         </div>
@@ -207,7 +212,7 @@ const mapStateToProps = (state) => {
   // console.log("uno call: ", state.unoCall)
   // console.log("uno penalty: ", state.unoPenalty)
   // console.log("action activated: ", state.actionCard)
-  console.log("AI Active?", state.gameActive)
+  // console.log("AI Active?", state.gameActive)
 
   return { 
     cards: state.cards,
@@ -219,7 +224,9 @@ const mapStateToProps = (state) => {
     order: state.orderClockwise,
     unoPenalty: state.unoPenalty,
     regCard: state.regCard,
-    gameActive: state.gameActive
+    gameActive: state.gameActive,
+    allHands: [...state.hand1, ...state.hand2, ...state.hand3,...state.hand4],
+    userId: state.userId
 
 
   }
@@ -236,6 +243,8 @@ const mapDispatchToProps = (dispatch) => {
     pileCard: () => dispatch(pileCardCreator()),
     unoCall: () => dispatch(unoCallCreator()),
     toggleGame: () => dispatch(toggleGameCreator()),
+    clearGame: () => dispatch(clearGameCreator()),
+    saveGame: (info) => dispatch(saveGameCreator(info)),
 
   }
 }

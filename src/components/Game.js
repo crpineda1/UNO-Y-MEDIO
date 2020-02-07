@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import Table from './Table'
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {clearGameCreator} from '../actions';
 
+import Table from './Table'
 import Navbar from './Navbar';
 
 
 class Game extends Component {
 
   endGame = () => {
+    // this.props.clearGame()
     this.props.history.push("/leaderboard")
-    this.props.clearGame() // not working (consider refresh upon rendering to clear game)
     
   }
   logOut = () => {
