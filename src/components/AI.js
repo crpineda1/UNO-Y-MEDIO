@@ -54,7 +54,7 @@ class AI extends Component {
           this.props.pickCard()
           console.log("player",this.props.player,"draw card")
         } else {
-          playerHand.length === 2? this.props.unoCall(): // console.log("no uno call") 
+          playerHand.length === 2? this.props.unoCall(): console.log("no uno call") 
           
           this.props.playCard(playCard)  // disable for testing
           console.log("AI",this.props.player,"play card:",playCard.color,playCard.value)

@@ -207,6 +207,7 @@ const mapStateToProps = (state) => {
   // console.log("uno call: ", state.unoCall)
   // console.log("uno penalty: ", state.unoPenalty)
   // console.log("action activated: ", state.actionCard)
+  console.log("AI Active?", state.gameActive)
 
   return { 
     cards: state.cards,
@@ -235,9 +236,6 @@ const mapDispatchToProps = (dispatch) => {
     pileCard: () => dispatch(pileCardCreator()),
     unoCall: () => dispatch(unoCallCreator()),
     toggleGame: () => dispatch(toggleGameCreator()),
-    
-
-
 
   }
 }

@@ -8,10 +8,13 @@ import Navbar from './Navbar';
 
 class Game extends Component {
 
-  endGame = () => {this.props.history.push("/leaderboard")}
+  endGame = () => {
+    this.props.history.push("/leaderboard")
+    this.props.clearGame() // not working (consider refresh upon rendering to clear game)
+    
+  }
   logOut = () => {
     this.props.history.push("/")
-    // this.props.clearGame() // not working (consider refresh upon rendering to clear game)
   }
 
   
@@ -31,9 +34,9 @@ class Game extends Component {
 
 
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
   return{
-    clearGame: (info) => dispatch(clearGameCreator(info)),
+    clearGame: () => dispatch(clearGameCreator()),
   }
 }
 

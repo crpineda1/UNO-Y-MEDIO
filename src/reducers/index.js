@@ -400,7 +400,7 @@ let reducer = (prevState=defaultState, action) => {
 
 
     case 'UNO_CALL':
-      // console.log("UNO CALL")
+      console.log("UNO CALL")
     
       return {...prevState, unoCall: true }
 
@@ -425,8 +425,26 @@ let reducer = (prevState=defaultState, action) => {
       case 'CLEAR_GAME':
       console.log("END_GAME")
     
-      // return {...prevState, }  // NOT WORKING activate later
-      break; // replace with return
+      return {...prevState,
+      
+        deck: [],
+        pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
+        
+        hand1: [],
+        hand2: [],
+        hand3: [],
+        hand4: [],
+        
+        turn: 1,
+        orderClockwise: true, 
+        currentColor: '',
+        currentValue: '',
+        actionCard: false,
+        unoCall: false,
+        unoPenalty: false,
+        regCard: false,
+      }  // NOT WORKING activate later
+      // break; // replace with return
 
     default: 
       return {...prevState}
