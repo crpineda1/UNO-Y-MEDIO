@@ -11,7 +11,7 @@ class AI extends Component {
     let playerHand
     let playCard = null
     let colors =["red","blue","yellow","green"]
-    let delay = 1000 // milliseconds
+    let delay = 2000 // milliseconds
 
   
     playerHand = this.props[`hand${this.props.player}`]
@@ -54,7 +54,12 @@ class AI extends Component {
           this.props.pickCard()
           console.log("player",this.props.player,"draw card")
         } else {
-          playerHand.length === 2? this.props.unoCall(): console.log("no uno call") 
+          
+          // check for uno call
+          if (playerHand.length === 2){
+            alert(`${this.props[`name${this.props.player}`]} calls UNO Y MEDIO`)
+            this.props.unoCall()
+          } 
           
           this.props.playCard(playCard)  // disable for testing
           console.log("AI",this.props.player,"play card:",playCard.color,playCard.value)
@@ -103,6 +108,10 @@ const mapStateToProps = (state) => {
     hand2: state.hand2,
     hand3: state.hand3,
     hand4: state.hand4,
+    name1: state.player1,
+    name2: state.player2,
+    name3: state.player3,
+    name4: state.player4,
     // turn: state.turn,
     // gameActive: state.gameActive,
     currentColor: state.currentColor,

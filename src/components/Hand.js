@@ -14,7 +14,7 @@ class Hand extends Component {
     let cardClick
  
     playerHand = this.props[`hand${this.props.player}`]
-    playerName = this.props[`player${this.props.player}`] 
+    playerName = this.props[`name${this.props.player}`] 
 
     // show cards (face up)
     this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
@@ -22,7 +22,7 @@ class Hand extends Component {
     // check for win
     if (playerHand.length === 0 && this.props.gameActive ){
       // console.log("winner:", playerName)
-      this.props.checkWinner(playerName) 
+      this.props.declareWinner(playerName) 
     }
      
     // activate card play when its your turn
@@ -46,7 +46,7 @@ class Hand extends Component {
   
   render () {
     return (
-      <div className = "hand"> Hand {this.props.player}
+      <div className = "hand"> {this.props[`name${this.props.player}`]}
         {this.renderHand()}
       </div>
     )
@@ -66,12 +66,12 @@ const mapStateToProps = (state) => {
     hand2: state.hand2,
     hand3: state.hand3,
     hand4: state.hand4,
-    player1: state.player1,
-    player2: state.player2,
-    player3: state.player3,
-    player4: state.player4,
+    name1: state.player1,
+    name2: state.player2,
+    name3: state.player3,
+    name4: state.player4,
     turn: state.turn,
-    gameActive: state.gameActive
+    gameActive: state.gameActive,
   }  
 }
 

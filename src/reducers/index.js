@@ -190,6 +190,7 @@ let defaultState = {
   unoCall: false,
   unoPenalty: false,
   regCard: false,
+  gameActive: false,
 
   userId: null,
   gameId: null,
@@ -197,7 +198,6 @@ let defaultState = {
   player2:'Cartman',
   player3:'Stan',
   player4:'Kyle',
-  gameActive: false,
   allGames: [],
 
 }
@@ -418,9 +418,9 @@ let reducer = (prevState=defaultState, action) => {
       // console.log("AI ACTIVE", !prevState.gameActive)
     
       return {...prevState, gameActive: !prevState.gameActive }
-
+    
     case 'LOAD_LEADERBOARD':
-      // console.log("LOAD LEADERBOARD")
+      console.log("LOAD LEADERBOARD")
       // console.log("API response", action.payload.status)
       // console.log("all users", action.payload.data)
     
@@ -429,24 +429,26 @@ let reducer = (prevState=defaultState, action) => {
     case 'CLEAR_GAME':
       console.log("CLEAR_GAME")
     
-      // return {...prevState,
-      //   deck: [],
-      //   pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
+      return {...prevState,
+        deck: [],
+        pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
         
-      //   hand1: [],
-      //   hand2: [],
-      //   hand3: [],
-      //   hand4: [],
+        hand1: [],
+        hand2: [],
+        hand3: [],
+        hand4: [],
         
-      //   turn: 1,
-      //   orderClockwise: true, 
-      //   currentColor: '',
-      //   currentValue: '',
-      //   actionCard: false,
-      //   unoCall: false,
-      //   unoPenalty: false,
-      //   regCard: false,
-      // }  
+        turn: 1,
+        orderClockwise: true, 
+        currentColor: '',
+        currentValue: '',
+        actionCard: false,
+        unoCall: false,
+        unoPenalty: false,
+        regCard: false,
+        gameActive: false,
+
+      }  
 
       break;
 

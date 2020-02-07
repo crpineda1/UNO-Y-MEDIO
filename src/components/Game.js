@@ -1,46 +1,80 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {clearGameCreator} from '../actions';
+
 
 import Table from './Table'
 import Navbar from './Navbar';
+import {clearGameCreator} from '../actions';
 
 
 class Game extends Component {
 
-  endGame = () => {
-    // this.props.clearGame()
+  toLeaderboard = () => {
     this.props.history.push("/leaderboard")
     
   }
-  logOut = () => {
-    this.props.history.push("/")
+  
+  endGame = () => {
+    if (this.props.gameActive){
+      this.props.clearGame()
+      setTimeout(() => {
+        this.props.history.push("/leaderboard")
+      }, 100);
+    }
+  }
+
+  exit = () => {
+   if (this.props.gameActive){
+     this.props.clearGame()
+     setTimeout(() => {
+       this.props.history.push("/")
+     }, 100);
+   }
   }
 
   
   render () {
-    // this.props === {deck: state.deck} 
-    // console.log("game props",this.props)
-    // console.log("game props",this.props.deck)
+
     return (
       <div> Game 
-        <Navbar logout = {this.logOut} leaderboard = {this.endGame}/>
-        <Table endGame = {this.endGame}/>
+        <Navbar exit = {this.exit} endGame = {this.endGame} leaderboard = {this.toLeaderboard}/>
+        <Table toLeaderboard = {this.toLeaderboard}/>
 
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  // console.log("state: ", state)
+ 
+  return { 
+    // cards: state.cards,
+    // deck: state.deck,
+    // value: state.currentValue,
+    // turn: state.turn,
+    // color: state.currentColor,
+    // action: state.actionCard,
+    // order: state.orderClockwise,
+    // unoPenalty: state.unoPenalty,
+    // regCard: state.regCard,
+    gameActive: state.gameActive,
+    // allHands: [...state.hand1, ...state.hand2, ...state.hand3, ...state.hand4],
+    // userId: state.userId
 
+
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
+  // console.log("dispatch",dispatch)
   return{
-    clearGame: () => dispatch(clearGameCreator()),
+    clearGame: () => dispatch(clearGameCreator())
+
   }
 }
 
 
 
 
-export default connect(mapDispatchToProps)(Game)
+export default connect(mapStateToProps,mapDispatchToProps)(Game)

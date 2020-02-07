@@ -37,9 +37,13 @@ code {
 }
 
 .logoImg{
-  height: 200px;
+  height: 250px;
 }
 
 .cowImg{
-  height: 200px;
+  height: 150px;
+}
+
+.miniLogo{
+  height: 50px;
 }

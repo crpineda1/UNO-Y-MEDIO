@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, clearGameCreator, saveGameCreator,} from '../actions';
+import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, saveGameCreator,} from '../actions';
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
@@ -19,22 +19,25 @@ class Table extends Component {
   dealCards = () => {
     let delay = 150   // reset to 150 for game play
     let cards = 28    // reset to 28 for game play
-    for (let i = 0; i < cards; i++) { 
-      setTimeout(() => {
-        this.props.pickCard()
-        this.props.nextTurn()
-        // console.log("deal counter", i)        
-      }, i * delay);
-      
-    }
-    setTimeout(() => {
-      this.props.pileCard()
-      if(["R","S","22","44","WC"].includes(this.props.value)){
-        this.props.pileCard()
-      }  
-      this.props.toggleGame()
-    }, (cards+1) * delay)
+    
+    if (!this.props.gameActive){
 
+     for (let i = 0; i < cards; i++) { 
+       setTimeout(() => {
+         this.props.pickCard()
+         this.props.nextTurn()
+         // console.log("deal counter", i)        
+       }, i * delay);  
+     }
+
+     setTimeout(() => {
+       this.props.pileCard()
+       if(["R","S","22","44","WC"].includes(this.props.value)){
+         this.props.pileCard()
+       }  
+       this.props.toggleGame()
+     }, (cards+1) * delay)
+   }
   }
 
   gameAction = () =>{
@@ -118,17 +121,18 @@ class Table extends Component {
   }
   
   showRules = () => {
-    alert("You can only play a card that matches the color or symbol in the pile. Wild cards allow you to alter the color. Draw Two cards forces the next player to draw two cards and forfeit his/her turn. Wild Draw Four cards allows you to alter the color and forces the next player to draw four cards and forfeit thier turn. Reverse card changest the direction of play. Skip forces the next player to forfeit thier turn.")
+    alert("You must play a card that matches the color or symbol in the pile, or draw from the deck until you get a car you can play. Wild cards allow you to alter the color. Draw Two cards forces the next player to draw two cards and forfeit his/her turn. Wild Draw Four cards allows you to alter the color and forces the next player to draw four cards and forfeit thier turn. Reverse card changest the direction of play. Skip forces the next player to forfeit thier turn.")
   }
   
-  checkWinner = (player) => {
+  declareWinner = (playerName) => {
     let points = this.props.allHands.map(card => card.points)
     let total = points.reduce((acc, pts) => acc + pts)
-    alert(`${player} WINS ${total} POINTS`)
-    console.log("winner",player, total)
-    // this.props.saveGame({id: this.props.userId, name: player, points: total})
-    this.props.endGame()
-    // this.props.clearGame() // not working yet
+    console.log("winner",this.props.userId,playerName, total)
+    this.props.saveGame({id: this.props.userId, name: playerName, points: total})
+    alert(`${playerName} WINS ${total} POINTS`)
+    this.props.toLeaderboard()
+
+
     
   }
   
@@ -174,13 +178,14 @@ class Table extends Component {
     }
 
 
+
     return (
       <div> Table 
         <div>Current Color: {this.props.color}</div>
         <div>Direction: {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
         <div>Current Turn: {this.props.turn}</div>
         <button onClick = {this.showRules}>RULES</button>
-        <button onClick = {this.dealCards}>DEAL CARDS</button>
+        <button onClick = {this.dealCards}>NEW GAME</button>
         <button onClick = {this.props.unoCall}>UNO CALL</button>
         <button onClick = {this.pass}>PASS</button>
         {this.displayColorButtons(this.props.turn)}
@@ -191,10 +196,10 @@ class Table extends Component {
           <Deck topCard = {newDeck[0]}/>
           <Pile />
           <div className = "hands">
-          <Hand player = {1} checkWinner = {this.checkWinner}/>
-          <Hand player = {2} checkWinner = {this.checkWinner}/>
-          <Hand player = {3} checkWinner = {this.checkWinner}/>
-          <Hand player = {4} checkWinner = {this.checkWinner}/>
+          <Hand player = {1} declareWinner = {this.declareWinner}/>
+          <Hand player = {2} declareWinner = {this.declareWinner}/>
+          <Hand player = {3} declareWinner = {this.declareWinner}/>
+          <Hand player = {4} declareWinner = {this.declareWinner}/>
          {AiPlayer}
           </div>
         </div>
@@ -225,7 +230,7 @@ const mapStateToProps = (state) => {
     unoPenalty: state.unoPenalty,
     regCard: state.regCard,
     gameActive: state.gameActive,
-    allHands: [...state.hand1, ...state.hand2, ...state.hand3,...state.hand4],
+    allHands: [...state.hand1, ...state.hand2, ...state.hand3, ...state.hand4],
     userId: state.userId
 
 
@@ -233,6 +238,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
+  // console.log("dispatch", dispatch)
   return {
     createDeck: (deck) => dispatch(createDeckCreator(deck)),
     playCard: () => dispatch(playCardCreator()),
@@ -243,8 +249,7 @@ const mapDispatchToProps = (dispatch) => {
     pileCard: () => dispatch(pileCardCreator()),
     unoCall: () => dispatch(unoCallCreator()),
     toggleGame: () => dispatch(toggleGameCreator()),
-    clearGame: () => dispatch(clearGameCreator()),
-    saveGame: (info) => dispatch(saveGameCreator(info)),
+    saveGame: (player) => dispatch(saveGameCreator(player)),
 
   }
 }

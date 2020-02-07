@@ -35,24 +35,30 @@ const loadLeaderboardCreator = () => {
 }
   
 const saveGameCreator = (player) => {
-  console.log("save game", player.id, player.name, player.points)
+  
   // return(dispatch) => {
-  //   fetch("http://localhost:3000/usergames",{
-  //     method: "POST",
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       "user_id": player.id
-  //       "game_id": 
-  //       "win":
-  //       "points":
-  //     })
-  //   })
-  //   .then(resp => resp.json())
-  //   .then(data => {dispatch(loadLeaderboardCreator())})
+  //   console.log("save game", player.id, player.name, player.points)
+  //   dispatch({type:CLEAR_GAME})
   // }
+  
+  return(dispatch) => {
+    fetch("http://localhost:3000/usergames",{
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "user_id": player.id,
+        "game_id": 3,
+        "win": true,
+        "points": player.points
+      })
+    })
+    .then(resp => resp.json())
+    .then(data => {dispatch({type:CLEAR_GAME})})
+  }
+  
 }
   
 
@@ -68,9 +74,9 @@ export {
   unoCallCreator,
   loginUserCreator,
   toggleGameCreator,
-  clearGameCreator,
   loadLeaderboardCreator,
-  saveGameCreator
+  saveGameCreator,
+  clearGameCreator,
     
 }
 
