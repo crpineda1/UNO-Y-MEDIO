@@ -37,7 +37,7 @@ const loadLeaderboardCreator = () => {
 const saveGameCreator = (player) => {
   
   // return(dispatch) => {
-  //   console.log("save game", player.id, player.name, player.points)
+    console.log("save game", player.id, player.game, player.name, player.points)
   //   dispatch({type:CLEAR_GAME})
   // }
   
@@ -49,14 +49,15 @@ const saveGameCreator = (player) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "user_id": player.id,
-        "game_id": 3,
-        "win": true,
-        "points": player.points
+        user_id: player.id,
+        game_id: player.game,
+        win: true,
+        points: player.points
       })
     })
     .then(resp => resp.json())
-    .then(data => {dispatch({type:CLEAR_GAME})})
+    .then(data => console.log(data))
+    // .then(data => {dispatch({type:CLEAR_GAME})})
   }
   
 }

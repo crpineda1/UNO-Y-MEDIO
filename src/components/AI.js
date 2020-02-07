@@ -11,7 +11,7 @@ class AI extends Component {
     let playerHand
     let playCard = null
     let colors =["red","blue","yellow","green"]
-    let delay = 2000 // milliseconds
+    let delay = 0 // milliseconds *** reset to 2000 ***
 
   
     playerHand = this.props[`hand${this.props.player}`]

@@ -22,7 +22,7 @@ class Hand extends Component {
     // check for win
     if (playerHand.length === 0 && this.props.gameActive ){
       // console.log("winner:", playerName)
-      this.props.declareWinner(playerName) 
+      this.props.declareWinner(this.props.player) 
     }
      
     // activate card play when its your turn
@@ -70,6 +70,10 @@ const mapStateToProps = (state) => {
     name2: state.player2,
     name3: state.player3,
     name4: state.player4,
+    userId1: state.userId1,
+    userId2: state.userId2,
+    userId3: state.userId3,
+    userId4: state.userId4,
     turn: state.turn,
     gameActive: state.gameActive,
   }  

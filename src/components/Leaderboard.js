@@ -10,13 +10,14 @@ class Leaderboard extends Component{
   }
 
   loadTable = (games) => {
-   return games.map( game => {
+   let list = games.filter(game => game.win)
+    return list.map( game => {
       // console.log(game)
       
       return <div key = {game.id}>
                   Game:{game.game_id}
-                  User:{game.user_id}
-                  Result:{game.win? "Win":"Loss"}
+                  Winner:{game.user_id}
+                  {/* Result:{game.win? "Win":"Loss"} */} 
                   Points:{game.points}
             </div>
     })

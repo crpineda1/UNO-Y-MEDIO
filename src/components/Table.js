@@ -124,12 +124,14 @@ class Table extends Component {
     alert("You must play a card that matches the color or symbol in the pile, or draw from the deck until you get a car you can play. Wild cards allow you to alter the color. Draw Two cards forces the next player to draw two cards and forfeit his/her turn. Wild Draw Four cards allows you to alter the color and forces the next player to draw four cards and forfeit thier turn. Reverse card changest the direction of play. Skip forces the next player to forfeit thier turn.")
   }
   
-  declareWinner = (playerName) => {
-    let points = this.props.allHands.map(card => card.points)
-    let total = points.reduce((acc, pts) => acc + pts)
-    console.log("winner",this.props.userId,playerName, total)
-    this.props.saveGame({id: this.props.userId, name: playerName, points: total})
-    alert(`${playerName} WINS ${total} POINTS`)
+  declareWinner = (player) => {
+    let cardPoints = this.props.allHands.map(card => card.points)
+    let totalPoints = cardPoints.reduce((acc, pts) => acc + pts)
+    let playerName = this.props[`player${player}`]
+    let playerId = this.props[`userId${player}`]
+    console.log("winner",player,playerName,playerId, totalPoints)
+    this.props.saveGame({id: playerId, game:this.props.gameId, name: playerName, points: totalPoints})
+    alert(`${playerName} WINS ${totalPoints} POINTS`)
     this.props.toLeaderboard()
 
 
@@ -231,7 +233,15 @@ const mapStateToProps = (state) => {
     regCard: state.regCard,
     gameActive: state.gameActive,
     allHands: [...state.hand1, ...state.hand2, ...state.hand3, ...state.hand4],
-    userId: state.userId
+    gameId: state.gameId,
+    userId1: state.userId1,
+    userId2: state.userId2,
+    userId3: state.userId3,
+    userId4: state.userId4,
+    player1: state.player1,
+    player2: state.player2,
+    player3: state.player3,
+    player4: state.player4,
 
 
   }

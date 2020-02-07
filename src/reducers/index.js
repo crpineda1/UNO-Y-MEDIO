@@ -192,8 +192,11 @@ let defaultState = {
   regCard: false,
   gameActive: false,
 
-  userId: null,
-  gameId: null,
+  gameId: 1, // rest to 0 
+  userId1: 19, // reset to 0  
+  userId2: 16, 
+  userId3: 17, 
+  userId4: 18, 
   player1: '',
   player2:'Cartman',
   player3:'Stan',
