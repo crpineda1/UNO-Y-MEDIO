@@ -36,7 +36,7 @@ class Game extends Component {
   render () {
 
     return (
-      <div> Game 
+      <div className = "game"> Game 
         <Navbar exit = {this.exit} endGame = {this.endGame} leaderboard = {this.toLeaderboard}/>
         <Table toLeaderboard = {this.toLeaderboard}/>
 

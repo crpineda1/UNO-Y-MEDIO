@@ -28,7 +28,7 @@ class Leaderboard extends Component{
     return(
       <div>Leaderboard
         <button onClick = {() =>this.props.history.push('/')}> Log Out</button>
-        <button onClick = {() =>this.props.history.push('/game')}> Start Game</button>
+        {/* <button onClick = {() =>this.props.history.push('/game')}> Start Game</button> {remove for game play} */}
         {this.loadTable(this.props.allGames)}
       </div>
       

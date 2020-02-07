@@ -17,7 +17,7 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    let delay = 150   // reset to 150 for game play
+    let delay = 50   // reset to 150 for game play
     let cards = 28    // reset to 28 for game play
     
     if (!this.props.gameActive){
@@ -182,7 +182,7 @@ class Table extends Component {
 
 
     return (
-      <div> Table 
+      <div className = "table"> Table 
         <div>Current Color: {this.props.color}</div>
         <div>Direction: {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
         <div>Current Turn: {this.props.turn}</div>
@@ -194,7 +194,7 @@ class Table extends Component {
         {this.gameAction()}
 
         
-        <div className = "table"> 
+        <div className = "tableItems"> 
           <Deck topCard = {newDeck[0]}/>
           <Pile />
           <div className = "hands">

@@ -56,8 +56,8 @@ const saveGameCreator = (player) => {
       })
     })
     .then(resp => resp.json())
-    .then(data => console.log(data))
-    // .then(data => {dispatch({type:CLEAR_GAME})})
+    .then(data => {dispatch({type:CLEAR_GAME})})
+    // .then(data => console.log(data))
   }
   
 }

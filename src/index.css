@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
+code{
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
@@ -28,7 +28,7 @@ code {
   display: flex;
 }
 
-.table{
+.tableItems{
   display: flex;
 }
 
@@ -46,4 +46,11 @@ code {
 
 .miniLogo{
   height: 50px;
+}
+
+.table{
+  background-image: url(./images/_table3.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
