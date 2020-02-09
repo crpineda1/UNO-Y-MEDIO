@@ -10,14 +10,17 @@ import AI from './AI';
 
 
 class Table extends Component {
-  
+  HumanPlayers = [] //reset to [1]
+  AiPlayers = [1,2,3,4] // reset to [2,3,4]
+
+
   shuffleDeck = (deck) => {
     let oldDeck = [...deck]
     return oldDeck.sort(() => Math.random() - 0.5)
   }
 
   dealCards = () => {
-    let delay = 50   // reset to 150 for game play
+    let delay = 150   // reset to 150 for game play
     let cards = 28    // reset to 28 for game play
     
     if (!this.props.gameActive){
@@ -32,7 +35,7 @@ class Table extends Component {
 
      setTimeout(() => {
        this.props.pileCard()
-       if(["R","S","22","44","WC"].includes(this.props.value)){
+       while(["R","S","22","44","WC"].includes(this.props.value)){
          this.props.pileCard()
        }  
        this.props.toggleGame()
@@ -121,7 +124,7 @@ class Table extends Component {
   }
   
   showRules = () => {
-    alert("You must play a card that matches the color or symbol in the pile, or draw from the deck until you get a car you can play. Wild cards allow you to alter the color. Draw Two cards forces the next player to draw two cards and forfeit his/her turn. Wild Draw Four cards allows you to alter the color and forces the next player to draw four cards and forfeit thier turn. Reverse card changest the direction of play. Skip forces the next player to forfeit thier turn.")
+    alert("Play a card that matches the color or symbol in the pile, or draw from the deck until you get a car you can play.  Reverse card changest the direction of play. Skip forces the next player to forfeit thier turn. Draw Two cards forces the next player to draw two cards and forfeit their turn.  Wild cards allow you to change the color. Wild Draw Four cards allows you to change the color and forces the next player to draw four cards and forfeit thier turn. Don't forget to call UNO Y MEDIO when you have one card or you will have to pick 4 cards from the deck.")
   }
   
   declareWinner = (player) => {
@@ -139,7 +142,7 @@ class Table extends Component {
   }
   
   displayColorButtons = (turn) => {
-    if([].includes(turn)){
+    if(this.HumanPlayers.includes(turn)){
       if (this.props.value === "WC" && this.props.color === "black") {
         // console.log('WC buttons')
         return <div>
@@ -174,18 +177,18 @@ class Table extends Component {
     }
 
     let AiPlayer 
-    if ([1,2,3,4].includes(this.props.turn) && this.props.gameActive){
+    if (this.AiPlayers.includes(this.props.turn) && this.props.gameActive){
       // console.log("AI ENGAGED", this.props.turn)
       AiPlayer = <div>{this.AiMove(this.props.turn)}</div>
     }
 
-
+    
 
     return (
       <div className = "table"> Table 
-        <div>Current Color: {this.props.color}</div>
-        <div>Direction: {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
-        <div>Current Turn: {this.props.turn}</div>
+        <div className = "colorIndicator" > Current Color <img className = {this.props.color} /> </div>
+        <div className = "directionIndicator" > Direction: <br/> {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
+        <div className = "turnIndicator" >Current Turn: <br/>{this.props[`player${this.props.turn}`]}</div>
         <button onClick = {this.showRules}>RULES</button>
         <button onClick = {this.dealCards}>NEW GAME</button>
         <button onClick = {this.props.unoCall}>UNO CALL</button>
@@ -195,13 +198,13 @@ class Table extends Component {
 
         
         <div className = "tableItems"> 
-          <Deck topCard = {newDeck[0]}/>
-          <Pile />
+          <Deck className = "deck" topCard = {newDeck[0]}/>
+          <Pile className = "pile" />
           <div className = "hands">
-          <Hand player = {1} declareWinner = {this.declareWinner}/>
-          <Hand player = {2} declareWinner = {this.declareWinner}/>
-          <Hand player = {3} declareWinner = {this.declareWinner}/>
-          <Hand player = {4} declareWinner = {this.declareWinner}/>
+          <Hand  player = {1} declareWinner = {this.declareWinner}/>
+          <Hand  player = {2} declareWinner = {this.declareWinner}/>
+          <Hand  player = {3} declareWinner = {this.declareWinner}/>
+          <Hand  player = {4} declareWinner = {this.declareWinner}/>
          {AiPlayer}
           </div>
         </div>

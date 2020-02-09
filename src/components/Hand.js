@@ -4,6 +4,8 @@ import {playCardCreator, nextTurnCreator} from '../actions';
 
 import Card from './Card'
 
+import { Container } from 'semantic-ui-react'
+
 class Hand extends Component {
  
   renderHand() {
@@ -46,8 +48,11 @@ class Hand extends Component {
   
   render () {
     return (
-      <div className = "hand"> {this.props[`name${this.props.player}`]}
+      <div className = {`hand${this.props.player}`} > {this.props[`name${this.props.player}`]}
+        <Container className = "handCards">
         {this.renderHand()}
+
+        </Container>
       </div>
     )
   }

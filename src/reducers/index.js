@@ -183,7 +183,7 @@ let defaultState = {
   hand4: [],
   
   turn: 1,
-  orderClockwise: true, 
+  orderClockwise: false, 
   currentColor: '',
   currentValue: '',
   actionCard: false,
@@ -197,7 +197,7 @@ let defaultState = {
   userId2: 16, 
   userId3: 17, 
   userId4: 18, 
-  player1: '',
+  player1: 'Kenny',
   player2:'Cartman',
   player3:'Stan',
   player4:'Kyle',
@@ -452,9 +452,6 @@ let reducer = (prevState=defaultState, action) => {
         gameActive: false,
 
       }  
-
-      break;
-
 
     default: 
       return {...prevState}
