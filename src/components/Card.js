@@ -7,7 +7,7 @@ class Card extends Component {
 
   cardStyle = {
     'height': '100px',
-    'z-index': `${parseInt(this.props.index)}`,
+    'zIndex': `${parseInt(this.props.index)}`,
     'left': `${(30*parseInt(this.props.index))}px`,
     'position': 'absolute',
   }

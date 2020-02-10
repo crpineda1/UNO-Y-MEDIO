@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import ReactDOM from 'react-dom';
 
 import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, saveGameCreator,} from '../actions';
 import Deck from './Deck';
@@ -170,10 +171,53 @@ class Table extends Component {
   }
 
 
+  drawCard = (card) => {
+    console.log("draw card", card)
+    return (card) => {
+      // const card = cardComponent.props.cardModel;
+      const cardDOM = card.fgetBoundingClientRect();
+      
+      const oldPosition = {
+        x: parseInt(cardDOM.left)
+        , y: parseInt(cardDOM.top)
+      };
+      
+      let sender = <Deck />
+      let receiver = <Hand ref = "hand1" player = {1} declareWinner = {this.declareWinner}/>
+      // let receiver = <Hand ref = {`hand${this.props.turn}`} player = {this.props.turn} declareWinner = {this.declareWinner}/>
+            
+      // Take
+      // let cards = sender.state.cards;
+      // cards.splice(cards.indexOf(card), 1);
+      // sender.setState({cards});
+      
+      // prepare animation
+      const senderRect = sender.getBoundingClientRect();  
+      const receiverRect = receiver.getBoundingClientRect();
+      
+      console.log("senderRect",senderRect)
+      console.log("receiverRect",receiverRect)
+
+
+      // console.log('new pos', position.x, senderRect.left, receiverRect.left)
+      const newPosition = {
+        x: oldPosition.x + (senderRect.left - receiverRect.left)
+        , y: oldPosition.y + (senderRect.top - receiverRect.top)
+      }
+      
+      receiver.animations[card.id] = newPosition;
+
+      // receiver.setState({
+      //   cards: receiver.state.cards.concat([card])
+      // });
+    }
+  }
+  
   transferCard(receiverName) {
     return (senderName, cardComponent) => {
       const card = cardComponent.props.cardModel;
       const cardDOM = ReactDOM.findDOMNode(cardComponent);
+      console.log("cardDOM",cardDOM)
       const oldPosition = {
         x: parseInt(cardDOM.style.left)
         , y: parseInt(cardDOM.style.top)
@@ -192,6 +236,8 @@ class Table extends Component {
         .getBoundingClientRect();  
       const receiverRect = ReactDOM.findDOMNode(receiver)
         .getBoundingClientRect();
+        console.log("senderRect",senderRect)
+        console.log("receiverRect", receiverRect)
       
       // console.log('new pos', position.x, senderRect.left, receiverRect.left)
       const newPosition = {
@@ -206,7 +252,6 @@ class Table extends Component {
     }
   }
 
-  
   
 
   render () {
@@ -238,18 +283,18 @@ class Table extends Component {
 
         
         <div className = "tableItems"> 
-          <Deck ref = "deck" className = "deck" topCard = {newDeck[0]}/>
-          <Pile ref = "pile"className = "pile" />
+          <Deck className = "deck" topCard = {newDeck[0]} drawCard = {this.drawCard}/>
+          <Pile className = "pile" />
           <div className = "hands">
           {/* <Hand1 player = {1} declareWinner = {this.declareWinner}/> */}
           {/* <Hand1 player = {2} declareWinner = {this.declareWinner}/>
           <Hand1 player = {3} declareWinner = {this.declareWinner}/>
           <Hand1 player = {4} declareWinner = {this.declareWinner}/> */}
 
-          <Hand ref = "hand1" player = {1} declareWinner = {this.declareWinner}/>
-          <Hand ref = "hand2" player = {2} declareWinner = {this.declareWinner}/>
-          <Hand ref = "hand3" player = {3} declareWinner = {this.declareWinner}/>
-          <Hand ref = "hand4" player = {4} declareWinner = {this.declareWinner}/>
+          <Hand player = {1} declareWinner = {this.declareWinner}/>
+          <Hand player = {2} declareWinner = {this.declareWinner}/>
+          <Hand player = {3} declareWinner = {this.declareWinner}/>
+          <Hand player = {4} declareWinner = {this.declareWinner}/>
 
          {AiPlayer}
           </div>
