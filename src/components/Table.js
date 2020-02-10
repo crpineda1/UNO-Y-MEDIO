@@ -5,13 +5,14 @@ import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, ch
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
+import Hand1 from './Hand1';
 
 import AI from './AI';
 
 
 class Table extends Component {
-  HumanPlayers = [] //reset to [1]
-  AiPlayers = [1,2,3,4] // reset to [2,3,4]
+  HumanPlayers = [1] //reset to [1]
+  AiPlayers = [2,3,4] // reset to [2,3,4]
 
 
   shuffleDeck = (deck) => {
@@ -70,7 +71,7 @@ class Table extends Component {
     
     //  activate UNO call penalty
     if (this.props.unoPenalty) {
-      alert(`UNO CALL PENALTY. Player ${this.props.turn} DRAW 4 CARDS`)
+      alert(`UNO CALL PENALTY. ${this.props[`player${this.props.turn}`]} DRAW 4 CARDS`)
       // this.props.toggleGame()
       this.props.actionOff() // disables action of skip if applicable 
       this.props.pickCard()
@@ -188,7 +189,7 @@ class Table extends Component {
       <div className = "table"> Table 
         <div className = "colorIndicator" > Current Color <img className = {this.props.color} /> </div>
         <div className = "directionIndicator" > Direction: <br/> {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
-        <div className = "turnIndicator" >Current Turn: <br/>{this.props[`player${this.props.turn}`]}</div>
+        <div className = "turnIndicator" >Current Turn: <br/>{this.props.gameActive? this.props[`player${this.props.turn}`]: null}</div>
         <button onClick = {this.showRules}>RULES</button>
         <button onClick = {this.dealCards}>NEW GAME</button>
         <button onClick = {this.props.unoCall}>UNO CALL</button>
@@ -201,6 +202,11 @@ class Table extends Component {
           <Deck className = "deck" topCard = {newDeck[0]}/>
           <Pile className = "pile" />
           <div className = "hands">
+          {/* <Hand1 player = {1} declareWinner = {this.declareWinner}/> */}
+          {/* <Hand1 player = {2} declareWinner = {this.declareWinner}/>
+          <Hand1 player = {3} declareWinner = {this.declareWinner}/>
+          <Hand1 player = {4} declareWinner = {this.declareWinner}/> */}
+
           <Hand  player = {1} declareWinner = {this.declareWinner}/>
           <Hand  player = {2} declareWinner = {this.declareWinner}/>
           <Hand  player = {3} declareWinner = {this.declareWinner}/>

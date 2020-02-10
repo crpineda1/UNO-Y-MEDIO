@@ -41,11 +41,12 @@ class Hand extends Component {
       return ( 
 
         <Card index={i} card = {eachCard} visible = {faceUp} handleClick = {cardClick}/>
-
+ 
       )
     })
   }
   
+
   render () {
     return (
       <div className = {`hand${this.props.player}`} > {this.props[`name${this.props.player}`]}

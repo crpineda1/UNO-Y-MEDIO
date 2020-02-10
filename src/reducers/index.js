@@ -183,7 +183,7 @@ let defaultState = {
   hand4: [],
   
   turn: 1,
-  orderClockwise: false, 
+  orderClockwise: true, 
   currentColor: '',
   currentValue: '',
   actionCard: false,

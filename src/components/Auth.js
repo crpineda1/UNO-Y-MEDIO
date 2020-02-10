@@ -58,13 +58,13 @@ class Auth extends Component {
     }
 
     return(
-      <Fragment>
+      <div className = "auth" >
         <img className = "logoImg" src= {logo} alt = {"logo"} />
         <br />
         {form}
         <br />
         <img className = "cowImg" src= {cow} alt = {"logo"}/>
-      </Fragment>
+      </div >
     )
   }
 }

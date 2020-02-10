@@ -12,16 +12,13 @@ code{
     monospace;
 }
 
-.cardImg{
-  height: 100px;
-}
-
 .hand1{
   color: white;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
   position: absolute;
+  width: auto;
   left: 40%;
   top: 80%;
 }
@@ -59,6 +56,22 @@ code{
   top: 46%;
 }
 
+.handCards{
+  display: flex;
+  background-color: cadetblue;
+  width: 500px;
+  height: 120px ;
+  align-items: center;
+  padding-top: 10px; 
+  padding-left: 5px; 
+
+}
+
+
+.cardImg{
+  height: 100px;
+}
+
 .deck{
   color: black;
   background-color: white;
@@ -72,7 +85,8 @@ code{
   position: absolute;
   left: 40%;
   top: 35%;
-}
+
+}  
 
 .pile{
   color: black;
@@ -87,14 +101,6 @@ code{
   position: absolute;
   left: 60%;
   top: 35%;
-}
-
-.handCards{
-  display: flex;
-  background-color: cadetblue;
-  width: 500px;
-  height: 120px;
-  
 }
 
 
@@ -199,10 +205,30 @@ code{
 }
 
 .table{
-  background-image: url(./images/_table.jpg);
+  background-image: url(./images/_table0.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 1200px;
+
+}
+
+.leaderboard{
+  /* background-image: url(./images/_background.jpg); */
+  background-image: url(./images/_background2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1200px;
+  
+}
+
+.auth{
+  background-image: url(./images/_background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1200px;
+
 
 }

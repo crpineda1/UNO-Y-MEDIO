@@ -8,7 +8,7 @@ class Pile extends Component {
  
   
   render () {
-    // console.log("pile:", this.props.pile[0])
+
     let faceUp = true
 
     return (
@@ -20,7 +20,7 @@ class Pile extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("state", state)
+
   return { 
     pile: state.pile 
   }
