@@ -52,18 +52,23 @@ class Auth extends Component {
     let form
 
     if (this.state.login){
-      form =  <Login username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm} logIn = {this.login} />
+      form =  <Login  username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm} logIn = {this.login} />
     } else {
       form =  <Signup username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm}/>
     }
 
     return(
       <div className = "auth" >
-        <img className = "logoImg" src= {logo} alt = {"logo"} />
+
+        <img className = "authLogoImg" src= {logo} alt = {"logo"} />
         <br />
+        <div className = "loginandCow">
+
         {form}
         <br />
         <img className = "cowImg" src= {cow} alt = {"logo"}/>
+        </div>
+
       </div >
     )
   }

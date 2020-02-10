@@ -12,6 +12,12 @@ code{
     monospace;
 }
 
+
+.game{
+  color: white;
+  
+}
+
 .hand1{
   color: white;
   font-size: 20px;
@@ -19,7 +25,7 @@ code{
   text-align: center;
   position: absolute;
   width: auto;
-  left: 40%;
+  left: 30%;
   top: 80%;
 }
 
@@ -30,7 +36,7 @@ code{
   text-align: center;
   transform: rotate(90deg);
   position: absolute;
-  left: 20%;
+  left: 0%;
   top: 45%;
 }
 
@@ -41,7 +47,7 @@ code{
   text-align: center;
   transform: rotate(180deg);
   position: absolute;
-  left: 40%;
+  left: 30%;
   top: 12.5%;
 }
 
@@ -70,11 +76,14 @@ code{
 
 .cardImg{
   height: 100px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
 }
 
 .deck{
-  color: black;
-  background-color: white;
+  color: white;
+  /* background-color: white; */
   width: 120px;
   height: 160px;
 
@@ -83,14 +92,14 @@ code{
   text-align: center;
 
   position: absolute;
-  left: 40%;
+  left: 30%;
   top: 35%;
 
 }  
 
 .pile{
-  color: black;
-  background-color: white;
+  color: white;
+  /* background-color: white; */
   width: 120px;
   height: 160px;
  
@@ -104,14 +113,43 @@ code{
 }
 
 
-.game{
+.turnIndicator {
   color: white;
-  
+  /* background-color: white; */
+  width: 250px;
+  height: 150px;
+
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+
+
+  position: absolute;
+  left: 40%;
+  top: 38%;
+
+}
+
+.directionIndicator {
+  color: white;
+  /* background-color: white; */
+  width: 250px;
+  height: 50px;
+
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+
+
+  position: absolute;
+  left: 40%;
+  top: 65%;
+
 }
 
 .colorIndicator{
-  color: black;
-  background-color: white;
+  color: white;
+  /* background-color: white; */
   width: 120px;
   height: 150px;
   /* align-items: center; */
@@ -131,6 +169,10 @@ code{
   background-size: cover;
   width: 70px;
   height: 100px;
+
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
 }
 
 .green{
@@ -138,6 +180,10 @@ code{
   background-size: cover;
   width: 70px;
   height: 100px;
+
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
 }
 
 .blue{
@@ -145,6 +191,10 @@ code{
   background-size: cover;
   width: 70px;
   height: 100px;
+
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
 }
 
 .yellow{
@@ -152,52 +202,14 @@ code{
   background-size: cover;
   width: 70px;
   height: 100px;
-}
 
-.directionIndicator {
-  color: black;
-  background-color: white;
-  width: 250px;
-  height: 50px;
-
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-
-
-  position: absolute;
-  left: 40%;
-  top: 60%;
-
-}
-
-.turnIndicator {
-  color: black;
-  background-color: white;
-  width: 200px;
-  height: 150px;
-
-  font-size: 40px;
-  font-weight: bold;
-  text-align: center;
-
-
-  position: absolute;
-  left: 48%;
-  top: 35%;
-
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
 }
 
 .navbar{
   display: flex;
-}
-
-.logoImg{
-  height: 250px;
-}
-
-.cowImg{
-  height: 150px;
 }
 
 .miniLogo{
@@ -229,6 +241,61 @@ code{
   background-repeat: no-repeat;
   background-size: cover;
   height: 1200px;
+  
+  
+}
 
+.authLogoImg{
+  height: 250px;
+  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.authItemBlock{
+  padding-top: 30px;
+  
+  background-image: url(./images/_authItems_background.png);
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 150px;
+  height: 175px;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  
+  align-items: center;
+}
+
+.authItems{
+  margin: auto;
+  width: auto;
+  height: 50%;
+  /* display: block; */
+  /* margin-top: 20%; */
+
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+
+}
+
+.loginandCow {
+  margin-left: 25%;
+  display:flex;
+  width: 50%;
+}
+
+.cowImg{
+  height: 150px;
+  
+  /* display: flex; */
+  margin-left: auto;
+  margin-right: auto;
 }

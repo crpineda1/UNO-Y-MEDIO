@@ -168,6 +168,45 @@ class Table extends Component {
     return <AI player = {turn} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
   
   }
+
+
+  transferCard(receiverName) {
+    return (senderName, cardComponent) => {
+      const card = cardComponent.props.cardModel;
+      const cardDOM = ReactDOM.findDOMNode(cardComponent);
+      const oldPosition = {
+        x: parseInt(cardDOM.style.left)
+        , y: parseInt(cardDOM.style.top)
+      };
+      
+      let sender = this.refs[senderName];
+      let receiver = this.refs[receiverName];
+            
+      // Take
+      let cards = sender.state.cards;
+      cards.splice(cards.indexOf(card), 1);
+      sender.setState({cards});
+      
+      // prepare animation
+      const senderRect = ReactDOM.findDOMNode(sender)
+        .getBoundingClientRect();  
+      const receiverRect = ReactDOM.findDOMNode(receiver)
+        .getBoundingClientRect();
+      
+      // console.log('new pos', position.x, senderRect.left, receiverRect.left)
+      const newPosition = {
+        x: oldPosition.x + (senderRect.left - receiverRect.left)
+        , y: oldPosition.y + (senderRect.top - receiverRect.top)
+      }
+      
+      receiver.animations[card.id] = newPosition;
+      receiver.setState({
+        cards: receiver.state.cards.concat([card])
+      });
+    }
+  }
+
+  
   
 
   render () {
@@ -199,18 +238,19 @@ class Table extends Component {
 
         
         <div className = "tableItems"> 
-          <Deck className = "deck" topCard = {newDeck[0]}/>
-          <Pile className = "pile" />
+          <Deck ref = "deck" className = "deck" topCard = {newDeck[0]}/>
+          <Pile ref = "pile"className = "pile" />
           <div className = "hands">
           {/* <Hand1 player = {1} declareWinner = {this.declareWinner}/> */}
           {/* <Hand1 player = {2} declareWinner = {this.declareWinner}/>
           <Hand1 player = {3} declareWinner = {this.declareWinner}/>
           <Hand1 player = {4} declareWinner = {this.declareWinner}/> */}
 
-          <Hand  player = {1} declareWinner = {this.declareWinner}/>
-          <Hand  player = {2} declareWinner = {this.declareWinner}/>
-          <Hand  player = {3} declareWinner = {this.declareWinner}/>
-          <Hand  player = {4} declareWinner = {this.declareWinner}/>
+          <Hand ref = "hand1" player = {1} declareWinner = {this.declareWinner}/>
+          <Hand ref = "hand2" player = {2} declareWinner = {this.declareWinner}/>
+          <Hand ref = "hand3" player = {3} declareWinner = {this.declareWinner}/>
+          <Hand ref = "hand4" player = {4} declareWinner = {this.declareWinner}/>
+
          {AiPlayer}
           </div>
         </div>
