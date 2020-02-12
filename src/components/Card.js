@@ -1,9 +1,15 @@
 import React, {Component} from 'react'
 import card_back from '../images/back_logo.png'
+import {CSSTransition} from 'react-transition-group'
 
-
+const timeout = 1000
 
 class Card extends Component {
+
+
+  state = {
+    inProp: false
+  }
 
   cardStyle = {
     'height': '100px',
@@ -16,12 +22,26 @@ class Card extends Component {
     'height': '100px'
   }
 
+  handleClick = (card) =>{
+    this.setState({
+      inProp: true
+    })
+    setTimeout(() => {
+      this.props.handleClick(card)
+      this.setState({
+        inProp: false
+      })
+    }, timeout);
+  }
+
   render () {
     // console.log(this.props.card)
     return (
-      <div style = {this.props.index? this.cardStyle:this.cardStylee} onClick = {() => this.props.handleClick(this.props.card)}>
-        <img  className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
-      </div>
+      <CSSTransition in={this.state.inProp} timeout={timeout} classNames="my-node">
+        <div style = {this.props.index? this.cardStyle:this.cardStylee} onClick = {() => this.handleClick(this.props.card)}>
+          <img  className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
+        </div>
+      </CSSTransition>
     )
   }
 }

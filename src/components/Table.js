@@ -12,8 +12,8 @@ import AI from './AI';
 
 
 class Table extends Component {
-  HumanPlayers = [1] //reset to [1]
-  AiPlayers = [2,3,4] // reset to [2,3,4]
+  HumanPlayers = [1,2,3,4] //reset to [1]
+  AiPlayers = [] // reset to [2,3,4]
 
 
   shuffleDeck = (deck) => {
