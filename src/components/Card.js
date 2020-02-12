@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import card_back from '../images/back_logo.png'
 import {CSSTransition} from 'react-transition-group'
 
-const timeout = 1000
+const timeout = 500
 
 class Card extends Component {
 
