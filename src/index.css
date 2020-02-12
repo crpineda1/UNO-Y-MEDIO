@@ -303,8 +303,8 @@ code{
 .deckHand1-enter {
   z-index: inherit;
   opacity: 0;
-  transform: translate(0px,300px); 
-  transition: transform 200ms;
+  transform: translate(200px,300px); 
+  transition: transform 2000ms;
   transition-timing-function: linear;
 }
 .deckHand1-enter-active {
@@ -315,8 +315,9 @@ code{
 .deckHand2-enter {
   z-index: inherit;
   opacity: 0;
-  transform: translate(0px,300px); 
-  transition: transform 200ms;
+
+  transform: translate(-150px,50px) rotate(90deg); 
+  transition: transform 2000ms;
   transition-timing-function: linear;
 }
 .deckHand2-enter-active {

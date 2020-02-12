@@ -8,11 +8,13 @@ import Card from './Card'
 
 class Deck extends Component {
   
+
+  
   handleClick = (card) => {
     this.props.pickCard()
-    this.props.drawCard(card)
+
   }
-  
+
   render () {
     
     let faceUp = true // swtich to true to see the top card in the deck
@@ -20,7 +22,11 @@ class Deck extends Component {
 
     return (
       <div className = "deck"> Deck 
-      <Card card = {this.props.deck[0]} visible = {faceUp} handleClick = {() => this.handleClick(this.props.deck[0])}/>
+      <Card 
+        class = {`Hand1`}
+        card = {this.props.deck[0]} 
+        visible = {faceUp} 
+        handleClick = {() => this.handleClick(this.props.deck[0])}/>
     </div>
     )
   }
@@ -29,7 +35,8 @@ class Deck extends Component {
 const mapStateToProps = (state) => {
   // console.log("state", state)
   return { 
-    deck: state.deck
+    deck: state.deck,
+    turn: state.turn
   }  
 }
 

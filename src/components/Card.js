@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import card_back from '../images/back_logo.png'
 import {CSSTransition} from 'react-transition-group'
 
-const timeout = 200
+const timeout = 2000
 
 class Card extends Component {
 
@@ -37,7 +37,7 @@ class Card extends Component {
   render () {
     // console.log(this.props.card)
     return (
-      <CSSTransition in={this.state.inProp} timeout={timeout} classNames="deckHand1">
+      <CSSTransition in={this.state.inProp} timeout={timeout} classNames="deckHand2">
         <div style = {this.props.index? this.cardStyle:this.cardStylee} onClick = {() => this.handleClick(this.props.card)}>
           <img  className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
         </div>
