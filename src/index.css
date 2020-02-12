@@ -300,17 +300,26 @@ code{
   margin-right: auto;
 }
 
-.my-node-enter {
+.deckHand1-enter {
+  z-index: inherit;
   opacity: 0;
+  transform: translate(0px,300px); 
+  transition: transform 200ms;
+  transition-timing-function: linear;
 }
-.my-node-enter-active {
-  /* opacity: 1; */
-  transition: translateY(300px);
+.deckHand1-enter-active {
+  opacity: 1; 
+
 }
-/* .my-node-exit {
-  opacity: 1;
-}
-.my-node-exit-active {
+
+.deckHand2-enter {
+  z-index: inherit;
   opacity: 0;
-  transition: opacity 1000ms;
-} */
+  transform: translate(0px,300px); 
+  transition: transform 200ms;
+  transition-timing-function: linear;
+}
+.deckHand2-enter-active {
+  opacity: 1; 
+
+}
