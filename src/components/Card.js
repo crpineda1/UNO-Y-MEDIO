@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import card_back from '../images/back_logo.png'
 import {Transition} from 'react-transition-group'
+import ReactDOM from 'react-dom';
 
 const timeout = 1000
 
@@ -61,8 +62,8 @@ class Card extends Component {
 
   render () {
     
-    console.log("deckRef",this.deckRef)
-    console.log("pileRef",this.pileRef)
+    console.log("deckRef",this.props.refDeck)
+    console.log("pileRef",this.props.refPile)
 
     let defaultStyle = {}
 
@@ -93,8 +94,8 @@ class Card extends Component {
 const mapStateToProps = (state) => {
 
   return { 
-    deckRef: state.deckRef,
-    pileRef: state.pileRef 
+    refDeck: state.refDeck,
+    refPile: state.refPile 
   }
 }
 

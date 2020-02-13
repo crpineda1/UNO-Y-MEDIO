@@ -181,6 +181,9 @@ let defaultState = {
   hand2: [],
   hand3: [],
   hand4: [],
+
+  refDeck: null,
+  refPile: null,
   
   turn: 1,
   orderClockwise: true, 
@@ -423,12 +426,12 @@ let reducer = (prevState=defaultState, action) => {
       return {...prevState, gameActive: !prevState.gameActive }
     
     case 'SETREF_DECK':
-      // console.log("AI ACTIVE", !prevState.gameActive)
+      console.log("setRefDeck", action.payload)
     
       return {...prevState, refDeck: action.paylod }
     
     case 'SETREF_PILE':
-      // console.log("AI ACTIVE", !prevState.gameActive)
+      console.log("setRefPile", action.payload)
     
       return {...prevState, refPile: action.payload }
     
