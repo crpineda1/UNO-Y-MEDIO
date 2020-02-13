@@ -2,14 +2,21 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import Card from './Card'
 import {setRefPileCreator} from '../actions';
-
+import ReactDOM from 'react-dom';
 
 
 class Pile extends Component {
- 
+
+  componentDidMount(){
+    let ref = ReactDOM.findDOMNode(this)
+    this.props.setRefPile(ref)
+    console.log(this)
+  }
   
   render () {
     
+    console.log(this.ref)
+
     let faceUp = true
 
     return (
@@ -19,7 +26,6 @@ class Pile extends Component {
         card = {this.props.pile[0]} 
         visible = {faceUp} 
         handleClick = {() =>{}}
-        ref = {this.props.setRefPile(this)}
       />
     </div>
     )

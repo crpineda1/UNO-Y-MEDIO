@@ -61,7 +61,7 @@ class Card extends Component {
   }
 
   render () {
-    if(this.props.ref){this.props.ref(this)}
+
 
     console.log("deckRef",this.props.refDeck)
     console.log("pileRef",this.props.refPile)

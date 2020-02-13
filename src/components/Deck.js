@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import {pickCardCreator, setRefDeckCreator} from '../actions';
+import ReactDOM from 'react-dom';
 
 import Card from './Card'
 
@@ -8,14 +9,17 @@ import Card from './Card'
 
 class Deck extends Component {
   
-
-  
-  handleClick = (card) => {
-    this.props.pickCard()
-
+  componentDidMount(){
+    this.props.setRefDeck(ReactDOM.findDOMNode(this))
   }
 
+  handleClick = (card) => {
+    this.props.pickCard()
+    
+  }
+  
   render () {
+   
     
     let faceUp = true // swtich to true to see the top card in the deck
 
@@ -28,7 +32,6 @@ class Deck extends Component {
         card = {this.props.deck[0]} 
         visible = {faceUp} 
         handleClick = {() => this.handleClick(this.props.deck[0])}
-        ref = {this.props.setRefDeck(this)}
       />
     </div>
     )
