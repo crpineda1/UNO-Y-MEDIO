@@ -27,6 +27,7 @@ code{
   width: auto;
   left: 30%;
   top: 80%;
+  overflow: visible;
 }
 
 .hand2{

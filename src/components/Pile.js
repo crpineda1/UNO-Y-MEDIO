@@ -10,7 +10,6 @@ class Pile extends Component {
   
   render () {
     
-    console.log(this.ref)
 
     let faceUp = true
 

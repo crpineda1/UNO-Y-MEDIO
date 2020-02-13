@@ -4,7 +4,7 @@ import card_back from '../images/back_logo.png'
 import {Transition} from 'react-transition-group'
 import ReactDOM from 'react-dom';
 
-const timeout = 1000
+const timeout = 2000
 
 class Card extends Component {
 
@@ -12,21 +12,27 @@ class Card extends Component {
   state = {
     inProp: true
   }
+
   deckPos = {}
   cardPos = {}
   pilePos = {}
   travelFromDeck = {}
   travelToPile = {}
 
+  
   componentDidMount(){
+    // set ref for current card
     if(this.props.setRef){
       // console.log("card this", this)
       this.props.setRef(ReactDOM.findDOMNode(this))
     }
     
-    console.log("enter via CDM",this.props.parent,this.props.index)
-    this.enterCard()
+    
     if(this.props.index || this.props.index === 0){
+      // console.log("enter via CDM",this.props.parent,this.props.index)
+      // this.enterCard()
+      
+
       const deckDOM = document.getElementById('Deck').getBoundingClientRect();
       // console.log(document.getElementById('Deck') )
       const pileDOM = document.getElementById('Pile').getBoundingClientRect();
@@ -59,17 +65,26 @@ class Card extends Component {
      }
 
       
-      console.log("deckDOM",deckDOM)
-      console.log("pileDOM",pileDOM)
-      console.log("cardDOM",cardDOM)
-      console.log("deckPos",this.deckPos)
-      console.log("cardPos",this.cardPos)
-      console.log("pilePos",this.pilePos)
+      // console.log("deckDOM",deckDOM)
+      // console.log("pileDOM",pileDOM)
+      // console.log("cardDOM",cardDOM)
+      // console.log("deckPos",this.deckPos)
+      // console.log("cardPos",this.cardPos)
+      // console.log("pilePos",this.pilePos)
       console.log("travelFromDeck",this.travelFromDeck)
-      console.log("travelToPile",this.travelToPile)
+      // console.log("travelToPile",this.travelToPile)
       
     }
   }
+
+  componentDidUpdate(prevProps,prevState){
+    if(prevState.inProp !== this.state.inProp){
+      console.log(this.props.parent,this.props.index,prevState.inProp,this.state.inProp)
+    }
+    
+      
+  }
+
   
   enterCard = () =>{
     // console.log("enterCard", this.props.parent,this.props.index)
@@ -79,46 +94,64 @@ class Card extends Component {
   } 
   
   exitCard = () =>{
-    // console.log("exitCard",this.props.parent,this.props.index)
+    console.log("exitCard",this.props.parent,this.props.index,this.travelToPile)
+
     this.setState({
       inProp: false // exit
     })
   } 
 
   handleClick = (card) =>{
-    if(this.props.parent !== "Deck"){
-      console.log("enter via Click",this.props.parent,this.props.index)
-      this.enterCard()
+    if(this.props.parent !== "Pile"){
+      // console.log("enter via Click",this.props.parent,this.props.index)
+      // this.enterCard()
       console.log("exit via Click",this.props.parent,this.props.index)
       this.exitCard()
     }
+    setTimeout(() => {
       this.props.handleClick(card)
+    }, timeout);  
   }
 
   defaultStyleHand = {
-    // 'height': '100px',
+    'height': '100px',
     'zIndex': `${parseInt(this.props.index)}`,
     'left': `${(30*parseInt(this.props.index))}px`,
     'position': 'absolute',
   }
 
   defaultStyleNonHand = {
-    // 'height': '100px'
+    'height': '100px'
   }
 
   transitionStyles = {
     entering: { 
-      position: "absolute",
-      left: this.deckPos.x,
-      top: this.deckPos.y,
-     
-      transform: translateX(this.cardPos.x) translateY(this.cardPos.y) rotate(90deg),
-      transition: transform 2000ms,
-      transition-timing-function: linear,
 
+      // position: "absolute",
+      // left: this.deckPos.x,
+      // top: this.deckPos.y,
+     
+      // transform: `translate(${-1*this.travelFromDeck.x}px, ${-1*this.travelFromDeck.y}px) rotate(00deg)`,
+      // transition: `transform ${timeout}ms`,
+      // "transitionTimingFunction": "linear",
+
+      
     },
-    entered:  { opacity: 1 },
-    exiting:  { opacity: 0 },
+    entered:  { 
+      opacity: 1
+      // transform: `translate(${this.travelFromDeck.x}, ${this.travelFromDeck.y}) rotate(00deg)`,
+      // transition: `transform ${timeout}ms`,
+      // "transition-timing-function": "linear",
+    },
+    exiting:  { 
+
+      // position: 'absolute',
+      // transform: `translate(${-1*this.travelFromDeck.x}px, ${-1*this.travelFromDeck.y}px) rotate(00deg)`,
+      // transform: `translate(${this.travelToPile.x}px, ${this.travelToPile.y}px)`,
+      transform: `translate(100px, -100}px)`,
+      transition: `transform 2000ms`,
+      transitionTimingFunction: "linear",
+    },
     exited:  { opacity: 1},
   }
 
@@ -141,9 +174,13 @@ class Card extends Component {
       <Transition in={this.state.inProp} timeout={timeout} /*classNames="deckHand1"*/>
         {state => (
           <div 
-            style = {{...defaultStyle, ...this.transitionStyles[state]}} 
-            onClick = {() => this.handleClick(this.props.card)}>
-            <img id = {this.props.parent} className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
+          onClick = {() => this.handleClick(this.props.card)}>
+            <img
+          style = {{...defaultStyle, ...this.transitionStyles[state]}} 
+              id = {this.props.parent} 
+              // className = "cardImg"  
+              src={this.props.visible? this.props.card.img:card_back} alt='card_image'
+            />
           </div>
         )}
       </Transition>
