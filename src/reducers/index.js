@@ -428,7 +428,7 @@ let reducer = (prevState=defaultState, action) => {
     case 'SETREF_DECK':
       console.log("setRefDeck", action.payload)
     
-      return {...prevState, refDeck: action.paylod }
+      return {...prevState, refDeck: action.payload}
     
     case 'SETREF_PILE':
       console.log("setRefPile", action.payload)

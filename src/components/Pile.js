@@ -9,7 +9,7 @@ class Pile extends Component {
  
   
   render () {
-    this.props.setRefPile(this)
+    
     let faceUp = true
 
     return (
@@ -18,7 +18,9 @@ class Pile extends Component {
         parent = "Pile"
         card = {this.props.pile[0]} 
         visible = {faceUp} 
-        handleClick = {() =>{}}/>
+        handleClick = {() =>{}}
+        ref = {this.props.setRefPile(this)}
+      />
     </div>
     )
   }

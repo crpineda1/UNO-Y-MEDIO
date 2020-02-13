@@ -61,9 +61,15 @@ class Card extends Component {
   }
 
   render () {
-    
+    if(this.props.ref){this.props.ref(this)}
+
     console.log("deckRef",this.props.refDeck)
     console.log("pileRef",this.props.refPile)
+
+    const deckDOM = ReactDOM.findDOMNode(this.props.refDeck);
+    const pileDOM = ReactDOM.findDOMNode(this.props.refPile);
+    console.log("deckDOM",deckDOM)
+    console.log("pileDOM",pileDOM)
 
     let defaultStyle = {}
 

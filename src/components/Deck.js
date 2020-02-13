@@ -16,7 +16,7 @@ class Deck extends Component {
   }
 
   render () {
-    this.props.setRefDeck(this)
+    
     let faceUp = true // swtich to true to see the top card in the deck
 
 
@@ -27,7 +27,9 @@ class Deck extends Component {
         class = {`Hand1`}
         card = {this.props.deck[0]} 
         visible = {faceUp} 
-        handleClick = {() => this.handleClick(this.props.deck[0])}/>
+        handleClick = {() => this.handleClick(this.props.deck[0])}
+        ref = {this.props.setRefDeck(this)}
+      />
     </div>
     )
   }
