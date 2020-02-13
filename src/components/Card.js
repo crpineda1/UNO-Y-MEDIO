@@ -1,48 +1,89 @@
 import React, {Component} from 'react'
 import card_back from '../images/back_logo.png'
-import {CSSTransition} from 'react-transition-group'
+import {Transition} from 'react-transition-group'
 
-const timeout = 100
+const timeout = 1000
 
 class Card extends Component {
 
 
   state = {
-    inProp: false
+    inProp: true
   }
 
-  cardStyle = {
+  componentDidMount(){
+   console.log("enter via CDM",this.props.parent,this.props.index)
+    this.enterCard()
+  }
+  
+  enterCard = () =>{
+    // console.log("enterCard", this.props.parent,this.props.index)
+    this.setState({
+      inProp: true // enter
+    })
+  } 
+  
+  exitCard = () =>{
+    // console.log("exitCard",this.props.parent,this.props.index)
+    this.setState({
+      inProp: false // exit
+    })
+  } 
+
+  handleClick = (card) =>{
+    if(this.props.parent !== "Deck"){
+      console.log("enter via Click",this.props.parent,this.props.index)
+      this.enterCard()
+      console.log("exit via Click",this.props.parent,this.props.index)
+      this.exitCard()
+    }
+      this.props.handleClick(card)
+  }
+
+  defaultStyleHand = {
     'height': '100px',
     'zIndex': `${parseInt(this.props.index)}`,
     'left': `${(30*parseInt(this.props.index))}px`,
     'position': 'absolute',
   }
 
-  cardStylee = {
+  defaultStyleNonHand = {
     'height': '100px'
-
   }
 
-  handleClick = (card) =>{
-    this.setState({
-      inProp: true // enter
-    })
-    setTimeout(() => {
-      this.props.handleClick(card)
-      this.setState({
-        inProp: false // exit
-      })
-    }, timeout);
+  transitionStyles = {
+    entering: { opacity: 0 },
+    entered:  { opacity: 1 },
+    exiting:  { opacity: 0 },
+    exited:  { opacity: 1},
   }
 
   render () {
+    
+
+
+    let defaultStyle = {}
+
+    if(this.props.index){
+      defaultStyle = this.defaultStyleHand
+    } else {
+      defaultStyle = this.defaultStyleNonHand
+    }
+    
+    
+
+
     // console.log(this.props.card)
     return (
-      <CSSTransition in={this.state.inProp} timeout={timeout} classNames="deckHand1">
-        <div style = {this.props.index? this.cardStyle:this.cardStylee} onClick = {() => this.handleClick(this.props.card)}>
-          <img  className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
-        </div>
-      </CSSTransition>
+      <Transition in={this.state.inProp} timeout={timeout} /*classNames="deckHand1"*/>
+        {state => (
+          <div 
+            style = {{...defaultStyle, ...this.transitionStyles[state]}} 
+            onClick = {() => this.handleClick(this.props.card)}>
+            <img  className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
+          </div>
+        )}
+      </Transition>
     )
   }
 }

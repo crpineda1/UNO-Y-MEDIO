@@ -13,7 +13,11 @@ class Pile extends Component {
 
     return (
       <div className = "pile"> Pile 
-      <Card card = {this.props.pile[0]} visible = {faceUp} handleClick = {() =>{}}/>
+      <Card 
+        parent = "Pile"
+        card = {this.props.pile[0]} 
+        visible = {faceUp} 
+        handleClick = {() =>{}}/>
     </div>
     )
   }

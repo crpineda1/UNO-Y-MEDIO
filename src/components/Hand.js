@@ -40,7 +40,13 @@ class Hand extends Component {
     return playerHand.map((eachCard, i) => {
       return ( 
 
-        <Card index={i} card = {eachCard} visible = {faceUp} handleClick = {cardClick}/>
+        <Card 
+          parent = {`Hand${this.props.player}`}
+          index={i} 
+          card = {eachCard} 
+          visible = {faceUp} 
+          handleClick = {cardClick}
+        />
 
       )
     })
