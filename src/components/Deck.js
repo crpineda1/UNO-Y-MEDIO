@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import {pickCardCreator, setRefDeckCreator} from '../actions';
-import ReactDOM from 'react-dom';
+import {pickCardCreator} from '../actions';
 
 import Card from './Card'
 
@@ -18,12 +17,13 @@ class Deck extends Component {
   render () {
    
     
-    let faceUp = true // swtich to true to see the top card in the deck
+    let faceUp = false // swtich to true to see the top card in the deck
 
 
     return (
       <div className = "deck"> Deck 
       <Card 
+        reff = "Deck_0"
         parent = "Deck"
         // class = {`Hand1`}
         card = {this.props.deck[0]} 
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => {
   // console.log(dispatch)
   return {
     pickCard: () => dispatch(pickCardCreator()),
-    setRefDeck: (ref) => dispatch(setRefDeckCreator(ref))
+
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Deck)

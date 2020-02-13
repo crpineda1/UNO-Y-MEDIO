@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import {playCardCreator, pickCardCreator} from '../actions';
+import {playCardCreator, pickCardCreator, changeColorCreator} from '../actions';
 
 
 
@@ -11,7 +11,7 @@ class AI extends Component {
     let playerHand
     let playCard = null
     let colors =["red","blue","yellow","green"]
-    let delay = 1500 // milliseconds *** reset to 1500 ***
+    let delay = 2000 // milliseconds *** reset to 1500 ***
 
   
     playerHand = this.props[`hand${this.props.player}`]
@@ -51,7 +51,8 @@ class AI extends Component {
 
       if (playCard){
         if (playCard === "pick from pile"){
-          this.props.pickCard()
+          document.getElementById("Deck_0").click() // simulated click event (for animation)
+          // this.props.pickCard()
           console.log("player",this.props.player,"draw card")
         } else {
           
@@ -60,15 +61,34 @@ class AI extends Component {
             alert(`${this.props[`name${this.props.player}`]} calls UNO Y MEDIO`)
             this.props.unoCall()
           } 
+          console.dir(playCard)
           
-          this.props.playCard(playCard)  // disable for testing
-          console.log("AI",this.props.player,"play card:",playCard.color,playCard.value)
           
-          // CHOOSE RANDOM COLOR AFTER BLACK CARD WAS PLAYED
+          console.log("AI",this.props.player,"play card:",playCard.color,playCard.value,playCard.reff)
+          
+          // check for black card *** no animation if play black card due to multiple steps
+
           if (playCard.color === "black"){
+            // play black card w/o animation (need further debugging)
+            this.props.playCard(playCard)  // disable for testing
+            
+            // CHOOSE RANDOM COLOR AFTER BLACK CARD WAS PLAYED
             let randColor = colors[Math.floor(Math.random() * colors.length)]
-            playCard.value === "WC"? this.props.wildCard(randColor):this.props.plus4(randColor)
+            
+            if(playCard.value === "WC"){
+              this.props.wildCard(randColor)
+              // document.getElementById(`WC_${randColor}`).click()
+              
+            } else {
+              this.props.plus4(randColor)
+              // document.getElementById(`44_${randColor}`).click()
+              
+            }
+          } else {
+            // play non black cards with animation
+            document.getElementById(`${this.props.player}_${playCard.code}`).click()
           }
+
           
           playCard = null
         }
@@ -122,7 +142,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     playCard: (card) => dispatch(playCardCreator(card)),
-    pickCard: () => dispatch(pickCardCreator())
+    pickCard: () => dispatch(pickCardCreator()),
+    changeColor: (color) => dispatch(changeColorCreator(color)),
 
   }
 }

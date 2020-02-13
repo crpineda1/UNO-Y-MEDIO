@@ -182,9 +182,7 @@ let defaultState = {
   hand3: [],
   hand4: [],
 
-  refDeck: null,
-  refPile: null,
-  
+
   turn: 1,
   orderClockwise: true, 
   currentColor: '',
@@ -424,17 +422,7 @@ let reducer = (prevState=defaultState, action) => {
       // console.log("AI ACTIVE", !prevState.gameActive)
     
       return {...prevState, gameActive: !prevState.gameActive }
-    
-    case 'SETREF_DECK':
-      console.log("setRefDeck", action.payload)
-    
-      return {...prevState, refDeck: action.payload}
-    
-    case 'SETREF_PILE':
-      console.log("setRefPile", action.payload)
-    
-      return {...prevState, refPile: action.payload }
-    
+        
     case 'LOAD_LEADERBOARD':
       console.log("LOAD LEADERBOARD")
       // console.log("API response", action.payload.status)

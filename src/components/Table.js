@@ -12,8 +12,8 @@ import AI from './AI';
 
 
 class Table extends Component {
-  HumanPlayers = [1,2,3,4] //reset to [1]
-  AiPlayers = [] // reset to [2,3,4]
+  HumanPlayers = [] //reset to [1]
+  AiPlayers = [1,2,3,4] // reset to [2,3,4]
 
 
   shuffleDeck = (deck) => {
@@ -22,14 +22,15 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    let delay = 50   // reset to 150 for game play
+    let delay = 220   // reset to 150 for game play
     let cards = 28    // reset to 28 for game play
     
     if (!this.props.gameActive){
 
      for (let i = 0; i < cards; i++) { 
        setTimeout(() => {
-         this.props.pickCard()
+        //  this.props.pickCard()
+        document.getElementById("Deck_0").click()
          this.props.nextTurn()
          // console.log("deal counter", i)        
        }, i * delay);  
@@ -143,27 +144,7 @@ class Table extends Component {
     
   }
   
-  displayColorButtons = (turn) => {
-    if(this.HumanPlayers.includes(turn)){
-      if (this.props.value === "WC" && this.props.color === "black") {
-        // console.log('WC buttons')
-        return <div>
-        <button onClick= {() => this.wildCard("red")}>Switch Red WC</button>
-        <button onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
-        <button onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
-        <button onClick= {() => this.wildCard("green")}>Switch Green WC</button>
-        </div>  
-      } else if (this.props.value === "44" && this.props.color === "black") {
-        // console.log('+4 buttons')
-        return <div>
-        <button onClick= {() => this.plus4("red")}>Switch Red +4</button>
-        <button onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
-        <button onClick= {() => this.plus4("blue")}>Switch Blue +4</button>
-        <button onClick= {() => this.plus4("green")}>Switch Green +4</button>
-        </div>  
-      }
-    }    
-  }
+  
   
   AiMove = (turn) => {
     return <AI player = {turn} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
@@ -178,6 +159,28 @@ class Table extends Component {
     if (this.props.deck.length === 0){
       this.props.createDeck(newDeck) 
     }
+
+    let colorButtons 
+      if(this.HumanPlayers.includes(this.props.turn)){
+        if (this.props.value === "WC" && this.props.color === "black") {
+          // console.log('WC buttons')
+          colorButtons =  <div>
+          <button id = "WC_red" onClick= {() => this.wildCard("red")}>Switch Red WC</button>
+          <button id = "WC_yellow" onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
+          <button id = "WC_blue" onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
+          <button id = "WC_green" onClick= {() => this.wildCard("green")}>Switch Green WC</button>
+          </div>  
+        } else if (this.props.value === "44" && this.props.color === "black") {
+          // console.log('+4 buttons')
+          colorButtons= <div>
+          <button id = "44_red" onClick= {() => this.plus4("red")}>Switch Red +4</button>
+          <button id = "44_yellow" onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
+          <button id = "44_blue" onClick= {() => this.plus4("blue")}>Switch Blue +4</button>
+          <button id = "44_green" onClick= {() => this.plus4("green")}>Switch Green +4</button>
+          </div>  
+        }
+      }    
+    
 
     let AiPlayer 
     if (this.AiPlayers.includes(this.props.turn) && this.props.gameActive){
@@ -196,7 +199,7 @@ class Table extends Component {
         <button onClick = {this.dealCards}>NEW GAME</button>
         <button onClick = {this.props.unoCall}>UNO CALL</button>
         <button onClick = {this.pass}>PASS</button>
-        {this.displayColorButtons(this.props.turn)}
+        {colorButtons}
         {this.gameAction()}
 
         

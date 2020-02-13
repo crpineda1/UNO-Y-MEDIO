@@ -4,7 +4,7 @@ import card_back from '../images/back_logo.png'
 import {Transition} from 'react-transition-group'
 import ReactDOM from 'react-dom';
 
-const timeout = 200
+const timeout = 150
 
 class Card extends Component {
 
@@ -24,11 +24,7 @@ class Card extends Component {
 
   
   componentDidMount(){
-    // set ref for current card
-    if(this.props.setRef){
-      // console.log("card this", this)
-      this.props.setRef(ReactDOM.findDOMNode(this))
-    }
+
     
     if(this.props.parent === "Deck"){
       const handDOM = document.getElementById(`${this.props.turn}`).getBoundingClientRect();
@@ -74,70 +70,42 @@ class Card extends Component {
     //    x: deckDOM.x,
     //    y: deckDOM.y
     //  }
-     
+    this.cardPos = {
+      x: cardDOM.left,
+      y: cardDOM.top
+    }
+    this.pilePos = {
+      x: pileDOM.left,
+      y: pileDOM.top
+    }
+
     switch (this.props.turn) {
       case 1:
-        this.cardPos = {
-          x: cardDOM.left,
-          y: cardDOM.top
-        }
-        this.pilePos = {
-          x: pileDOM.left,
-          y: pileDOM.top
-        }
         this.travelToPile = {
           x: this.pilePos.x - this.cardPos.x,
           y: this.pilePos.y - this.cardPos.y,
         }
-   
         break;
     
       case 2:
-        this.cardPos = {
-          x: cardDOM.left,
-          y: cardDOM.top 
-        }
-        this.pilePos = {
-          x: pileDOM.left,
-          y: pileDOM.top
-        }
         this.travelToPile = {
           x: this.pilePos.y - this.cardPos.y,
           y: -this.pilePos.x + this.cardPos.x,
         }
-   
         break;
     
       case 3:
-        this.cardPos = {
-          x: cardDOM.left,
-          y: cardDOM.top
-        }
-        this.pilePos = {
-          x: pileDOM.left,
-          y: pileDOM.top
-        }
         this.travelToPile = {
           x: -this.pilePos.x + this.cardPos.x,
           y: -this.pilePos.y + this.cardPos.y,
         }
-   
         break;
     
       case 4:
-        this.cardPos = {
-          x: cardDOM.left,
-          y: cardDOM.top
-        }
-        this.pilePos = {
-          x: pileDOM.left,
-          y: pileDOM.top
-        }
         this.travelToPile = {
           x: -this.pilePos.y + this.cardPos.y,
           y: this.pilePos.x - this.cardPos.x,
         }
-   
         break;
     
       default:
@@ -160,10 +128,10 @@ class Card extends Component {
       // console.log("pileDOM",pileDOM)
       // console.log("cardDOM",cardDOM)
       // console.log("deckPos",this.deckPos)
-      console.log("cardPos",this.cardPos)
-      console.log("pilePos",this.pilePos)
+      // console.log("cardPos",this.cardPos)
+      // console.log("pilePos",this.pilePos)
       // console.log("travelFromDeck",this.travelFromDeck)
-      console.log("travelToPile",this.travelToPile)
+      // console.log("travelToPile",this.travelToPile)
       
     }
   }
@@ -273,11 +241,11 @@ class Card extends Component {
     if(this.props.parent !== "Pile"){
       // console.log("enter via Click",this.props.parent,this.props.index)
       // this.enterCard()
-      console.log("exit via Click",this.props.parent,this.props.index)
+      // console.log("exit via Click",this.props.parent,this.props.index)
       this.exitCard()
     }
     setTimeout(() => {
-      this.enterCard()
+      if(this.props.parent === "Deck"){this.enterCard()} // to reset effect for next card in deck
       this.props.handleClick(card)
     }, timeout);  
   }
@@ -386,9 +354,10 @@ class Card extends Component {
     return (
       <Transition in={this.state.inProp} timeout={timeout} /*classNames="deckHand1"*/>
         {state => (
-          <div 
+          <div
+            id = {this.props.reff}
             style = {{...defaultStyle, ...transitionStyles[state]}} 
-          onClick = {() => this.handleClick(this.props.card)}>
+            onClick = {() => this.handleClick(this.props.card)}>
             <img
               id = {this.props.parent} 
               className = "cardImg"  
@@ -404,8 +373,6 @@ class Card extends Component {
 const mapStateToProps = (state) => {
 
   return { 
-    refDeck: state.refDeck,
-    refPile: state.refPile,
     turn: state.turn,
     hand1: state.hand1,
     hand2: state.hand2,

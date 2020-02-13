@@ -11,8 +11,6 @@ const LOGIN_USER = "LOGIN_USER";
 const TOGGLE_GAME = "TOGGLE_GAME"; 
 const LOAD_LEADERBOARD = "LOAD_LEADERBOARD"; 
 const CLEAR_GAME = "CLEAR_GAME"; 
-const SETREF_DECK = "SETREF_DECK"; 
-const SETREF_PILE = "SETREF_PILE"; 
 
 
 const createDeckCreator = (cards) => ({type: CREATE_DECK, payload: cards})
@@ -26,8 +24,7 @@ const unoCallCreator = () => ({type:UNO_CALL})
 const loginUserCreator = (info) => ({type:LOGIN_USER, payload: info})
 const toggleGameCreator = (info) => ({type:TOGGLE_GAME, payload: info})
 const clearGameCreator = () => ({type:CLEAR_GAME})
-const setRefDeckCreator = (ref) => ({type:SETREF_DECK, payload: ref})
-const setRefPileCreator = (ref) => ({type:SETREF_PILE, payload: ref})
+
 
 const loadLeaderboardCreator = () => {
   
@@ -82,9 +79,7 @@ export {
   loadLeaderboardCreator,
   saveGameCreator,
   clearGameCreator,
-  setRefDeckCreator,
-  setRefPileCreator
-    
+
 }
 
 

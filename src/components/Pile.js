@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import Card from './Card'
-import {setRefPileCreator} from '../actions';
-import ReactDOM from 'react-dom';
+
 
 
 class Pile extends Component {
@@ -16,6 +15,7 @@ class Pile extends Component {
     return (
       <div className = "pile"> Pile 
       <Card 
+        reff = "Pile_0"
         parent = "Pile"
         card = {this.props.pile[0]} 
         visible = {faceUp} 
@@ -33,11 +33,6 @@ const mapStateToProps = (state) => {
     pile: state.pile 
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  // console.log(dispatch)
-  return {
-    setRefPile: (ref) => dispatch(setRefPileCreator(ref))
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pile)
+
+export default connect(mapStateToProps)(Pile)

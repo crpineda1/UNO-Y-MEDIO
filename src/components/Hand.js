@@ -41,6 +41,7 @@ class Hand extends Component {
       return ( 
 
         <Card 
+          reff = {`${this.props.player}_${eachCard.code}`}
           parent = {`Hand${this.props.player}`}
           index={i} 
           card = {eachCard} 
