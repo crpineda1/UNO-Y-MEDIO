@@ -25,7 +25,7 @@ class Deck extends Component {
       <div className = "deck"> Deck 
       <Card 
         parent = "Deck"
-        class = {`Hand1`}
+        // class = {`Hand1`}
         card = {this.props.deck[0]} 
         visible = {faceUp} 
         handleClick = {() => this.handleClick(this.props.deck[0])}

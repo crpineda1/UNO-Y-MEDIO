@@ -4,7 +4,7 @@ import card_back from '../images/back_logo.png'
 import {Transition} from 'react-transition-group'
 import ReactDOM from 'react-dom';
 
-const timeout = 2000
+const timeout = 200
 
 class Card extends Component {
 
@@ -19,6 +19,9 @@ class Card extends Component {
   travelFromDeck = {}
   travelToPile = {}
 
+  handPos = {}
+
+
   
   componentDidMount(){
     // set ref for current card
@@ -27,61 +30,226 @@ class Card extends Component {
       this.props.setRef(ReactDOM.findDOMNode(this))
     }
     
+    if(this.props.parent === "Deck"){
+      const handDOM = document.getElementById(`${this.props.turn}`).getBoundingClientRect();
+      console.log("current hand", document.getElementById(`${this.props.turn}`))
+      const deckDOM = document.getElementById('Deck').getBoundingClientRect();
+      console.log(document.getElementById('Deck') )
+      
+      
+      this.deckPos = {
+        x: deckDOM.x,
+        y: deckDOM.y
+      }
+      this.handPos = {
+        x: handDOM.right,
+        y: handDOM.top
+      }
+
+      
+      // console.log("deckPos",this.deckPos)
+      // console.log("handPos",this.handPos)
+
+      this.travelFromDeck = {
+        x: this.handPos.x - this.deckPos.x + (this.props.hand1.length+1)*30,
+        y: this.handPos.y - this.deckPos.y,
+      }
+
+      console.log("travelFromDeck",this.travelFromDeck)
+      
+    }    
     
     if(this.props.index || this.props.index === 0){
       // console.log("enter via CDM",this.props.parent,this.props.index)
       // this.enterCard()
       
 
-      const deckDOM = document.getElementById('Deck').getBoundingClientRect();
+      let deckDOM = document.getElementById('Deck').getBoundingClientRect();
       // console.log(document.getElementById('Deck') )
-      const pileDOM = document.getElementById('Pile').getBoundingClientRect();
+      let pileDOM = document.getElementById('Pile').getBoundingClientRect();
       // console.log(document.getElementById('Pile') )
-      const cardDOM = ReactDOM.findDOMNode(this).getBoundingClientRect();
+      let cardDOM = ReactDOM.findDOMNode(this).getBoundingClientRect();
       
-     this.deckPos = {
-       x: deckDOM.x,
-       y: deckDOM.y
-     }
+    //  this.deckPos = {
+    //    x: deckDOM.x,
+    //    y: deckDOM.y
+    //  }
      
-     this.cardPos = {
-       x: cardDOM.x,
-       y: cardDOM.y
-     }
+    switch (this.props.turn) {
+      case 1:
+        this.cardPos = {
+          x: cardDOM.left,
+          y: cardDOM.top
+        }
+        this.pilePos = {
+          x: pileDOM.left,
+          y: pileDOM.top
+        }
+        this.travelToPile = {
+          x: this.pilePos.x - this.cardPos.x,
+          y: this.pilePos.y - this.cardPos.y,
+        }
+   
+        break;
     
-     this.pilePos = {
-       x: pileDOM.x,
-       y: pileDOM.y
-     }
+      case 2:
+        this.cardPos = {
+          x: cardDOM.left,
+          y: cardDOM.top 
+        }
+        this.pilePos = {
+          x: pileDOM.left,
+          y: pileDOM.top
+        }
+        this.travelToPile = {
+          x: this.pilePos.y - this.cardPos.y,
+          y: -this.pilePos.x + this.cardPos.x,
+        }
+   
+        break;
+    
+      case 3:
+        this.cardPos = {
+          x: cardDOM.left,
+          y: cardDOM.top
+        }
+        this.pilePos = {
+          x: pileDOM.left,
+          y: pileDOM.top
+        }
+        this.travelToPile = {
+          x: -this.pilePos.x + this.cardPos.x,
+          y: -this.pilePos.y + this.cardPos.y,
+        }
+   
+        break;
+    
+      case 4:
+        this.cardPos = {
+          x: cardDOM.left,
+          y: cardDOM.top
+        }
+        this.pilePos = {
+          x: pileDOM.left,
+          y: pileDOM.top
+        }
+        this.travelToPile = {
+          x: -this.pilePos.y + this.cardPos.y,
+          y: this.pilePos.x - this.cardPos.x,
+        }
+   
+        break;
+    
+      default:
+        break;
+    }
 
-     this.travelFromDeck = {
-       x: this.cardPos.x - this.deckPos.x,
-       y: this.cardPos.y - this.deckPos.y,
-     }
 
-     this.travelToPile = {
-       x: this.pilePos.x - this.cardPos.x,
-       y: this.pilePos.y - this.cardPos.y,
-     }
+    //  this.travelFromDeck = {
+    //    x: this.cardPos.x - this.deckPos.x,
+    //    y: this.cardPos.y - this.deckPos.y,
+    //  }
+
+    //  this.travelToPile = {
+    //    x: this.pilePos.x - this.cardPos.x,
+    //    y: this.pilePos.y - this.cardPos.y,
+    //  }
 
       
       // console.log("deckDOM",deckDOM)
       // console.log("pileDOM",pileDOM)
       // console.log("cardDOM",cardDOM)
       // console.log("deckPos",this.deckPos)
-      // console.log("cardPos",this.cardPos)
-      // console.log("pilePos",this.pilePos)
-      console.log("travelFromDeck",this.travelFromDeck)
-      // console.log("travelToPile",this.travelToPile)
+      console.log("cardPos",this.cardPos)
+      console.log("pilePos",this.pilePos)
+      // console.log("travelFromDeck",this.travelFromDeck)
+      console.log("travelToPile",this.travelToPile)
       
     }
   }
-
+  
   componentDidUpdate(prevProps,prevState){
     if(prevState.inProp !== this.state.inProp){
-      console.log(this.props.parent,this.props.index,prevState.inProp,this.state.inProp)
+      // console.log(this.props.parent,this.props.index,prevState.inProp,this.state.inProp)
     }
     
+    if(this.props.parent === "Deck" && prevProps.turn !== this.props.turn){
+      const handDOM = document.getElementById(`${this.props.turn}`).getBoundingClientRect()
+      // console.log("hand",document.getElementById(`${this.props.turn}`).getBoundingClientRect())
+      // console.log("hand",document.getElementById(`${this.props.turn}`))
+
+      const deckDOM = document.getElementById('Deck').getBoundingClientRect()
+      // console.log("deck",document.getElementById('Deck').getBoundingClientRect())
+      // console.log(document.getElementById('Deck') )
+       
+      
+      this.deckPos = {
+        x: deckDOM.top,
+        y: deckDOM.left
+      }
+
+      switch (this.props.turn) {
+        case 1:
+          this.deckPos = {
+            x: deckDOM.left,
+            y: deckDOM.top
+          }
+          this.handPos = {
+            x: handDOM.left + 30*(parseInt(this.props.hand1.length)+1),
+            y: handDOM.top
+          }
+          break;
+      
+        case 2:
+          this.deckPos = {
+            x: deckDOM.right,
+            y: deckDOM.top
+          }
+          this.handPos = {
+            x: handDOM.right,
+            y: handDOM.top + 30*(parseInt(this.props.hand2.length)+1)
+          }
+          break;
+      
+        case 3:
+          this.deckPos = {
+            x: deckDOM.right,
+            y: deckDOM.bottom
+          }
+          this.handPos = {
+            x: handDOM.right - 30*(parseInt(this.props.hand3.length)+1),
+            y: handDOM.bottom
+          }
+          break;
+      
+        case 4:
+          this.deckPos = {
+            x: deckDOM.left,
+            y: deckDOM.bottom + 30*(parseInt(this.props.hand3.length)+1),
+          }
+          this.handPos = {
+            x: handDOM.left,
+            y: handDOM.bottom
+          }
+          break;
+      
+        default:
+          break;
+      }
+      // console.log("deckPos",this.deckPos)
+      // console.log("handPos",this.handPos)
+      // console.log("hand1 length", (this.props.hand1.length))
+
+      this.travelFromDeck = {
+        x: this.handPos.x - this.deckPos.x,
+        y: this.handPos.y - this.deckPos.y 
+      }
+
+      // console.log("travelFromDeck",this.travelFromDeck)
+
+
+
+    }
       
   }
 
@@ -109,6 +277,7 @@ class Card extends Component {
       this.exitCard()
     }
     setTimeout(() => {
+      this.enterCard()
       this.props.handleClick(card)
     }, timeout);  
   }
@@ -123,39 +292,83 @@ class Card extends Component {
   defaultStyleNonHand = {
     'height': '100px'
   }
-
-  transitionStyles = {
-    entering: { 
-
-      // position: "absolute",
-      // left: this.deckPos.x,
-      // top: this.deckPos.y,
-     
-      // transform: `translate(${-1*this.travelFromDeck.x}px, ${-1*this.travelFromDeck.y}px) rotate(00deg)`,
-      // transition: `transform ${timeout}ms`,
-      // "transitionTimingFunction": "linear",
-
-      
-    },
-    entered:  { 
-      opacity: 1
-      // transform: `translate(${this.travelFromDeck.x}, ${this.travelFromDeck.y}) rotate(00deg)`,
-      // transition: `transform ${timeout}ms`,
-      // "transition-timing-function": "linear",
-    },
-    exiting:  { 
-
-      // position: 'absolute',
-      // transform: `translate(${-1*this.travelFromDeck.x}px, ${-1*this.travelFromDeck.y}px) rotate(00deg)`,
-      // transform: `translate(${this.travelToPile.x}px, ${this.travelToPile.y}px)`,
-      transform: `translate(100px, -100}px)`,
-      transition: `transform 2000ms`,
-      transitionTimingFunction: "linear",
-    },
-    exited:  { opacity: 1},
-  }
-
+  
   render () {
+   let rotation = 0
+
+    if (this.props.parent === "Deck"){
+      rotation = (this.props.turn-1)*90
+    } else {
+      rotation = (this.props.turn-1)*-90
+    }
+
+    
+    // console.log("travelToPile",this.travelToPile)
+
+
+    let transitionStyles = {}
+
+    if (this.props.parent === "Deck"){
+      transitionStyles = {
+        entering: { 
+          opacity: 1,
+          // position: "absolute",
+          // left: this.deckPos.x,
+          // top: this.deckPos.y,
+        
+          // transform: `translate(${-1*this.travelFromDeck.x}px, ${-1*this.travelFromDeck.y}px) rotate(${0}deg)`,
+          // transition: `transform ${timeout}ms`,
+          // "transitionTimingFunction": "linear",
+
+          
+        },
+        entered:  { 
+          opacity: 1
+          // transform: `translate(${this.travelFromDeck.x}, ${this.travelFromDeck.y}) rotate(00deg)`,
+          // transition: `transform ${timeout}ms`,
+          // "transition-timing-function": "linear",
+        },
+        exiting:  { 
+
+          opacity: 1,
+          transform: ` translate(${this.travelFromDeck.x}px, ${this.travelFromDeck.y}px) rotate(${rotation}deg)`,
+          // transform: `translate(${218}px, ${-351}px)`,
+          transition: `transform ${timeout}ms`,
+          transitionTimingFunction: "linear",
+        },
+        exited:  { opacity: 1},
+      }
+ 
+    } else {
+      transitionStyles = {  
+        entering: { 
+          opacity: 1,
+          // position: "absolute",
+          // left: this.deckPos.x,
+          // top: this.deckPos.y,
+        
+          // transform: `translate(${-1*this.travelFromDeck.x}px, ${-1*this.travelFromDeck.y}px) rotate(${0}deg)`,
+          // transition: `transform ${timeout}ms`,
+          // "transitionTimingFunction": "linear",
+
+          
+        },
+        entered:  { 
+          opacity: 1
+          // transform: `translate(${this.travelFromDeck.x}, ${this.travelFromDeck.y}) rotate(00deg)`,
+          // transition: `transform ${timeout}ms`,
+          // "transition-timing-function": "linear",
+        },
+        exiting:  { 
+        opacity: 1,
+          transform: `translate(${this.travelToPile.x}px, ${this.travelToPile.y}px) rotate(${rotation}deg) `,
+          transition: `transform ${timeout}ms`,
+          transitionTimingFunction: "linear",
+        },
+        exited:  { opacity: 1},
+      }
+    }
+
     
 
     let defaultStyle = {}
@@ -174,11 +387,11 @@ class Card extends Component {
       <Transition in={this.state.inProp} timeout={timeout} /*classNames="deckHand1"*/>
         {state => (
           <div 
+            style = {{...defaultStyle, ...transitionStyles[state]}} 
           onClick = {() => this.handleClick(this.props.card)}>
             <img
-          style = {{...defaultStyle, ...this.transitionStyles[state]}} 
               id = {this.props.parent} 
-              // className = "cardImg"  
+              className = "cardImg"  
               src={this.props.visible? this.props.card.img:card_back} alt='card_image'
             />
           </div>
@@ -192,7 +405,12 @@ const mapStateToProps = (state) => {
 
   return { 
     refDeck: state.refDeck,
-    refPile: state.refPile 
+    refPile: state.refPile,
+    turn: state.turn,
+    hand1: state.hand1,
+    hand2: state.hand2,
+    hand3: state.hand3,
+    hand4: state.hand4,
   }
 }
 

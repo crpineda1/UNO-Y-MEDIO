@@ -22,7 +22,7 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    let delay = 150   // reset to 150 for game play
+    let delay = 50   // reset to 150 for game play
     let cards = 28    // reset to 28 for game play
     
     if (!this.props.gameActive){
