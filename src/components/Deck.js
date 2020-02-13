@@ -9,9 +9,6 @@ import Card from './Card'
 
 class Deck extends Component {
   
-  componentDidMount(){
-    this.props.setRefDeck(ReactDOM.findDOMNode(this))
-  }
 
   handleClick = (card) => {
     this.props.pickCard()
@@ -32,6 +29,7 @@ class Deck extends Component {
         card = {this.props.deck[0]} 
         visible = {faceUp} 
         handleClick = {() => this.handleClick(this.props.deck[0])}
+
       />
     </div>
     )

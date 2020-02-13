@@ -7,11 +7,6 @@ import ReactDOM from 'react-dom';
 
 class Pile extends Component {
 
-  componentDidMount(){
-    let ref = ReactDOM.findDOMNode(this)
-    this.props.setRefPile(ref)
-    console.log(this)
-  }
   
   render () {
     
@@ -26,6 +21,7 @@ class Pile extends Component {
         card = {this.props.pile[0]} 
         visible = {faceUp} 
         handleClick = {() =>{}}
+
       />
     </div>
     )

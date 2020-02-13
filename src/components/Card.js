@@ -12,10 +12,63 @@ class Card extends Component {
   state = {
     inProp: true
   }
+  deckPos = {}
+  cardPos = {}
+  pilePos = {}
+  travelFromDeck = {}
+  travelToPile = {}
 
   componentDidMount(){
-   console.log("enter via CDM",this.props.parent,this.props.index)
+    if(this.props.setRef){
+      // console.log("card this", this)
+      this.props.setRef(ReactDOM.findDOMNode(this))
+    }
+    
+    console.log("enter via CDM",this.props.parent,this.props.index)
     this.enterCard()
+    if(this.props.index || this.props.index === 0){
+      const deckDOM = document.getElementById('Deck').getBoundingClientRect();
+      // console.log(document.getElementById('Deck') )
+      const pileDOM = document.getElementById('Pile').getBoundingClientRect();
+      // console.log(document.getElementById('Pile') )
+      const cardDOM = ReactDOM.findDOMNode(this).getBoundingClientRect();
+      
+     this.deckPos = {
+       x: deckDOM.x,
+       y: deckDOM.y
+     }
+     
+     this.cardPos = {
+       x: cardDOM.x,
+       y: cardDOM.y
+     }
+    
+     this.pilePos = {
+       x: pileDOM.x,
+       y: pileDOM.y
+     }
+
+     this.travelFromDeck = {
+       x: this.cardPos.x - this.deckPos.x,
+       y: this.cardPos.y - this.deckPos.y,
+     }
+
+     this.travelToPile = {
+       x: this.pilePos.x - this.cardPos.x,
+       y: this.pilePos.y - this.cardPos.y,
+     }
+
+      
+      console.log("deckDOM",deckDOM)
+      console.log("pileDOM",pileDOM)
+      console.log("cardDOM",cardDOM)
+      console.log("deckPos",this.deckPos)
+      console.log("cardPos",this.cardPos)
+      console.log("pilePos",this.pilePos)
+      console.log("travelFromDeck",this.travelFromDeck)
+      console.log("travelToPile",this.travelToPile)
+      
+    }
   }
   
   enterCard = () =>{
@@ -43,33 +96,34 @@ class Card extends Component {
   }
 
   defaultStyleHand = {
-    'height': '100px',
+    // 'height': '100px',
     'zIndex': `${parseInt(this.props.index)}`,
     'left': `${(30*parseInt(this.props.index))}px`,
     'position': 'absolute',
   }
 
   defaultStyleNonHand = {
-    'height': '100px'
+    // 'height': '100px'
   }
 
   transitionStyles = {
-    entering: { opacity: 0 },
+    entering: { 
+      position: "absolute",
+      left: this.deckPos.x,
+      top: this.deckPos.y,
+     
+      transform: translateX(this.cardPos.x) translateY(this.cardPos.y) rotate(90deg),
+      transition: transform 2000ms,
+      transition-timing-function: linear,
+
+    },
     entered:  { opacity: 1 },
     exiting:  { opacity: 0 },
     exited:  { opacity: 1},
   }
 
   render () {
-
-
-    console.log("deckRef",this.props.refDeck)
-    console.log("pileRef",this.props.refPile)
-
-    const deckDOM = ReactDOM.findDOMNode(this.props.refDeck);
-    const pileDOM = ReactDOM.findDOMNode(this.props.refPile);
-    console.log("deckDOM",deckDOM)
-    console.log("pileDOM",pileDOM)
+    
 
     let defaultStyle = {}
 
@@ -89,7 +143,7 @@ class Card extends Component {
           <div 
             style = {{...defaultStyle, ...this.transitionStyles[state]}} 
             onClick = {() => this.handleClick(this.props.card)}>
-            <img  className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
+            <img id = {this.props.parent} className = "cardImg"  src={this.props.visible? this.props.card.img:card_back} alt='card_image'/>
           </div>
         )}
       </Transition>
