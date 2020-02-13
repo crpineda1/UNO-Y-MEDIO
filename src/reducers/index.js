@@ -422,6 +422,16 @@ let reducer = (prevState=defaultState, action) => {
     
       return {...prevState, gameActive: !prevState.gameActive }
     
+    case 'SETREF_DECK':
+      // console.log("AI ACTIVE", !prevState.gameActive)
+    
+      return {...prevState, refDeck: action.paylod }
+    
+    case 'SETREF_PILE':
+      // console.log("AI ACTIVE", !prevState.gameActive)
+    
+      return {...prevState, refPile: action.payload }
+    
     case 'LOAD_LEADERBOARD':
       console.log("LOAD LEADERBOARD")
       // console.log("API response", action.payload.status)
