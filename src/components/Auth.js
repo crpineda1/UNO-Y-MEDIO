@@ -3,7 +3,7 @@ import Login from './Login';
 import Signup from './Signup';
 
 import {connect} from 'react-redux';
-import {loginUserCreator} from '../actions';
+import {loginUserCreator, newGameCreator} from '../actions';
 
 import logo from '../images/_UNO_Y_MEDIO_logo.png'
 import cow from '../images/_cow.png'
@@ -43,7 +43,8 @@ class Auth extends Component {
   }
 
   login = ()  => {
-    this.props.login({userId: this.state.userId, username: this.state.username})
+    this.props.login({ username: this.state.username})
+    this.props.newGame()
     this.props.history.push("/game")
   }
     
@@ -81,6 +82,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>{
   return{
     login: (info) => dispatch(loginUserCreator(info)),
+    newGame: (info) => dispatch(newGameCreator(info)),
+
   }
 }
 

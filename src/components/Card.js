@@ -4,7 +4,7 @@ import card_back from '../images/back_logo.png'
 import {Transition} from 'react-transition-group'
 import ReactDOM from 'react-dom';
 
-const timeout = 150
+const timeout = 100
 
 class Card extends Component {
 

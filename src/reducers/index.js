@@ -202,7 +202,8 @@ let defaultState = {
   player2:'Cartman',
   player3:'Stan',
   player4:'Kyle',
-  allGames: [],
+  allUserGames: [],
+  allUsers: [],
 
 }
 
@@ -414,21 +415,33 @@ let reducer = (prevState=defaultState, action) => {
 
 
     case 'LOGIN_USER':
-      // console.log("LOGIN USER")
+      console.log("LOGIN USER", action.payload.data.id, action.payload.data.name)
+      
+      return {...prevState, userId1: action.payload.data.id, player1: action.payload.data.name}
     
-      return {...prevState, userId: action.payload.userId, player1: action.payload.username }
+    case 'NEW_GAME':
+      console.log("NEW GAME", action.payload.data.id)
+      
+      return {...prevState, gameId: action.payload.data.id}
     
     case 'TOGGLE_GAME':
       // console.log("AI ACTIVE", !prevState.gameActive)
     
       return {...prevState, gameActive: !prevState.gameActive }
         
-    case 'LOAD_LEADERBOARD':
-      console.log("LOAD LEADERBOARD")
+    case 'LOAD_USERGAMES':
+      console.log("LOAD USERGAMES")
       // console.log("API response", action.payload.status)
       // console.log("all users", action.payload.data)
     
-      return {...prevState, allGames: action.payload.data }
+      return {...prevState, allUserGames: action.payload.data }
+    
+    case 'LOAD_USERS':
+      console.log("LOAD USERS")
+      // console.log("API response", action.payload.status)
+      // console.log("all users", action.payload.data)
+    
+      return {...prevState, allUsers: action.payload.data }
     
     case 'CLEAR_GAME':
       console.log("CLEAR_GAME")
@@ -461,4 +474,4 @@ let reducer = (prevState=defaultState, action) => {
 
 
 
-export default reducer
+export default reducer 

@@ -10,10 +10,18 @@ import Hand1 from './Hand1';
 
 import AI from './AI';
 
+const HumanPlayers = [] //reset to [1]
+const AiPlayers = [1,2,3,4] // reset to [2,3,4]
+
+// for dealing
+const dealDelay = 220   // reset to 150 for game play
+const cards = 28    // reset to 28 for game play
+
+// for AI
+const AiDelay = 2000 // milliseconds *** reset to 1500 ***
+
 
 class Table extends Component {
-  HumanPlayers = [] //reset to [1]
-  AiPlayers = [1,2,3,4] // reset to [2,3,4]
 
 
   shuffleDeck = (deck) => {
@@ -22,8 +30,6 @@ class Table extends Component {
   }
 
   dealCards = () => {
-    let delay = 220   // reset to 150 for game play
-    let cards = 28    // reset to 28 for game play
     
     if (!this.props.gameActive){
 
@@ -33,7 +39,7 @@ class Table extends Component {
         document.getElementById("Deck_0").click()
          this.props.nextTurn()
          // console.log("deal counter", i)        
-       }, i * delay);  
+       }, i * dealDelay);  
      }
 
      setTimeout(() => {
@@ -42,7 +48,7 @@ class Table extends Component {
          this.props.pileCard()
        }  
        this.props.toggleGame()
-     }, (cards+1) * delay)
+     }, (cards+1) * dealDelay)
    }
   }
 
@@ -131,6 +137,7 @@ class Table extends Component {
   }
   
   declareWinner = (player) => {
+    this.props.toggleGame()
     let cardPoints = this.props.allHands.map(card => card.points)
     let totalPoints = cardPoints.reduce((acc, pts) => acc + pts)
     let playerName = this.props[`player${player}`]
@@ -147,7 +154,7 @@ class Table extends Component {
   
   
   AiMove = (turn) => {
-    return <AI player = {turn} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall}/>
+    return <AI player = {turn} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall} delay = {AiDelay}/>
   
   }
 
@@ -155,35 +162,35 @@ class Table extends Component {
 
   render () {
     let newDeck = this.shuffleDeck(this.props.cards)
+    let colorButtons  = <div></div>
 
     if (this.props.deck.length === 0){
       this.props.createDeck(newDeck) 
     }
+    if(HumanPlayers.includes(this.props.turn)){
 
-    let colorButtons 
-      if(this.HumanPlayers.includes(this.props.turn)){
-        if (this.props.value === "WC" && this.props.color === "black") {
-          // console.log('WC buttons')
-          colorButtons =  <div>
-          <button id = "WC_red" onClick= {() => this.wildCard("red")}>Switch Red WC</button>
-          <button id = "WC_yellow" onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
-          <button id = "WC_blue" onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
-          <button id = "WC_green" onClick= {() => this.wildCard("green")}>Switch Green WC</button>
-          </div>  
-        } else if (this.props.value === "44" && this.props.color === "black") {
-          // console.log('+4 buttons')
-          colorButtons= <div>
-          <button id = "44_red" onClick= {() => this.plus4("red")}>Switch Red +4</button>
-          <button id = "44_yellow" onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
-          <button id = "44_blue" onClick= {() => this.plus4("blue")}>Switch Blue +4</button>
-          <button id = "44_green" onClick= {() => this.plus4("green")}>Switch Green +4</button>
-          </div>  
-        }
-      }    
+      if (this.props.value === "WC" && this.props.color === "black") {
+        // console.log('WC buttons')
+        colorButtons =  <div>
+        <button id = "WC_red" onClick= {() => this.wildCard("red")}>Switch Red WC</button>
+        <button id = "WC_yellow" onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
+        <button id = "WC_blue" onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
+        <button id = "WC_green" onClick= {() => this.wildCard("green")}>Switch Green WC</button>
+        </div>  
+      } else if (this.props.value === "44" && this.props.color === "black") {
+        // console.log('+4 buttons')
+        colorButtons= <div>
+        <button id = "44_red" onClick= {() => this.plus4("red")}>Switch Red +4</button>
+        <button id = "44_yellow" onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
+        <button id = "44_blue" onClick= {() => this.plus4("blue")}>Switch Blue +4</button>
+        <button id = "44_green" onClick= {() => this.plus4("green")}>Switch Green +4</button>
+        </div>  
+      }
+    }    
     
 
     let AiPlayer 
-    if (this.AiPlayers.includes(this.props.turn) && this.props.gameActive){
+    if (AiPlayers.includes(this.props.turn) && this.props.gameActive){
       // console.log("AI ENGAGED", this.props.turn)
       AiPlayer = <div>{this.AiMove(this.props.turn)}</div>
     }
@@ -191,14 +198,21 @@ class Table extends Component {
     
 
     return (
-      <div className = "table"> Table 
+      <div className = "table">
         <div className = "colorIndicator" > Current Color <img className = {this.props.color} /> </div>
         <div className = "directionIndicator" > Direction: <br/> {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
-        <div className = "turnIndicator" >Current Turn: <br/>{this.props.gameActive? this.props[`player${this.props.turn}`]: null}</div>
-        <button onClick = {this.showRules}>RULES</button>
-        <button onClick = {this.dealCards}>NEW GAME</button>
-        <button onClick = {this.props.unoCall}>UNO CALL</button>
-        <button onClick = {this.pass}>PASS</button>
+        <div className = "turnIndicator" > Current Turn: <br/>{this.props.gameActive? this.props[`player${this.props.turn}`]: null}</div>
+        <div>
+          <br/>
+          <button onClick = {this.showRules}>RULES</button>
+        </div>
+        <div>
+          <br/>
+          <button onClick = {this.dealCards}>DEAL CARDS</button>
+        </div>
+          <br/>
+          <button onClick = {this.props.unoCall}>UNO CALL!</button>
+        {/* <button onClick = {this.pass}>PASS</button> */}
         {colorButtons}
         {this.gameAction()}
 
@@ -226,7 +240,7 @@ class Table extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("state: ", state)
+  console.log("state: ", state)
   // console.log("VALUE: ", state.currentValue)
   // console.log("TURN: ", state.turn)
   // console.log("Order Clockwise? ", state.orderClockwise)

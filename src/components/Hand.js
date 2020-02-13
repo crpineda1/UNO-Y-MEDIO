@@ -24,6 +24,7 @@ class Hand extends Component {
     // check for win
     if (playerHand.length === 0 && this.props.gameActive ){
       // console.log("winner:", playerName)
+
       this.props.declareWinner(this.props.player) 
     }
      
@@ -95,6 +96,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     playCard: (card) => dispatch(playCardCreator(card)),
     nextTurn: () => dispatch(nextTurnCreator()),
+
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Hand)

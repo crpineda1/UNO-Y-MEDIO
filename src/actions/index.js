@@ -9,8 +9,10 @@ const PILE_CARD = "PILE_CARD";
 const UNO_CALL = "UNO_CALL"; 
 const LOGIN_USER = "LOGIN_USER"; 
 const TOGGLE_GAME = "TOGGLE_GAME"; 
-const LOAD_LEADERBOARD = "LOAD_LEADERBOARD"; 
+const LOAD_USERGAMES = "LOAD_USERGAMES"; 
+const LOAD_USERS = "LOAD_USERS"; 
 const CLEAR_GAME = "CLEAR_GAME"; 
+const NEW_GAME = "NEW_GAME"; 
 
 
 const createDeckCreator = (cards) => ({type: CREATE_DECK, payload: cards})
@@ -21,26 +23,34 @@ const changeColorCreator = (color) => ({type:CHANGE_COLOR, payload: color})
 const actionOffCreator = () => ({type:ACTION_OFF})
 const pileCardCreator = () => ({type:PILE_CARD})
 const unoCallCreator = () => ({type:UNO_CALL})
-const loginUserCreator = (info) => ({type:LOGIN_USER, payload: info})
 const toggleGameCreator = (info) => ({type:TOGGLE_GAME, payload: info})
 const clearGameCreator = () => ({type:CLEAR_GAME})
 
 
-const loadLeaderboardCreator = () => {
+
+const loadUserGamesCreator = () => {
   
   return(dispatch) => {
     fetch("http://localhost:3000/usergames")
     .then(resp => resp.json())
-    .then(data => { dispatch({type:LOAD_LEADERBOARD, payload: data })})
+    .then(data => { dispatch({type:LOAD_USERGAMES, payload: data })})
   }
 }
+const loadUsersCreator = () => {
   
+  return(dispatch) => {
+    fetch("http://localhost:3000/users")
+    .then(resp => resp.json())
+    .then(data => { dispatch({type:LOAD_USERS, payload: data })})
+  }
+}
+
 const saveGameCreator = (player) => {
   
   // return(dispatch) => {
     console.log("save game", player.id, player.game, player.name, player.points)
-  //   dispatch({type:CLEAR_GAME})
-  // }
+    //   dispatch({type:CLEAR_GAME})
+    // }
   
   return(dispatch) => {
     fetch("http://localhost:3000/usergames",{
@@ -63,6 +73,48 @@ const saveGameCreator = (player) => {
   
 }
   
+const loginUserCreator = (info) => { 
+
+  
+  return(dispatch) => {
+    fetch("http://localhost:3000/users",{
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: info.username,
+        password: "none"
+      })
+    })
+    .then(resp => resp.json())
+    .then(data => {dispatch({type:LOGIN_USER, payload: data})})
+    // .then(data => console.log(data))
+  }
+  
+}
+
+const newGameCreator = () => { 
+
+  
+  return(dispatch) => {
+    fetch("http://localhost:3000/games",{
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: "",
+      })
+    })
+    .then(resp => resp.json())
+    .then(data => {dispatch({type:NEW_GAME, payload: data})})
+    // .then(data => console.log(data))
+  }
+  
+}
 
 
 export {
@@ -76,10 +128,13 @@ export {
   unoCallCreator,
   loginUserCreator,
   toggleGameCreator,
-  loadLeaderboardCreator,
+  loadUsersCreator,
+  loadUserGamesCreator,
   saveGameCreator,
   clearGameCreator,
+  newGameCreator,
+
 
 }
-
+ 
 

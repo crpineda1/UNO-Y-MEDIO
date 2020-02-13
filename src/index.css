@@ -14,7 +14,12 @@ code{
 
 
 .game{
-  color: white;
+  background-image: url(./images/_table0.jpg);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1200px;
+
   
 }
 
@@ -210,25 +215,37 @@ code{
 }
 
 .navbar{
-  display: flex;
+  /* background-image: url(./images/_table0.jpg);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: auto; */
+
+  display: block;
+  /* width: 0%; */
+  margin: auto;
+
 }
 
 .miniLogo{
-  height: 50px;
+  height: 75px;
+  display: block;
+  margin: auto;
 }
 
 .table{
-  background-image: url(./images/_table0.jpg);
-  background-position: center;
+  /* background-image: url(./images/_table0.jpg); */
+  background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 1200px;
+  height: 700px;
 
 }
 
-.leaderboard{
+.leaderboardBackground{
   /* background-image: url(./images/_background.jpg); */
   background-image: url(./images/_background2.png);
+    
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -238,7 +255,7 @@ code{
 
 .auth{
   background-image: url(./images/_background.jpg);
-  background-position: center;
+  background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
   height: 1200px;
@@ -294,12 +311,14 @@ code{
 }
 
 .cowImg{
-  height: 150px;
+  height: 200px;
   
   /* display: flex; */
   margin-left: auto;
   margin-right: auto;
 }
+
+
 
 .deckHand1-enter-active {
   opacity: 1; 
@@ -340,4 +359,39 @@ code{
   left: 700;
   top: 136;
   /* opacity: 1; */
+}
+
+
+#leaderboard {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+#leaderboard td, #leaderboard th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#leaderboard tr:nth-child(even){background-color: #f2f2f2;}
+#leaderboard tr:nth-child(odd){background-color: #80bfff;}
+#leaderboard th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #1f90ff;
+  color: white;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  width: 200px;
+  background-color: #1f90ff;
+  color: #fff;
+  text-align: center;
+  padding: 8px 20px;
+  margin: auto;
 }

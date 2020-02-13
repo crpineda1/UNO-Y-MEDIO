@@ -11,33 +11,41 @@ class Game extends Component {
 
   toLeaderboard = () => {
     this.props.history.push("/leaderboard")
-    
+  }
+
+  stopGame = () => {
+    window.location.reload();
   }
   
   endGame = () => {
-    if (this.props.gameActive){
+
       this.props.clearGame()
       setTimeout(() => {
         this.props.history.push("/leaderboard")
       }, 100);
-    }
+
   }
 
   exit = () => {
-   if (this.props.gameActive){
+
      this.props.clearGame()
      setTimeout(() => {
        this.props.history.push("/")
      }, 100);
-   }
+
   }
 
   
   render () {
 
     return (
-      <div className = "game"> Game 
-        <Navbar exit = {this.exit} endGame = {this.endGame} leaderboard = {this.toLeaderboard}/>
+      <div className = "game">  
+        <Navbar 
+          exit = {this.exit} 
+          endGame = {this.endGame} 
+          leaderboard = {this.toLeaderboard} 
+          stopGame = {this.stopGame}
+        />
         <Table toLeaderboard = {this.toLeaderboard}/>
 
       </div>
