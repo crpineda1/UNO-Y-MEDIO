@@ -14,7 +14,7 @@ const HumanPlayers = [] //reset to [1]
 const AiPlayers = [1,2,3,4] // reset to [2,3,4]
 
 // for dealing
-const dealDelay = 220   // reset to 150 for game play
+const dealDelay = 200   // reset to 150 for game play
 const cards = 28    // reset to 28 for game play
 
 // for AI
@@ -204,14 +204,14 @@ class Table extends Component {
         <div className = "turnIndicator" > Current Turn: <br/>{this.props.gameActive? this.props[`player${this.props.turn}`]: null}</div>
         <div>
           <br/>
-          <button onClick = {this.showRules}>RULES</button>
-        </div>
-        <div>
-          <br/>
           <button onClick = {this.dealCards}>DEAL CARDS</button>
         </div>
           <br/>
           <button onClick = {this.props.unoCall}>UNO CALL!</button>
+        <div>
+          <br/>
+          <button onClick = {this.showRules}>RULES</button>
+        </div>
         {/* <button onClick = {this.pass}>PASS</button> */}
         {colorButtons}
         {this.gameAction()}

@@ -12,6 +12,8 @@ class Navbar extends Component {
         <div className = "navbar"> 
           <img className = "miniLogo" src= {logo} alt = {"logo"} />
           <div >
+            <br/>
+            <br/>
             <button onClick = {this.props.exit}> EXIT</button>
           </div>
           <br/>

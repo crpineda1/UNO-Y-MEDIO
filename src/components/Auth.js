@@ -61,6 +61,11 @@ class Auth extends Component {
     return(
       <div className = "auth" >
 
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <img className = "authLogoImg" src= {logo} alt = {"logo"} />
         <br />
         <div className = "loginandCow">

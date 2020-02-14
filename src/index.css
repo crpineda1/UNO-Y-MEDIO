@@ -228,9 +228,12 @@ code{
 }
 
 .miniLogo{
-  height: 75px;
+  height: 100px;
   display: block;
   margin: auto;
+  position: absolute;
+  left: 44%;
+  top: 51%;
 }
 
 .table{
