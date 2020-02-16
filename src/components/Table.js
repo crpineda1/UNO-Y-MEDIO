@@ -221,17 +221,11 @@ class Table extends Component {
           <Deck className = "deck" />
           <Pile className = "pile" />
           <div className = "hands">
-          {/* <Hand1 player = {1} declareWinner = {this.declareWinner}/> */}
-          {/* <Hand1 player = {2} declareWinner = {this.declareWinner}/>
-          <Hand1 player = {3} declareWinner = {this.declareWinner}/>
-          <Hand1 player = {4} declareWinner = {this.declareWinner}/> */}
-
           <Hand player = {1} declareWinner = {this.declareWinner}/>
           <Hand player = {2} declareWinner = {this.declareWinner}/>
           <Hand player = {3} declareWinner = {this.declareWinner}/>
           <Hand player = {4} declareWinner = {this.declareWinner}/>
-
-         {AiPlayer}
+          {AiPlayer}
           </div>
         </div>
       </div>

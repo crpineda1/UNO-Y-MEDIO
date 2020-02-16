@@ -25,7 +25,6 @@ class Navbar extends Component {
             <button onClick = {this.props.endGame}> LEADERBOARD</button>
           </div>
         </div>
-
       </Fragment>
     )
   }

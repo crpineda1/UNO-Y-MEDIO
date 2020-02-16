@@ -66,10 +66,7 @@ class Card extends Component {
       // console.log(document.getElementById('Pile') )
       let cardDOM = ReactDOM.findDOMNode(this).getBoundingClientRect();
       
-    //  this.deckPos = {
-    //    x: deckDOM.x,
-    //    y: deckDOM.y
-    //  }
+
     this.cardPos = {
       x: cardDOM.left,
       y: cardDOM.top
@@ -111,17 +108,6 @@ class Card extends Component {
       default:
         break;
     }
-
-
-    //  this.travelFromDeck = {
-    //    x: this.cardPos.x - this.deckPos.x,
-    //    y: this.cardPos.y - this.deckPos.y,
-    //  }
-
-    //  this.travelToPile = {
-    //    x: this.pilePos.x - this.cardPos.x,
-    //    y: this.pilePos.y - this.cardPos.y,
-    //  }
 
       
       // console.log("deckDOM",deckDOM)
@@ -280,27 +266,14 @@ class Card extends Component {
       transitionStyles = {
         entering: { 
           opacity: 1,
-          // position: "absolute",
-          // left: this.deckPos.x,
-          // top: this.deckPos.y,
-        
-          // transform: `translate(${-1*this.travelFromDeck.x}px, ${-1*this.travelFromDeck.y}px) rotate(${0}deg)`,
-          // transition: `transform ${timeout}ms`,
-          // "transitionTimingFunction": "linear",
-
-          
         },
         entered:  { 
           opacity: 1
-          // transform: `translate(${this.travelFromDeck.x}, ${this.travelFromDeck.y}) rotate(00deg)`,
-          // transition: `transform ${timeout}ms`,
-          // "transition-timing-function": "linear",
         },
         exiting:  { 
 
           opacity: 1,
           transform: ` translate(${this.travelFromDeck.x}px, ${this.travelFromDeck.y}px) rotate(${rotation}deg)`,
-          // transform: `translate(${218}px, ${-351}px)`,
           transition: `transform ${timeout}ms`,
           transitionTimingFunction: "linear",
         },
@@ -311,6 +284,8 @@ class Card extends Component {
       transitionStyles = {  
         entering: { 
           opacity: 1,
+          // attempt to make animation form hand perspective
+
           // position: "absolute",
           // left: this.deckPos.x,
           // top: this.deckPos.y,
@@ -347,8 +322,8 @@ class Card extends Component {
       defaultStyle = this.defaultStyleNonHand
     }
     
-    
 
+    
 
     // console.log(this.props.card)
     return (

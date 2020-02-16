@@ -25,7 +25,6 @@ class Deck extends Component {
       <Card 
         reff = "Deck_0"
         parent = "Deck"
-        // class = {`Hand1`}
         card = {this.props.deck[0]} 
         visible = {faceUp} 
         handleClick = {() => this.handleClick(this.props.deck[0])}

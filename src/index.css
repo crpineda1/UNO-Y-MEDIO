@@ -89,7 +89,6 @@ code{
 
 .deck{
   color: white;
-  /* background-color: white; */
   width: 120px;
   height: 160px;
 
@@ -105,7 +104,6 @@ code{
 
 .pile{
   color: white;
-  /* background-color: white; */
   width: 120px;
   height: 160px;
  
@@ -121,7 +119,6 @@ code{
 
 .turnIndicator {
   color: white;
-  /* background-color: white; */
   width: 250px;
   height: 150px;
 
@@ -138,7 +135,6 @@ code{
 
 .directionIndicator {
   color: white;
-  /* background-color: white; */
   width: 250px;
   height: 50px;
 
@@ -155,10 +151,8 @@ code{
 
 .colorIndicator{
   color: white;
-  /* background-color: white; */
   width: 120px;
   height: 150px;
-  /* align-items: center; */
  
   font-size: 20px;
   font-weight: bold;
@@ -215,16 +209,8 @@ code{
 }
 
 .navbar{
-  /* background-image: url(./images/_table0.jpg);
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: auto; */
-
   display: block;
-  /* width: 0%; */
   margin: auto;
-
 }
 
 .miniLogo{
@@ -237,7 +223,6 @@ code{
 }
 
 .table{
-  /* background-image: url(./images/_table0.jpg); */
   background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
@@ -246,7 +231,6 @@ code{
 }
 
 .leaderboardBackground{
-  /* background-image: url(./images/_background.jpg); */
   background-image: url(./images/_background2.png);
     
   background-position: center;
@@ -297,9 +281,7 @@ code{
   margin: auto;
   width: auto;
   height: 50%;
-  /* display: block; */
-  /* margin-top: 20%; */
-
+ 
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -315,8 +297,6 @@ code{
 
 .cowImg{
   height: 200px;
-  
-  /* display: flex; */
   margin-left: auto;
   margin-right: auto;
 }
