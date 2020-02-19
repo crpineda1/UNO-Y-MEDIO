@@ -23,7 +23,7 @@ class Hand extends Component {
     
     // check for win
     if (playerHand.length === 0 && this.props.gameActive ){
-      // console.log("winner:", playerName)
+      console.log("winner:", playerName)
 
       this.props.declareWinner(this.props.player) 
     }
@@ -40,8 +40,8 @@ class Hand extends Component {
     // render cards
     return playerHand.map((eachCard, i) => {
       return ( 
-
         <Card 
+          key = {`${this.props.player}_${eachCard.code}_${i}`}
           reff = {`${this.props.player}_${eachCard.code}`}
           parent = {`Hand${this.props.player}`}
           index={i} 
@@ -49,14 +49,13 @@ class Hand extends Component {
           visible = {faceUp} 
           handleClick = {cardClick}
         />
-
       )
     })
   }
   
   render () {
     return (
-      <div  className = {`hand${this.props.player}`} > {this.props[`name${this.props.player}`]}
+      <div className = {`hand${this.props.player}`} > {this.props[`name${this.props.player}`]}
         <Container id = {this.props.player} className = "handCards">
         {this.renderHand()}
 

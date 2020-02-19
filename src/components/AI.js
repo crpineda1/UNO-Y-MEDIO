@@ -53,7 +53,7 @@ class AI extends Component {
         if (playCard === "pick from pile"){
           document.getElementById("Deck_0").click() // simulated click event (for animation)
           // this.props.pickCard()
-          console.log("player",this.props.player,"draw card")
+          // console.log("player",this.props.player,"draw card")
         } else {
           
           // check for uno call
@@ -61,10 +61,10 @@ class AI extends Component {
             alert(`${this.props[`name${this.props.player}`]} calls UNO Y MEDIO`)
             this.props.unoCall()
           } 
-          console.dir(playCard)
+          // console.dir(playCard)
           
           
-          console.log("AI",this.props.player,"play card:",playCard.color,playCard.value,playCard.reff)
+          // console.log("AI",this.props.player,"play card:",playCard.color,playCard.value,playCard.reff)
           
           // check for black card *** no animation if play black card due to multiple steps
 

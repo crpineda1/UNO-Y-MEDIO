@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import ReactDOM from 'react-dom';
+
 
 import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, saveGameCreator,} from '../actions';
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
-import Hand1 from './Hand1';
+
 
 import AI from './AI';
 
-const HumanPlayers = [] //reset to [1]
-const AiPlayers = [1,2,3,4] // reset to [2,3,4]
+const HumanPlayers = [1,2,3,4] //reset to [1]
+const AiPlayers = [] // reset to [2,3,4]
 
 // for dealing
-const dealDelay = 200   // reset to 150 for game play
+const dealDelay = 200   // reset to 200 for game play
 const cards = 28    // reset to 28 for game play
 
 // for AI
-const AiDelay = 2000 // milliseconds *** reset to 1500 ***
+const AiDelay = 1500 // milliseconds *** reset to 1500 ***
 
 
 class Table extends Component {
@@ -33,22 +33,24 @@ class Table extends Component {
     
     if (!this.props.gameActive){
 
-     for (let i = 0; i < cards; i++) { 
-       setTimeout(() => {
-        //  this.props.pickCard()
-        document.getElementById("Deck_0").click()
-         this.props.nextTurn()
-         // console.log("deal counter", i)        
-       }, i * dealDelay);  
-     }
+      // document.getElementById("Deck_0").click()
 
-     setTimeout(() => {
+      for (let i = 0; i < cards; i++) { 
+        setTimeout(() => {
+          //  this.props.pickCard()
+          document.getElementById("Deck_0").click()
+          this.props.nextTurn()
+        }, (i * dealDelay)+100);
+             
+      }
+
+      setTimeout(() => {
        this.props.pileCard()
        while(["R","S","22","44","WC"].includes(this.props.value)){
          this.props.pileCard()
        }  
        this.props.toggleGame()
-     }, (cards+1) * dealDelay)
+      }, (cards+1) * dealDelay)
    }
   }
 
@@ -68,7 +70,7 @@ class Table extends Component {
     
     // activate skip
     if(this.props.value === "S" && this.props.action) {
-      console.log("skip turn")
+      // console.log("skip turn")
       this.props.actionOff()
       // this.props.toggleGame()
       this.props.nextTurn()
@@ -142,7 +144,7 @@ class Table extends Component {
     let totalPoints = cardPoints.reduce((acc, pts) => acc + pts)
     let playerName = this.props[`player${player}`]
     let playerId = this.props[`userId${player}`]
-    console.log("winner",player,playerName,playerId, totalPoints)
+    // console.log("winner",player,playerName,playerId, totalPoints)
     this.props.saveGame({id: playerId, game:this.props.gameId, name: playerName, points: totalPoints})
     alert(`${playerName} WINS ${totalPoints} POINTS`)
     this.props.toLeaderboard()
@@ -173,6 +175,7 @@ class Table extends Component {
         // console.log('WC buttons')
         colorButtons =  <div>
         <button id = "WC_red" onClick= {() => this.wildCard("red")}>Switch Red WC</button>
+        <br/>
         <button id = "WC_yellow" onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
         <button id = "WC_blue" onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
         <button id = "WC_green" onClick= {() => this.wildCard("green")}>Switch Green WC</button>
@@ -199,7 +202,7 @@ class Table extends Component {
 
     return (
       <div className = "table">
-        <div className = "colorIndicator" > Current Color <img className = {this.props.color} /> </div>
+        <div className = "colorIndicator" > Current Color <img className = {this.props.color} alt = {this.props.color}/> </div>
         <div className = "directionIndicator" > Direction: <br/> {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
         <div className = "turnIndicator" > Current Turn: <br/>{this.props.gameActive? this.props[`player${this.props.turn}`]: null}</div>
         <div>
@@ -212,19 +215,19 @@ class Table extends Component {
           <br/>
           <button onClick = {this.showRules}>RULES</button>
         </div>
-        {/* <button onClick = {this.pass}>PASS</button> */}
+        <button onClick = {this.pass}>PASS</button>
         {colorButtons}
         {this.gameAction()}
 
         
         <div className = "tableItems"> 
-          <Deck className = "deck" />
-          <Pile className = "pile" />
+          <Deck className = "deck"/>
+          <Pile className = "pile"/>
           <div className = "hands">
-          <Hand player = {1} declareWinner = {this.declareWinner}/>
-          <Hand player = {2} declareWinner = {this.declareWinner}/>
-          <Hand player = {3} declareWinner = {this.declareWinner}/>
-          <Hand player = {4} declareWinner = {this.declareWinner}/>
+          <Hand key = {"player1"} player = {1} declareWinner = {this.declareWinner}/>
+          <Hand key = {"player2"} player = {2} declareWinner = {this.declareWinner}/>
+          <Hand key = {"player3"} player = {3} declareWinner = {this.declareWinner}/>
+          <Hand key = {"player4"} player = {4} declareWinner = {this.declareWinner}/>
           {AiPlayer}
           </div>
         </div>

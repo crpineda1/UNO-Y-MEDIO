@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import card_back from '../images/back_logo.png'
-import {Transition} from 'react-transition-group'
 import ReactDOM from 'react-dom';
+import {Transition} from 'react-transition-group'
 
-const timeout = 100
+import card_back from '../images/back_logo.png'
+
+const timeout = 150
+
 
 class Card extends Component {
 
@@ -28,9 +30,9 @@ class Card extends Component {
     
     if(this.props.parent === "Deck"){
       const handDOM = document.getElementById(`${this.props.turn}`).getBoundingClientRect();
-      console.log("current hand", document.getElementById(`${this.props.turn}`))
+      // console.log("current hand", document.getElementById(`${this.props.turn}`))
       const deckDOM = document.getElementById('Deck').getBoundingClientRect();
-      console.log(document.getElementById('Deck') )
+      // console.log(document.getElementById('Deck') )
       
       
       this.deckPos = {
@@ -51,7 +53,7 @@ class Card extends Component {
         y: this.handPos.y - this.deckPos.y,
       }
 
-      console.log("travelFromDeck",this.travelFromDeck)
+      // console.log("travelFromDeck",this.travelFromDeck)
       
     }    
     
@@ -60,7 +62,7 @@ class Card extends Component {
       // this.enterCard()
       
 
-      let deckDOM = document.getElementById('Deck').getBoundingClientRect();
+      //let deckDOM = document.getElementById('Deck').getBoundingClientRect();
       // console.log(document.getElementById('Deck') )
       let pileDOM = document.getElementById('Pile').getBoundingClientRect();
       // console.log(document.getElementById('Pile') )
@@ -216,7 +218,7 @@ class Card extends Component {
   } 
   
   exitCard = () =>{
-    console.log("exitCard",this.props.parent,this.props.index,this.travelToPile)
+    // console.log("exitCard",this.props.parent,this.props.index,this.travelToPile)
 
     this.setState({
       inProp: false // exit
@@ -323,7 +325,7 @@ class Card extends Component {
     }
     
 
-    
+
 
     // console.log(this.props.card)
     return (

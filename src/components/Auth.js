@@ -1,4 +1,4 @@
-import React, {Component,Fragment} from 'react';
+import React, {Component} from 'react';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -21,15 +21,15 @@ class Auth extends Component {
   }
 
   componentDidUpdate(prevState) {
-    console.log("username:",this.state.username)
-    console.log("pw:",this.state.password)
-    console.log("pw:",this.state.passwordConf)
-    console.log("login",this.state.login)
+    // console.log("username:",this.state.username)
+    // console.log("pw:",this.state.password)
+    // console.log("pw:",this.state.passwordConf)
+    // console.log("login",this.state.login)
   }
 
 
   handleForm = (e) => {
-    console.log("handle form")
+    // console.log("handle form")
     this.setState({
       [e.target.name]: e.target.value
     })
