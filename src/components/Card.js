@@ -6,7 +6,7 @@ import {Transition} from 'react-transition-group'
 import card_back from '../images/back_logo.png'
 
 const timeout = 150
-
+const deckDOM = document.getElementById('Deck').getBoundingClientRect()
 
 class Card extends Component {
 
