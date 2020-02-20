@@ -34,8 +34,8 @@ class Leaderboard extends Component{
                   {game.points}
                 </td>
                 <td>
-                  {game.game_id}
-                </td> 
+                {game.id}
+                </td>
             </tr>
     })
   }
@@ -66,7 +66,7 @@ class Leaderboard extends Component{
             <th>Ranking</th>
             <th>Winner</th>
             <th>Points</th>
-            <th>Game#</th>
+            <th>Game #</th>
           </tr>
             {this.loadTable(this.props.allUserGames,this.props.allUsers)}
         </table>
@@ -83,9 +83,6 @@ const mapStateToProps = (state) => {
   return { 
     allUserGames: state.allUserGames,
     allUsers: state.allUsers,
-
-
-
   }
 }
 
@@ -93,8 +90,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
      loadUserGames: () => dispatch(loadUserGamesCreator()),
      loadUsers: () =>  dispatch(loadUsersCreator())
-
-
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Leaderboard)

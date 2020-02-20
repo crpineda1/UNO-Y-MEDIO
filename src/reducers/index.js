@@ -417,7 +417,7 @@ let reducer = (prevState=defaultState, action) => {
     case 'LOGIN_USER':
       console.log("LOGIN USER", action.payload.data.id, action.payload.data.name)
       
-      return {...prevState, userId1: action.payload.data.id, player1: action.payload.data.name}
+      return {...prevState, userId1: action.payload.data.id, player1: action.payload.data.name, gameId: action.payload.data.id}
     
     case 'NEW_GAME':
       console.log("NEW GAME", action.payload.data.id)

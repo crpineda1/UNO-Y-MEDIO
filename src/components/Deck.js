@@ -17,7 +17,7 @@ class Deck extends Component {
   render () {
    
     
-    let faceUp = false // swtich to true to see the top card in the deck
+    let faceUp = this.props.gameActive // swtich to true to see the top card in the deck
 
 
     return (
@@ -40,7 +40,8 @@ const mapStateToProps = (state) => {
   // console.log("state", state)
   return { 
     deck: state.deck,
-    turn: state.turn
+    turn: state.turn,
+    gameActive: state.gameActive
   }  
 }
 

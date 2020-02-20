@@ -4,7 +4,7 @@ import {playCardCreator, nextTurnCreator} from '../actions';
 
 import Card from './Card'
 
-import { Container } from 'semantic-ui-react'
+//import { Container } from 'semantic-ui-react'
 
 class Hand extends Component {
  
@@ -12,14 +12,14 @@ class Hand extends Component {
 
     let playerHand
     let playerName
-    let faceUp
+    let faceUp = this.props.faceUp
     let cardClick
  
     playerHand = this.props[`hand${this.props.player}`]
     playerName = this.props[`name${this.props.player}`] 
 
     // show cards (face up)
-    this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
+    // this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
     
     // check for win
     if (playerHand.length === 0 && this.props.gameActive ){
@@ -57,10 +57,10 @@ class Hand extends Component {
   render () {
     return (
       <div  className = {`hand${this.props.player}`} > {this.props[`name${this.props.player}`]}
-        <Container id = {this.props.player} className = "handCards">
+        <div id = {this.props.player} className = "handCards">
         {this.renderHand()}
 
-        </Container>
+        </div>
       </div>
     )
   }

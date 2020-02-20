@@ -12,10 +12,10 @@ import cow from '../images/_cow.png'
 class Auth extends Component {
 
   state = {
-    userId: 1,
+    userId: 0,
     username: '',
-    password: '',
-    passwordConf: '',
+    password: 'none',
+    passwordConf: 'none',
     login: true
 
   }
@@ -23,8 +23,8 @@ class Auth extends Component {
   componentDidUpdate(prevState) {
     console.log("username:",this.state.username)
     console.log("pw:",this.state.password)
-    console.log("pw:",this.state.passwordConf)
-    console.log("login",this.state.login)
+    // console.log("pw:",this.state.passwordConf)
+    // console.log("login",this.state.login)
   }
 
 
@@ -43,8 +43,8 @@ class Auth extends Component {
   }
 
   login = ()  => {
-    this.props.login({ username: this.state.username})
-    this.props.newGame()
+    this.props.login({ username: this.state.username, password: this.state.password})
+    // this.props.newGame()
     this.props.history.push("/game")
   }
     
@@ -87,7 +87,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>{
   return{
     login: (info) => dispatch(loginUserCreator(info)),
-    newGame: (info) => dispatch(newGameCreator(info)),
+    newGame: () => dispatch(newGameCreator()),
 
   }
 }
