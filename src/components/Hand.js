@@ -4,7 +4,6 @@ import {playCardCreator, nextTurnCreator} from '../actions';
 
 import Card from './Card'
 
-//import { Container } from 'semantic-ui-react'
 
 class Hand extends Component {
  
