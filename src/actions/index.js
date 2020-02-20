@@ -85,7 +85,7 @@ const loginUserCreator = (info) => {
       },
       body: JSON.stringify({
         name: info.username,
-        password: "none"
+        password: info.password
       })
     })
     .then(resp => resp.json())

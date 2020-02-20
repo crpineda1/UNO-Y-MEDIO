@@ -10,8 +10,17 @@ import Hand from './Hand';
 
 import AI from './AI';
 
-const HumanPlayers = [1,2,3,4] //reset to [1]
-const AiPlayers = [] // reset to [2,3,4]
+// set players to human or CPU
+const HumanPlayers = [] //reset to [1]
+const AiPlayers = [1,2,3,4] // reset to [2,3,4]
+
+// display cards
+const faceUpP1 = true
+const faceUpP2 = true
+const faceUpP3 = true
+const faceUpP4 = true
+
+const faceUpDeck = true
 
 // for dealing
 const dealDelay = 200   // reset to 200 for game play
@@ -19,6 +28,7 @@ const cards = 28    // reset to 28 for game play
 
 // for AI
 const AiDelay = 1500 // milliseconds *** reset to 1500 ***
+
 
 
 class Table extends Component {
@@ -174,18 +184,25 @@ class Table extends Component {
       if (this.props.value === "WC" && this.props.color === "black") {
         // console.log('WC buttons')
         colorButtons =  <div>
+        <br/>
         <button id = "WC_red" onClick= {() => this.wildCard("red")}>Switch Red WC</button>
         <br/>
         <button id = "WC_yellow" onClick= {() => this.wildCard("yellow")}>Switch Yellow WC</button>
+        <br/>
         <button id = "WC_blue" onClick= {() => this.wildCard("blue")}>Switch Blue WC</button>
+        <br/>
         <button id = "WC_green" onClick= {() => this.wildCard("green")}>Switch Green WC</button>
         </div>  
       } else if (this.props.value === "44" && this.props.color === "black") {
         // console.log('+4 buttons')
         colorButtons= <div>
+        <br/>
         <button id = "44_red" onClick= {() => this.plus4("red")}>Switch Red +4</button>
+        <br/>
         <button id = "44_yellow" onClick= {() => this.plus4("yellow")}>Switch Yellow +4</button>
+        <br/>
         <button id = "44_blue" onClick= {() => this.plus4("blue")}>Switch Blue +4</button>
+        <br/>
         <button id = "44_green" onClick= {() => this.plus4("green")}>Switch Green +4</button>
         </div>  
       }
@@ -221,14 +238,16 @@ class Table extends Component {
 
         
         <div className = "tableItems"> 
-          <Deck className = "deck"/>
-          <Pile className = "pile"/>
+          <Deck className = "deck" faceUp = {faceUpDeck}/>
+          <Pile className = "pile" />
           <div className = "hands">
-          <Hand key = {"player1"} player = {1} declareWinner = {this.declareWinner}/>
-          <Hand key = {"player2"} player = {2} declareWinner = {this.declareWinner}/>
-          <Hand key = {"player3"} player = {3} declareWinner = {this.declareWinner}/>
-          <Hand key = {"player4"} player = {4} declareWinner = {this.declareWinner}/>
-          {AiPlayer}
+
+          <Hand player = {1} faceUp = {faceUpP1} declareWinner = {this.declareWinner}/>
+          <Hand player = {2} faceUp = {faceUpP2} declareWinner = {this.declareWinner}/>
+          <Hand player = {3} faceUp = {faceUpP3} declareWinner = {this.declareWinner}/>
+          <Hand player = {4} faceUp = {faceUpP4} declareWinner = {this.declareWinner}/>
+
+         {AiPlayer}
           </div>
         </div>
       </div>
