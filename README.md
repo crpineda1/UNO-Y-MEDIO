@@ -2,6 +2,6 @@ This is a sofware version of UNO that allows any combination of computer or huma
 
 To run the backend of this application, go to https://github.com/crpineda1/UNO-Y-MEDIO_backend
 
-To see the demo video for this project, please following this link: https://drive.google.com/open?id=1WUd3AKj4SVenDaWwTcdQTLUI4quuCoX0
+To see the demo video for this project, please follow this link: https://drive.google.com/open?id=1WUd3AKj4SVenDaWwTcdQTLUI4quuCoX0
 
 If you have any questions, feel free to contact me: Carlos: carlos.r.pineda@gmail.com
