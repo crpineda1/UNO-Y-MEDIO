@@ -194,10 +194,10 @@ let defaultState = {
   gameActive: false,
 
   gameId: 1, // rest to 0 
-  userId1: 19, // reset to 0  
-  userId2: 16, 
-  userId3: 17, 
-  userId4: 18, 
+  userId1: 4, // default 4 if no user created  
+  userId2: 1, 
+  userId3: 2, 
+  userId4: 3, 
   player1: 'Kenny',
   player2:'Cartman',
   player3:'Stan',
