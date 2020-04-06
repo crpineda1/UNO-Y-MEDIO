@@ -193,8 +193,8 @@ let defaultState = {
   regCard: false,
   gameActive: false,
 
-  gameId: 1, // rest to 0 
-  userId1: 4, // default 4 if no user created  
+  gameId: 1, // default 1 
+  userId1: 4, // default 4 (if no user created)  
   userId2: 1, 
   userId3: 2, 
   userId4: 3, 
