@@ -193,7 +193,7 @@ let defaultState = {
   regCard: false,
   gameActive: false,
 
-  gameId: 1, // rest to 0 
+  gameId: 1, // default 1
   userId1: 4, // default 4 if no user created  
   userId2: 1, 
   userId3: 2, 
@@ -245,11 +245,38 @@ let reducer = (prevState=defaultState, action) => {
       // add the played card to the top of the pile 
       newPile = [action.payload,...prevState.pile]
       
+
+      // choose who plays next based on orderClockwise or counterclockwise 
+      // if (prevState.orderClockwise){
+      //   prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
+      // } else {
+      //   prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
+      // }
+      
       
       // check for SKIP
       if (action.payload.value === 'S'){
         activateCard = true
         nextTurn = prevState.turn
+       
+        // refactored and moved functionality to next turn
+        // if (prevState.orderClockwise){
+        //   if (prevState.turn === 4){  
+        //     nextTurn = 2
+        //   } else if(prevState.turn === 3){
+        //     nextTurn = 1
+        //   }else{ 
+        //   nextTurn += 1
+        //   } 
+        // } else{
+        //   if (prevState.turn === 2){  
+        //     nextTurn = 4
+        //   } else if(prevState.turn === 1){
+        //     nextTurn = 3
+        //   }else{ 
+        //   nextTurn -= 1
+        //   } 
+        // }
       }
       
 
@@ -262,6 +289,10 @@ let reducer = (prevState=defaultState, action) => {
         newOrder = prevState.orderClockwise 
       }
 
+      // check for BLACK CARD (+4, WC) and do not change turn to allow player to choose new color
+      // if (action.payload.color === "black"){
+      //   nextTurn = prevState.turn
+      // }
       
       // check for +2 card and auto draw 2 cards for the next player and skip turn
       if (action.payload.value === "22"){
