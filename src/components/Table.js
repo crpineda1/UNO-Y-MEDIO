@@ -29,8 +29,6 @@ const cards = 28    // reset to 28 for game play
 // for AI
 const AiDelay = 1500 // milliseconds *** reset to 1500 ***
 
-
-
 class Table extends Component {
 
 
