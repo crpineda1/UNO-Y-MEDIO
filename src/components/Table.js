@@ -23,11 +23,11 @@ const faceUpP4 = true
 const faceUpDeck = true
 
 // for dealing
-const dealDelay = 200   // reset to 200 for game play
+const dealDelay = 200   // reset to 150 for game play
 const cards = 28    // reset to 28 for game play
 
 // for AI
-const AiDelay = 1500 // milliseconds *** reset to 1500 ***
+const AiDelay = 2000 // milliseconds *** reset to 1500 ***
 
 class Table extends Component {
 
@@ -41,24 +41,22 @@ class Table extends Component {
     
     if (!this.props.gameActive){
 
-      // document.getElementById("Deck_0").click()
+     for (let i = 0; i < cards; i++) { 
+       setTimeout(() => {
+        //  this.props.pickCard()
+        document.getElementById("Deck_0").click()
+         this.props.nextTurn()
+         // console.log("deal counter", i)        
+       }, i * dealDelay);  
+     }
 
-      for (let i = 0; i < cards; i++) { 
-        setTimeout(() => {
-          //  this.props.pickCard()
-          document.getElementById("Deck_0").click()
-          this.props.nextTurn()
-        }, (i * dealDelay)+100);
-             
-      }
-
-      setTimeout(() => {
+     setTimeout(() => {
        this.props.pileCard()
        while(["R","S","22","44","WC"].includes(this.props.value)){
          this.props.pileCard()
        }  
        this.props.toggleGame()
-      }, (cards+1) * dealDelay)
+     }, (cards+1) * dealDelay)
    }
   }
 
@@ -78,7 +76,7 @@ class Table extends Component {
     
     // activate skip
     if(this.props.value === "S" && this.props.action) {
-      // console.log("skip turn")
+      console.log("skip turn")
       this.props.actionOff()
       // this.props.toggleGame()
       this.props.nextTurn()
@@ -152,7 +150,7 @@ class Table extends Component {
     let totalPoints = cardPoints.reduce((acc, pts) => acc + pts)
     let playerName = this.props[`player${player}`]
     let playerId = this.props[`userId${player}`]
-    // console.log("winner",player,playerName,playerId, totalPoints)
+    console.log("winner",player,playerName,playerId, totalPoints)
     this.props.saveGame({id: playerId, game:this.props.gameId, name: playerName, points: totalPoints})
     alert(`${playerName} WINS ${totalPoints} POINTS`)
     this.props.toLeaderboard()
@@ -217,7 +215,7 @@ class Table extends Component {
 
     return (
       <div className = "table">
-        <div className = "colorIndicator" > Current Color <img className = {this.props.color} alt = {this.props.color}/> </div>
+        <div className = "colorIndicator" > Current Color <img className = {this.props.color} /> </div>
         <div className = "directionIndicator" > Direction: <br/> {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
         <div className = "turnIndicator" > Current Turn: <br/>{this.props.gameActive? this.props[`player${this.props.turn}`]: null}</div>
         <div>
@@ -230,7 +228,7 @@ class Table extends Component {
           <br/>
           <button onClick = {this.showRules}>RULES</button>
         </div>
-        <button onClick = {this.pass}>PASS</button>
+        {/* <button onClick = {this.pass}>PASS</button> */}
         {colorButtons}
         {this.gameAction()}
 
