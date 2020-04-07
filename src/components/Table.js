@@ -9,16 +9,16 @@ import Hand from './Hand';
 import AI from './AI';
 
 // set players to human or CPU
-const HumanPlayers = [] //reset to [1]
-const AiPlayers = [1,2,3,4] // reset to [2,3,4]
+const HumanPlayers = [1] //reset to [1]
+const AiPlayers = [2,3,4] // reset to [2,3,4]
 
 // display cards
 const faceUpP1 = true
-const faceUpP2 = true
-const faceUpP3 = true
-const faceUpP4 = true
+const faceUpP2 = false
+const faceUpP3 = false
+const faceUpP4 = false
 
-const faceUpDeck = true
+const faceUpDeck = false
 
 // for dealing
 const dealDelay = 200   // reset to 150 for game play
