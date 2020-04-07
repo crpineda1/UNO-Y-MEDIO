@@ -58,7 +58,7 @@ class Card extends Component {
       // this.enterCard()
       
 
-      let deckDOM = document.getElementById('Deck').getBoundingClientRect();
+      // let deckDOM = document.getElementById('Deck').getBoundingClientRect();
       // console.log(document.getElementById('Deck') )
       let pileDOM = document.getElementById('Pile').getBoundingClientRect();
       // console.log(document.getElementById('Pile') )

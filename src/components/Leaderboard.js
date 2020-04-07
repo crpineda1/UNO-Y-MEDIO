@@ -51,7 +51,7 @@ class Leaderboard extends Component{
           <br/>
           <br/>
           <br/>
-          <button onClick = {() =>this.props.history.push('/')}> Log Out</button>
+          <button onClick = {() =>this.props.history.push('/')}> EXIT</button>
           <br/>
           <div className = "title">
           Leaderboard

@@ -157,14 +157,10 @@ class Table extends Component {
     
   }
   
-  
-  
   AiMove = (turn) => {
     return <AI player = {turn} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall} delay = {AiDelay}/>
   
   }
-
-  
 
   render () {
     let newDeck = this.shuffleDeck(this.props.cards)
@@ -213,12 +209,12 @@ class Table extends Component {
 
     return (
       <div className = "table">
-        <div className = "colorIndicator" > Current Color <img className = {this.props.color} /> </div>
+        <div className = "colorIndicator" > Current Color <img className = {this.props.color} alt = {this.props.color}/> </div>
         <div className = "directionIndicator" > Direction: <br/> {this.props.order? "CLOCKWISE":"COUNTER CLOCKWISE"}</div>
         <div className = "turnIndicator" > Current Turn: <br/>{this.props.gameActive? this.props[`player${this.props.turn}`]: null}</div>
         <div>
           <br/>
-          <button onClick = {this.dealCards}>DEAL CARDS</button>
+          <button onClick = {this.dealCards}>START GAME</button>
         </div>
           <br/>
           <button onClick = {this.props.unoCall}>UNO CALL!</button>
@@ -250,7 +246,7 @@ class Table extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state: ", state)
+  // console.log("state: ", state)
   // console.log("VALUE: ", state.currentValue)
   // console.log("TURN: ", state.turn)
   // console.log("Order Clockwise? ", state.orderClockwise)

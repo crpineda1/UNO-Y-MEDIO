@@ -10,12 +10,10 @@ class Hand extends Component {
   renderHand() {
 
     let playerHand
-    let playerName
     let faceUp = this.props.faceUp
     let cardClick
  
     playerHand = this.props[`hand${this.props.player}`]
-    playerName = this.props[`name${this.props.player}`] 
 
     // show cards (face up)
     // this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing

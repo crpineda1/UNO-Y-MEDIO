@@ -18,26 +18,21 @@ class Game extends Component {
   }
   
   endGame = () => {
-
-      this.props.clearGame()
-      setTimeout(() => {
-        this.props.history.push("/leaderboard")
-      }, 100);
-
+    this.props.clearGame()
+    setTimeout(() => {
+      this.props.history.push("/leaderboard")
+    }, 100);
   }
 
   exit = () => {
-
-     this.props.clearGame()
-     setTimeout(() => {
-       this.props.history.push("/")
-     }, 100);
-
+    this.props.clearGame()
+    setTimeout(() => {
+      this.props.history.push("/")
+    }, 100);
   }
 
   
   render () {
-
     return (
       <div className = "game">  
         <Navbar 
@@ -47,7 +42,6 @@ class Game extends Component {
           stopGame = {this.stopGame}
         />
         <Table toLeaderboard = {this.toLeaderboard}/>
-
       </div>
     )
   }

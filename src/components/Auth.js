@@ -1,4 +1,4 @@
-import React, {Component,Fragment} from 'react';
+import React, {Component} from 'react';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -47,13 +47,17 @@ class Auth extends Component {
     // this.props.newGame()
     this.props.history.push("/game")
   }
-    
+  
+  toLeaderboard = () => {
+    this.props.history.push("/leaderboard")
+  }
+
 
   render (){
     let form
 
     if (this.state.login){
-      form =  <Login  username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm} logIn = {this.login} />
+      form =  <Login  username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm} logIn = {this.login} toLeaderboard = {this.toLeaderboard} />
     } else {
       form =  <Signup username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm}/>
     }

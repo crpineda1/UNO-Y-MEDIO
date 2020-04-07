@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
   return { 
     deck: state.deck,
     turn: state.turn,
-    gameActive: state.gameActive
+    // gameActive: state.gameActive
   }  
 }
 

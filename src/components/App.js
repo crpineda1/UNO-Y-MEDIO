@@ -15,14 +15,12 @@ function App() {
   return (
     <div>
       <Switch>
-
         <Route exact path="/" component={Auth} />
         <Route exact path="/leaderboard" component={Leaderboard}/>
         <Route exact path="/game" component={Game}/>
-
       </Switch>
     </div>
-  );
+  )
 }
 
 export default App;
