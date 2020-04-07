@@ -6,8 +6,6 @@ import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, ch
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
-
-
 import AI from './AI';
 
 // set players to human or CPU

@@ -49,7 +49,7 @@ class AI extends Component {
       // EXECUTE DECISION
 
 
-      if (playCard){
+      if (playCard && this.props.gameActive){
         if (playCard === "pick from pile"){
           document.getElementById("Deck_0").click() // simulated click event (for animation)
           // this.props.pickCard()
@@ -133,7 +133,7 @@ const mapStateToProps = (state) => {
     name3: state.player3,
     name4: state.player4,
     // turn: state.turn,
-    // gameActive: state.gameActive,
+    gameActive: state.gameActive,
     currentColor: state.currentColor,
     currentValue: state.currentValue
   }  

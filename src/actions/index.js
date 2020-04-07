@@ -31,7 +31,7 @@ const clearGameCreator = () => ({type:CLEAR_GAME})
 const loadUserGamesCreator = () => {
   
   return(dispatch) => {
-    fetch("http://localhost:3000/usergames")
+    fetch("https://uno-y-medio-backend.herokuapp.com/usergames")
     .then(resp => resp.json())
     .then(data => { dispatch({type:LOAD_USERGAMES, payload: data })})
   }
@@ -39,7 +39,7 @@ const loadUserGamesCreator = () => {
 const loadUsersCreator = () => {
   
   return(dispatch) => {
-    fetch("http://localhost:3000/users")
+    fetch("https://uno-y-medio-backend.herokuapp.com/users")
     .then(resp => resp.json())
     .then(data => { dispatch({type:LOAD_USERS, payload: data })})
   }
@@ -53,7 +53,7 @@ const saveGameCreator = (player) => {
     // }
   
   return(dispatch) => {
-    fetch("http://localhost:3000/usergames",{
+    fetch("https://uno-y-medio-backend.herokuapp.com/usergames",{
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -77,7 +77,7 @@ const loginUserCreator = (info) => {
 
   
   return(dispatch) => {
-    fetch("http://localhost:3000/users",{
+    fetch("https://uno-y-medio-backend.herokuapp.com/users",{
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -99,7 +99,7 @@ const newGameCreator = () => {
 
   
   return(dispatch) => {
-    fetch("http://localhost:3000/games",{
+    fetch("https://uno-y-medio-backend.herokuapp.com/games",{
       method: "POST",
       headers: {
         'Accept': 'application/json',
