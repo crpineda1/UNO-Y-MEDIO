@@ -17,7 +17,7 @@ class Deck extends Component {
   render () {
    
     
-    let faceUp = this.props.gameActive // swtich to true to see the top card in the deck
+    let faceUp = this.props.faceUpDeck // swtich to true to see the top card in the deck
 
 
     return (
