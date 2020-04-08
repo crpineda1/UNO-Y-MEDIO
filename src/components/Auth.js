@@ -3,7 +3,7 @@ import Login from './Login';
 import Signup from './Signup';
 
 import {connect} from 'react-redux';
-import {loginUserCreator, newGameCreator} from '../actions';
+import {loginUserCreator, newGameCreator, demoActiveCreator} from '../actions';
 
 import logo from '../images/_UNO_Y_MEDIO_logo.png'
 import cow from '../images/_cow.png'
@@ -14,9 +14,8 @@ class Auth extends Component {
   state = {
     userId: 0,
     username: '',
-    password: 'none',
-    passwordConf: 'none',
-    login: true
+    password: 'none'
+
 
   }
 
@@ -24,7 +23,6 @@ class Auth extends Component {
     console.log("username:",this.state.username)
     console.log("pw:",this.state.password)
     // console.log("pw:",this.state.passwordConf)
-    // console.log("login",this.state.login)
   }
 
 
@@ -35,11 +33,9 @@ class Auth extends Component {
     })
   }
 
-  toggleForm = () => {
-    this.setState({
-      login: !this.state.login
-    })
-  
+  demoMode = () => {
+    this.props.demoActive()
+    this.props.history.push("/game")
   }
 
   login = ()  => {
@@ -54,13 +50,6 @@ class Auth extends Component {
 
 
   render (){
-    let form
-
-    if (this.state.login){
-      form =  <Login  username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm} logIn = {this.login} toLeaderboard = {this.toLeaderboard} />
-    } else {
-      form =  <Signup username = {this.state.username} password = {this.state.password} handleForm = {this.handleForm} toggleForm = {this.toggleForm}/>
-    }
 
     return(
       <div className = "auth" >
@@ -74,7 +63,14 @@ class Auth extends Component {
         <br />
         <div className = "loginandCow">
 
-        {form}
+        {<Login  
+          username = {this.state.username} 
+          password = {this.state.password} 
+          handleForm = {this.handleForm} 
+          demoMode = {this.demoMode} 
+          logIn = {this.login} 
+          toLeaderboard = {this.toLeaderboard} 
+        />}
         <br />
         <img className = "cowImg" src= {cow} alt = {"logo"}/>
         </div>
@@ -92,7 +88,7 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     login: (info) => dispatch(loginUserCreator(info)),
     newGame: () => dispatch(newGameCreator()),
-
+    demoActive: () => dispatch(demoActiveCreator())
   }
 }
 

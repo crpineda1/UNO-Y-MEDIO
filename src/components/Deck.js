@@ -17,21 +17,21 @@ class Deck extends Component {
   render () {
    
     
-    let faceUp = this.props.faceUpDeck // swtich to true to see the top card in the deck
+    let faceUp = this.props.faceUp // swtich to true to see the top card in the deck
 
 
     return (
       <div className = "deck"> Deck 
-      <Card 
-        reff = "Deck_0"
-        parent = "Deck"
-        // class = {`Hand1`}
-        card = {this.props.deck[0]} 
-        visible = {faceUp} 
-        handleClick = {() => this.handleClick(this.props.deck[0])}
+        <Card 
+          reff = "Deck_0"
+          parent = "Deck"
+          // class = {`Hand1`}
+          card = {this.props.deck[0]} 
+          visible = {faceUp} 
+          handleClick = {() => this.handleClick(this.props.deck[0])}
 
-      />
-    </div>
+        />
+      </div>
     )
   }
 }

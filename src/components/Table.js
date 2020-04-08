@@ -2,33 +2,31 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 
-import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, saveGameCreator,} from '../actions';
+import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, changeColorCreator, actionOffCreator, pileCardCreator, unoCallCreator, toggleGameCreator, saveGameCreator} from '../actions';
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
 import AI from './AI';
 
 // set players to human or CPU
-const HumanPlayers = [1] //reset to [1]
-const AiPlayers = [2,3,4] // reset to [2,3,4]
+let HumanPlayers = [1] //1P: [1] Demo: []
+let AiPlayers = [2,3,4] // 1P: [2,3,4] Demo: [1,2,3,4]
 
 // display cards
-const faceUpP1 = true
-const faceUpP2 = false
-const faceUpP3 = false
-const faceUpP4 = false
-
-const faceUpDeck = false
+let faceUpP1 = true
+let faceUpP2 = false
+let faceUpP3 = false
+let faceUpP4 = false
+let faceUpDeck = false
 
 // for dealing
-const dealDelay = 200   // reset to 150 for game play
+const dealDelay = 200   // reset to 200 for game play
 const cards = 28    // reset to 28 for game play
 
 // for AI
-const AiDelay = 2000 // milliseconds *** reset to 1500 ***
+const AiDelay = 2000 // milliseconds *** reset to 2000 ***
 
 class Table extends Component {
-
 
   shuffleDeck = (deck) => {
     let oldDeck = [...deck]
@@ -163,6 +161,19 @@ class Table extends Component {
   }
 
   render () {
+    
+    if (this.props.demoMode){
+      HumanPlayers = [] //1P: [1] Demo: []
+      AiPlayers = [1,2,3,4] // 1P: [2,3,4] Demo: [1,2,3,4]
+  
+      // display cards
+      faceUpP1 = true
+      faceUpP2 = true
+      faceUpP3 = true
+      faceUpP4 = true
+      faceUpDeck = true
+    }
+
     let newDeck = this.shuffleDeck(this.props.cards)
     let colorButtons  = <div></div>
 
@@ -197,6 +208,7 @@ class Table extends Component {
         </div>  
       }
     }    
+    
     
 
     let AiPlayer 
@@ -277,8 +289,7 @@ const mapStateToProps = (state) => {
     player2: state.player2,
     player3: state.player3,
     player4: state.player4,
-
-
+    demoMode: state.demoMode
   }
 }
 

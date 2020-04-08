@@ -6,15 +6,33 @@ const Login = (props) => {
     <div className = "authItemBlock">
       <div className = "authItems">
         <label> NAME:</label>
-        <input type="text" name="username"
-               onChange={props.handleForm} value={props.username}/>
-        <button type="button"  onClick={props.logIn}>ENTER</button>
+        <input 
+          type="text" 
+          name="username"
+          onChange={props.handleForm} 
+          value={props.username}
+        />
+        <button 
+          type="button"  
+          onClick={props.logIn}
+        > ENTER (1P mode)
+        </button>
         <br/>
-        <button type="button"  onClick={props.toLeaderboard}>LEADERBOARD</button>
-        {/* <button type="button"  onClick={props.toggleForm}>Create account</button> */}
+        <button 
+          type="button"  
+          onClick={props.demoMode}
+        >DEMO(only CPU)
+        </button>
+        <br/>
+        <button 
+          type="button"  
+          onClick={props.toLeaderboard}
+        > LEADERBOARD
+        </button>
       </div>
     </div>
   )
 }
 
 export default Login
+ 

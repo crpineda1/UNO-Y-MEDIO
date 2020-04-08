@@ -13,6 +13,7 @@ const LOAD_USERGAMES = "LOAD_USERGAMES";
 const LOAD_USERS = "LOAD_USERS"; 
 const CLEAR_GAME = "CLEAR_GAME"; 
 const NEW_GAME = "NEW_GAME"; 
+const DEMO_ACTIVE = "DEMO_ACTIVE"; 
 
 
 const createDeckCreator = (cards) => ({type: CREATE_DECK, payload: cards})
@@ -25,6 +26,8 @@ const pileCardCreator = () => ({type:PILE_CARD})
 const unoCallCreator = () => ({type:UNO_CALL})
 const toggleGameCreator = (info) => ({type:TOGGLE_GAME, payload: info})
 const clearGameCreator = () => ({type:CLEAR_GAME})
+const demoActiveCreator = () => ({type:DEMO_ACTIVE})
+
 
 
 
@@ -133,6 +136,7 @@ export {
   saveGameCreator,
   clearGameCreator,
   newGameCreator,
+  demoActiveCreator
 
 
 }

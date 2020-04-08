@@ -204,6 +204,7 @@ let defaultState = {
   player4:'Kyle',
   allUserGames: [],
   allUsers: [],
+  demoMode: false
 
 }
 
@@ -442,6 +443,12 @@ let reducer = (prevState=defaultState, action) => {
       // console.log("all users", action.payload.data)
     
       return {...prevState, allUsers: action.payload.data }
+    
+    
+    case 'DEMO_ACTIVE':
+      console.log("DEMO ACTIVE")
+    
+      return {...prevState, demoMode:true}
     
     case 'CLEAR_GAME':
       console.log("CLEAR_GAME")
