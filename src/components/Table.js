@@ -208,16 +208,12 @@ class Table extends Component {
         </div>  
       }
     }    
-    
-    
 
     let AiPlayer 
     if (AiPlayers.includes(this.props.turn) && this.props.gameActive){
       // console.log("AI ENGAGED", this.props.turn)
       AiPlayer = <div>{this.AiMove(this.props.turn)}</div>
     }
-
-    
 
     return (
       <div className = "table">
@@ -237,19 +233,16 @@ class Table extends Component {
         {/* <button onClick = {this.pass}>PASS</button> */}
         {colorButtons}
         {this.gameAction()}
-
         
         <div className = "tableItems"> 
           <Deck className = "deck" faceUp = {faceUpDeck}/>
           <Pile className = "pile" />
           <div className = "hands">
-
-          <Hand player = {1} faceUp = {faceUpP1} declareWinner = {this.declareWinner}/>
-          <Hand player = {2} faceUp = {faceUpP2} declareWinner = {this.declareWinner}/>
-          <Hand player = {3} faceUp = {faceUpP3} declareWinner = {this.declareWinner}/>
-          <Hand player = {4} faceUp = {faceUpP4} declareWinner = {this.declareWinner}/>
-
-         {AiPlayer}
+            <Hand player = {1} faceUp = {faceUpP1} declareWinner = {this.declareWinner}/>
+            <Hand player = {2} faceUp = {faceUpP2} declareWinner = {this.declareWinner}/>
+            <Hand player = {3} faceUp = {faceUpP3} declareWinner = {this.declareWinner}/>
+            <Hand player = {4} faceUp = {faceUpP4} declareWinner = {this.declareWinner}/>
+            {AiPlayer}
           </div>
         </div>
       </div>
