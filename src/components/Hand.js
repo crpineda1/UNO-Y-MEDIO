@@ -53,10 +53,9 @@ class Hand extends Component {
   
   render () {
     return (
-      <div  className = {`hand${this.props.player}`} > {this.props[`name${this.props.player}`]}
+      <div className = {`hand${this.props.player}`} > {this.props[`name${this.props.player}`]}
         <div id = {this.props.player} className = "handCards">
         {this.renderHand()}
-
         </div>
       </div>
     )
