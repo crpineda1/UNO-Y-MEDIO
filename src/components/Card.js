@@ -147,7 +147,6 @@ class Card extends Component {
       const deckDOM = document.getElementById('Deck').getBoundingClientRect()
       // console.log("deck",document.getElementById('Deck').getBoundingClientRect())
       // console.log(document.getElementById('Deck') )
-       
       
       this.deckPos = {
         x: deckDOM.top,
@@ -212,9 +211,6 @@ class Card extends Component {
       }
 
       // console.log("travelFromDeck",this.travelFromDeck)
-
-
-
     }
       
   }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Login from './Login';
 
 import {connect} from 'react-redux';
-import {loginUserCreator, newGameCreator, demoActiveCreator} from '../actions';
+import {loginUserCreator, demoActiveCreator} from '../actions';
 
 import logo from '../images/_UNO_Y_MEDIO_logo.png'
 import cow from '../images/_cow.png'
@@ -14,14 +14,11 @@ class Auth extends Component {
     userId: 0,
     username: '',
     password: 'none'
-
-
   }
 
   componentDidUpdate(prevState) {
     console.log("username:",this.state.username)
     console.log("pw:",this.state.password)
-    // console.log("pw:",this.state.passwordConf)
   }
 
 
@@ -39,7 +36,6 @@ class Auth extends Component {
 
   login = ()  => {
     this.props.login({ username: this.state.username, password: this.state.password})
-    // this.props.newGame()
     this.props.history.push("/game")
   }
   
@@ -86,7 +82,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>{
   return{
     login: (info) => dispatch(loginUserCreator(info)),
-    newGame: () => dispatch(newGameCreator()),
     demoActive: () => dispatch(demoActiveCreator())
   }
 }

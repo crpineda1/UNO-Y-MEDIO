@@ -15,21 +15,16 @@ class Deck extends Component {
   }
   
   render () {
-   
-    
     let faceUp = this.props.faceUp // swtich to true to see the top card in the deck
-
 
     return (
       <div className = "deck"> Deck 
         <Card 
           reff = "Deck_0"
           parent = "Deck"
-          // class = {`Hand1`}
           card = {this.props.deck[0]} 
           visible = {faceUp} 
           handleClick = {() => this.handleClick(this.props.deck[0])}
-
         />
       </div>
     )
@@ -41,7 +36,6 @@ const mapStateToProps = (state) => {
   return { 
     deck: state.deck,
     turn: state.turn,
-    // gameActive: state.gameActive
   }  
 }
 
@@ -49,7 +43,6 @@ const mapDispatchToProps = (dispatch) => {
   // console.log(dispatch)
   return {
     pickCard: () => dispatch(pickCardCreator()),
-
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Deck)
