@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Login from './Login';
-import Signup from './Signup';
 
 import {connect} from 'react-redux';
 import {loginUserCreator, newGameCreator, demoActiveCreator} from '../actions';
