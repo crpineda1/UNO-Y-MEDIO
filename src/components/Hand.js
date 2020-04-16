@@ -19,9 +19,8 @@ class Hand extends Component {
     // this.props.player === this.props.turn? faceUp = true : faceUp = true  // change to true to see all cars up for testing
     
     // check for win
-    if (playerHand.length === 0 && this.props.gameActive ){
+    if (playerHand.length === 0 && this.props.gameActive){
       // console.log("winner:", playerName)
-
       this.props.declareWinner(this.props.player) 
     }
      
@@ -40,6 +39,7 @@ class Hand extends Component {
 
         <Card 
           reff = {`${this.props.player}_${eachCard.code}`}
+          key = {`${this.props.player}_${eachCard.code}_${i}`}
           parent = {`Hand${this.props.player}`}
           index={i} 
           card = {eachCard} 

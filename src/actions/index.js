@@ -93,7 +93,7 @@ const loginUserCreator = (info) => {
     })
     .then(resp => resp.json())
     .then(data => {dispatch({type:LOGIN_USER, payload: data})})
-    // .then(data => console.log(data))
+    .then(data => console.log(data))
   }
   
 }

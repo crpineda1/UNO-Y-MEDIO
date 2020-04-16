@@ -40,8 +40,8 @@ class Table extends Component {
      for (let i = 0; i < cards; i++) { 
        setTimeout(() => {
         //  this.props.pickCard()
+        this.props.nextTurn()
         document.getElementById("Deck_0").click()
-         this.props.nextTurn()
          // console.log("deal counter", i)        
        }, i * dealDelay);  
      }
@@ -53,6 +53,7 @@ class Table extends Component {
        }  
        this.props.toggleGame()
      }, (cards+1) * dealDelay)
+     
    }
   }
 
