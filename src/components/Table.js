@@ -181,6 +181,8 @@ class Table extends Component {
     if (this.props.deck.length === 0){
       this.props.createDeck(newDeck) 
     }
+
+    //render buttons to choose color
     if(HumanPlayers.includes(this.props.turn)){
 
       if (this.props.value === "WC" && this.props.color === "black") {
