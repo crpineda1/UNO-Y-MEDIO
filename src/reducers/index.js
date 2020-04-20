@@ -226,18 +226,6 @@ let reducer = (prevState=defaultState, action) => {
       return {...prevState, deck: action.payload }
 
     case 'PLAY_CARD': 
-      // console .log("play card")
-
-      // console.log("pilecard color",card.color)
-      // console.log("pilecard value",card.value)
-      // console.log("playcard color",action.payload.color)
-      // console.log("playcard value",action.payload.value)
-      // console.log("store color",prevState.currentColor)
-      // console.log("store value",prevState.currentValue)
-      // console.log("turn",prevState.turn)
-      // console.log("next card",prevState.deck[0])
-
-      
       newHand = [...prevState[`hand${prevState.turn}`]]
 
       // remove the played card from the current player's hand
@@ -245,42 +233,12 @@ let reducer = (prevState=defaultState, action) => {
 
       // add the played card to the top of the pile 
       newPile = [action.payload,...prevState.pile]
-      
 
-      // choose who plays next based on orderClockwise or counterclockwise 
-      // if (prevState.orderClockwise){
-      //   prevState.turn === 4? nextTurn = 1: nextTurn = prevState.turn+1
-      // } else {
-      //   prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
-      // }
-      
-      
       // check for SKIP
       if (action.payload.value === 'S'){
         activateCard = true
         nextTurn = prevState.turn
-       
-        // refactored and moved functionality to next turn
-        // if (prevState.orderClockwise){
-        //   if (prevState.turn === 4){  
-        //     nextTurn = 2
-        //   } else if(prevState.turn === 3){
-        //     nextTurn = 1
-        //   }else{ 
-        //   nextTurn += 1
-        //   } 
-        // } else{
-        //   if (prevState.turn === 2){  
-        //     nextTurn = 4
-        //   } else if(prevState.turn === 1){
-        //     nextTurn = 3
-        //   }else{ 
-        //   nextTurn -= 1
-        //   } 
-        // }
       }
-      
-
 
       // check for REVERSE
       if (action.payload.value === 'R'){ 
@@ -290,34 +248,25 @@ let reducer = (prevState=defaultState, action) => {
         newOrder = prevState.orderClockwise 
       }
 
-      // check for BLACK CARD (+4, WC) and do not change turn to allow player to choose new color
-      // if (action.payload.color === "black"){
-      //   nextTurn = prevState.turn
-      // }
-      
-      // check for +2 card and auto draw 2 cards for the next player and skip turn
+      // check for +2 card and activate card effect for function (in table component) to work
       if (action.payload.value === "22"){
         activateCard = true
-      } 
-      
-      
-      
+      }
+
       // check if card matches color, value, or if black(+4 or wild card)
       if (prevState.currentColor === action.payload.color || prevState.currentValue === action.payload.value || 'black' === action.payload.color) {
-        
-        
-        // check one card left in the hand and no uno call ,if so activate uno penalty (draw 2 if UNO not called)
+
+        // check to activate uno penalty (draw 4 if UNO not called)
         if (newHand.length === 1 && !prevState.unoCall){
           console.log("uno call penalty")
           activateUnoPenalty = true
           nextTurn = prevState.turn
         }
-        
+
         if (["0","1","2","3","4","5","6","7","8","9","R"].includes(action.payload.value)) {
           newRegCard = true
         }
-        
-        // console.log("AI ACTIVE", false)
+
         return {...prevState, pile: newPile, 
           [`hand${prevState.turn}`]: newHand, 
           currentColor: action.payload.color, 
@@ -328,8 +277,7 @@ let reducer = (prevState=defaultState, action) => {
           unoCall: deactivateUnoCall, 
           unoPenalty: activateUnoPenalty,
           regCard: newRegCard,
-          gameActive: false,
-
+          gameActive: false
         } 
 
       } else {
@@ -339,17 +287,9 @@ let reducer = (prevState=defaultState, action) => {
       
       
     case 'NEXT_TURN':
-      // console.log("next turn")
-      
-      // console.log("prev turn", prevState.turn)
-      // console.log("prev value", prevState.currentValue)
-      // console.log("prev action", prevState.actionCard)
-      // console.log("prev clockwise?", prevState.orderClockwise)
-      // console.log("nextTurn", prevState.turn)
-      
-      
       nextTurn = prevState.turn
 
+      // check for skip
       if (prevState.currentValue === 'S' && prevState.actionCard){
         if (prevState.orderClockwise){
           if (prevState.turn === 4){  
@@ -375,7 +315,6 @@ let reducer = (prevState=defaultState, action) => {
           prevState.turn === 1? nextTurn = 4: nextTurn = prevState.turn-1
         }
       }
-      // console.log("new turn", nextTurn)
 
       return{...prevState, turn: nextTurn, unoPenalty: false}
       
