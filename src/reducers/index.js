@@ -284,8 +284,6 @@ let reducer = (prevState=defaultState, action) => {
         return {...prevState}
       }
 
-      
-      
     case 'NEXT_TURN':
       nextTurn = prevState.turn
 
@@ -296,7 +294,7 @@ let reducer = (prevState=defaultState, action) => {
             nextTurn = 2
           } else if(prevState.turn === 3){
             nextTurn = 1
-          }else{ 
+          } else { 
           nextTurn += 2
           } 
         } else {
@@ -304,7 +302,7 @@ let reducer = (prevState=defaultState, action) => {
             nextTurn = 4
           } else if(prevState.turn === 1){
             nextTurn = 3
-          }else{ 
+          } else { 
             nextTurn -= 2
           } 
         }
@@ -318,26 +316,20 @@ let reducer = (prevState=defaultState, action) => {
 
       return{...prevState, turn: nextTurn, unoPenalty: false}
       
-
-
     case 'PICK_CARD':
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
       newHand = [...prevState[`hand${prevState.turn}`],card]
       return {...prevState, deck: newDeck, [`hand${prevState.turn}`]: newHand }
     
-
     case 'PILE_CARD':
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
       newPile = [card,...prevState.pile]
       return {...prevState, deck: newDeck, pile: newPile, currentColor: card.color, currentValue: card.value}
     
-    
     case 'CHANGE_COLOR':
-    
       return {...prevState, currentColor: action.payload }
- 
       
     case 'ACTION_OFF':
       return {...prevState, actionCard: false, regCard: false, unoPenalty: false }

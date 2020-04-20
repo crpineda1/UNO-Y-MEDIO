@@ -37,24 +37,25 @@ class Table extends Component {
     
     if (!this.props.gameActive){
 
-     for (let i = 0; i < cards; i++) { 
-       setTimeout(() => {
+      for (let i = 0; i < cards; i++) { 
+        setTimeout(() => {
         //  this.props.pickCard()
         this.props.nextTurn()
         document.getElementById("Deck_0").click()
-         // console.log("deal counter", i)        
-       }, i * dealDelay);  
-     }
+          // console.log("deal counter", i)        
+        }, i * dealDelay);  
+      }
 
-     setTimeout(() => {
-       this.props.pileCard()
-       while(["R","S","22","44","WC"].includes(this.props.value)){
-         this.props.pileCard()
-       }  
-       this.props.toggleGame()
-     }, (cards+1) * dealDelay)
-     
-   }
+      setTimeout(() => {
+        this.props.pileCard()
+        while(["R","S","22","44","WC"].includes(this.props.value)){
+          this.props.pileCard()
+        }  
+        this.props.toggleGame()
+      }, (cards+1) * dealDelay)
+
+      this.props.hideButtons()
+    }
   }
 
   gameAction = () =>{
@@ -151,9 +152,6 @@ class Table extends Component {
     this.props.saveGame({id: playerId, game:this.props.gameId, name: playerName, points: totalPoints})
     alert(`${playerName} WINS ${totalPoints} POINTS`)
     this.props.toLeaderboard()
-
-
-    
   }
   
   CPUMove = (turn) => {

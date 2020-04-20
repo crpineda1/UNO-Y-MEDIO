@@ -8,8 +8,15 @@ import {clearGameCreator} from '../actions';
 
 
 class Game extends Component {
+  
   state = {
-    
+    showButtons: true
+  }
+
+  hideButtons = () => {
+    this.setState({
+      showButtons: false
+    })
   }
 
   toLeaderboard = () => {
@@ -21,22 +28,18 @@ class Game extends Component {
   }
   
   //sends to leaderboard
-  endGame = (active) => {
-    if(active){
-      this.props.clearGame()
-      setTimeout(() => {
-        this.toLeaderboard()
-      }, 100);
-    }
+  endGame = () => {
+    this.props.clearGame()
+    setTimeout(() => {
+      this.toLeaderboard()
+    }, 100);
   }
 
-  exit = (active) => {
-    if(active){
-      this.props.clearGame()
-      setTimeout(() => {
-        this.props.history.push("/")
-      }, 100);
-    }
+  exit = () => {
+    this.props.clearGame()
+    setTimeout(() => {
+      this.props.history.push("/")
+    }, 100);
   }
 
 
@@ -44,11 +47,14 @@ class Game extends Component {
     return (
       <div className = "game">  
         <Navbar 
-          exit = {() => this.exit(this.props.gameActive)} 
-          endGame = {() => this.endGame(this.props.gameActive)} 
+          showButtons = {this.state.showButtons}
+          exit = {() => this.exit()} 
+          endGame = {() => this.endGame()} 
           reloadPage = {this.reloadPage}
         />
-        <Table toLeaderboard = {this.toLeaderboard}/>
+        <Table 
+          hideButtons = {this.hideButtons}
+          toLeaderboard = {this.toLeaderboard}/>
       </div>
     )
   }
