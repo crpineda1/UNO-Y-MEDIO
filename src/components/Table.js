@@ -6,11 +6,11 @@ import {createDeckCreator, playCardCreator, pickCardCreator, nextTurnCreator, ch
 import Deck from './Deck';
 import Pile from './Pile';
 import Hand from './Hand';
-import AI from './AI';
+import CPU from './CPU';
 
 // set players to human or CPU
 let HumanPlayers = [1] //1P: [1] Demo: []
-let AiPlayers = [2,3,4] // 1P: [2,3,4] Demo: [1,2,3,4]
+let CpuPlayers = [2,3,4] // 1P: [2,3,4] Demo: [1,2,3,4]
 
 // display cards
 let faceUpP1 = true
@@ -23,8 +23,8 @@ let faceUpDeck = false
 const dealDelay = 200   // reset to 200 for game play
 const cards = 28    // reset to 28 for game play
 
-// for AI
-const AiDelay = 2000 // milliseconds *** reset to 2000 ***
+// for CPU
+const CPUDelay = 2000 // milliseconds *** reset to 2000 ***
 
 class Table extends Component {
 
@@ -156,8 +156,8 @@ class Table extends Component {
     
   }
   
-  AiMove = (turn) => {
-    return <AI player = {turn} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall} delay = {AiDelay}/>
+  CPUMove = (turn) => {
+    return <CPU player = {turn} wildCard = {this.wildCard} plus4 = {this.plus4} unoCall = {this.props.unoCall} delay = {CPUDelay}/>
   
   }
 
@@ -165,7 +165,7 @@ class Table extends Component {
     
     if (this.props.demoMode){
       HumanPlayers = [] //1P: [1] Demo: []
-      AiPlayers = [1,2,3,4] // 1P: [2,3,4] Demo: [1,2,3,4]
+      CpuPlayers = [1,2,3,4] // 1P: [2,3,4] Demo: [1,2,3,4]
   
       // display cards
       faceUpP1 = true
@@ -212,10 +212,10 @@ class Table extends Component {
       }
     }    
 
-    let AiPlayer 
-    if (AiPlayers.includes(this.props.turn) && this.props.gameActive){
-      // console.log("AI ENGAGED", this.props.turn)
-      AiPlayer = <div>{this.AiMove(this.props.turn)}</div>
+    let CPUPlayer 
+    if (CpuPlayers.includes(this.props.turn) && this.props.gameActive){
+      // console.log("CPU ENGAGED", this.props.turn)
+      CPUPlayer = <div>{this.CPUMove(this.props.turn)}</div>
     }
 
     return (
@@ -245,7 +245,7 @@ class Table extends Component {
             <Hand player = {2} faceUp = {faceUpP2} declareWinner = {this.declareWinner}/>
             <Hand player = {3} faceUp = {faceUpP3} declareWinner = {this.declareWinner}/>
             <Hand player = {4} faceUp = {faceUpP4} declareWinner = {this.declareWinner}/>
-            {AiPlayer}
+            {CPUPlayer}
           </div>
         </div>
       </div>
@@ -262,7 +262,7 @@ const mapStateToProps = (state) => {
   // console.log("uno call: ", state.unoCall)
   // console.log("uno penalty: ", state.unoPenalty)
   // console.log("action activated: ", state.actionCard)
-  // console.log("AI Active?", state.gameActive)
+  // console.log("CPU Active?", state.gameActive)
 
   return { 
     cards: state.cards,

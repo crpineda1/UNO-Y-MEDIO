@@ -4,32 +4,23 @@ import {playCardCreator, pickCardCreator, changeColorCreator} from '../actions';
 
 
 
-class AI extends Component {
+class CPU extends Component {
  
-  AiTurn() {
+  CPUTurn() {
 
     let playerHand
     let playCard = null
     let colors =["red","blue","yellow","green"]
-    let delay = this.props.delay // milliseconds *** reset to 1500 ***
+    let delay = this.props.delay // set in table component
 
   
     playerHand = this.props[`hand${this.props.player}`]
-    
-   
-    // console.log("AI player", this.props.player)
-    // console.log("AI turn", this.props.turn)
-    // console.log("game active:", this.props.gameActive)
-    // console.log("color:", this.props.currentColor)
-    // console.log("value:", this.props.currentValue)
 
-
-    // *** AI logic ***
+    // *** CPU logic ***
 
     setTimeout(() => {
       
-      
-      // DECIDE WHICH CARD TO PLAY OR PICK FROM DECK
+      // DECIDE MOVE
     
       if (playerHand.find( card => card.color === this.props.currentColor)){
         playCard =  playerHand.find( card => card.color === this.props.currentColor)
@@ -45,9 +36,7 @@ class AI extends Component {
         }
       }
 
-      
-      // EXECUTE DECISION
-
+      // EXECUTE MOVE
 
       if (playCard && this.props.gameActive){
         if (playCard === "pick from pile"){
@@ -61,67 +50,46 @@ class AI extends Component {
             alert(`${this.props[`name${this.props.player}`]} calls UNO Y MEDIO`)
             this.props.unoCall()
           } 
-          console.dir(playCard)
           
+          console.log("CPU",this.props.player,"play card:",playCard.color,playCard.value,playCard.reff)
           
-          console.log("AI",this.props.player,"play card:",playCard.color,playCard.value,playCard.reff)
-          
-          // check for black card *** no animation if play black card due to multiple steps
+          // check for black card *** no animation if play black card due to multiple steps***
 
           if (playCard.color === "black"){
             // play black card w/o animation (need further debugging)
             this.props.playCard(playCard)  // disable for testing
             
             // CHOOSE RANDOM COLOR AFTER BLACK CARD WAS PLAYED
-            let randColor = colors[Math.floor(Math.random() * colors.length)]
+            let randomColor = colors[Math.floor(Math.random() * colors.length)]
             
             if(playCard.value === "WC"){
-              this.props.wildCard(randColor)
-              // document.getElementById(`WC_${randColor}`).click()
-              
+              this.props.wildCard(randomColor)
+              // document.getElementById(`WC_${randomColor}`).click()
             } else {
-              this.props.plus4(randColor)
-              // document.getElementById(`44_${randColor}`).click()
-              
+              this.props.plus4(randomColor)
+              // document.getElementById(`44_${randomColor}`).click()
             }
           } else {
             // play non black cards with animation
             document.getElementById(`${this.props.player}_${playCard.code}`).click()
           }
-
-          
           playCard = null
         }
       }
-
-
     }, delay)
-          
-    // end of renderHand
   }
 
-
-   
-    
-    
-  
   render () {
-    // blank to render nothing
+    // will not render - just make/execute decision
     return (
       <div> 
-        {this.AiTurn()}
+        {this.CPUTurn()}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  // console.log("hand1", state.hand1)
-  // console.log("hand2", state.hand2)
-  // console.log("hand3", state.hand3)
-  // console.log("hand4", state.hand4)
-  // console.log("turn", state.turn)
-  // console.log("gameActive", state.gameActive)
   
   return { 
     hand1: state.hand1,
@@ -132,7 +100,6 @@ const mapStateToProps = (state) => {
     name2: state.player2,
     name3: state.player3,
     name4: state.player4,
-    // turn: state.turn,
     gameActive: state.gameActive,
     currentColor: state.currentColor,
     currentValue: state.currentValue
@@ -143,8 +110,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     playCard: (card) => dispatch(playCardCreator(card)),
     pickCard: () => dispatch(pickCardCreator()),
-    changeColor: (color) => dispatch(changeColorCreator(color)),
-
+    changeColor: (color) => dispatch(changeColorCreator(color))
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(AI)
+export default connect(mapStateToProps,mapDispatchToProps)(CPU)
