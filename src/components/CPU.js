@@ -46,7 +46,7 @@ class CPU extends Component {
           
           // check for uno call
           if (playerHand.length === 2){
-            alert(`${this.props[`name${this.props.player}`]} calls UNO Y MEDIO`)
+            alert(`${this.props[`name${this.props.player}`]}: UNO Y MEDIO!`)
             this.props.unoCall()
           } 
           

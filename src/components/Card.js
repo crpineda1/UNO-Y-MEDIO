@@ -7,22 +7,23 @@ import ReactDOM from 'react-dom';
 const timeout = 100
 
 class Card extends Component {
-
-
+  
+  
   state = {
     inProp: true
   }
-
+  
   deckPos = {}
   cardPos = {}
   pilePos = {}
   travelFromDeck = {}
   travelToPile = {}
-
+  
   handPos = {}
-
+  
   componentDidMount(){
-
+    const pileDOM = document.getElementById('Pile').getBoundingClientRect();
+    
     
     if(this.props.parent === "Deck"){
       const handDOM = document.getElementById(`${this.props.turn}`).getBoundingClientRect();
@@ -60,9 +61,11 @@ class Card extends Component {
 
       // let deckDOM = document.getElementById('Deck').getBoundingClientRect();
       // console.log(document.getElementById('Deck') )
-      let pileDOM = document.getElementById('Pile').getBoundingClientRect();
       // console.log(document.getElementById('Pile') )
       let cardDOM = ReactDOM.findDOMNode(this).getBoundingClientRect();
+      
+      // *** may be rewriting pile pos *** 
+      // pileDOM = document.getElementById('Pile').getBoundingClientRect();
       
     //  this.deckPos = {
     //    x: deckDOM.x,
@@ -225,6 +228,8 @@ class Card extends Component {
   
   exitCard = () =>{
     console.log("exitCard",this.props.parent,this.props.index,this.travelToPile)
+    console.log("Pile",this.pilePos)
+    console.log("Card",this.cardPos)
 
     this.setState({
       inProp: false // exit
