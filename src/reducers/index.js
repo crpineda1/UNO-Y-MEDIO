@@ -365,31 +365,26 @@ let reducer = (prevState=defaultState, action) => {
       return {...prevState, gameId: action.payload.data.id}
     
     case 'TOGGLE_GAME':
-      // console.log("AI ACTIVE", !prevState.gameActive)
-    
       return {...prevState, gameActive: !prevState.gameActive }
-        
+
     case 'LOAD_USERGAMES':
       console.log("LOAD USERGAMES")
-      // console.log("API response", action.payload.status)
-      // console.log("all users", action.payload.data)
     
       return {...prevState, allUserGames: action.payload.data }
     
     case 'LOAD_USERS':
       console.log("LOAD USERS")
-      // console.log("API response", action.payload.status)
-      // console.log("all users", action.payload.data)
     
       return {...prevState, allUsers: action.payload.data }
     
-    
+    // activate demo mode (all CPU players)
     case 'DEMO_ACTIVE':
       console.log("DEMO ACTIVE")
     
       return {...prevState, demoMode:true}
     
-    case 'CLEAR_GAME':
+     // reset store to original state
+      case 'CLEAR_GAME':
       console.log("CLEAR_GAME")
     
       return {...prevState,
@@ -409,9 +404,8 @@ let reducer = (prevState=defaultState, action) => {
         unoCall: false,
         unoPenalty: false,
         regCard: false,
-        gameActive: false,
-
-      }  
+        gameActive: false
+      }
 
     default: 
       return {...prevState}
