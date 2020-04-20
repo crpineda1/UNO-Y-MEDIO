@@ -321,7 +321,6 @@ let reducer = (prevState=defaultState, action) => {
 
 
     case 'PICK_CARD':
-      // console.log("pick card", prevState.turn)
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
       newHand = [...prevState[`hand${prevState.turn}`],card]
@@ -329,7 +328,6 @@ let reducer = (prevState=defaultState, action) => {
     
 
     case 'PILE_CARD':
-      // console.log("pick card")
       newDeck = [...prevState.deck]
       card = newDeck.shift() 
       newPile = [card,...prevState.pile]
@@ -337,56 +335,38 @@ let reducer = (prevState=defaultState, action) => {
     
     
     case 'CHANGE_COLOR':
-      console.log("change color",action.payload)
     
       return {...prevState, currentColor: action.payload }
  
       
     case 'ACTION_OFF':
-      // console.log("ACTION OFF")
-    
       return {...prevState, actionCard: false, regCard: false, unoPenalty: false }
 
 
     case 'UNO_CALL':
-      console.log("UNO CALL")
-    
       return {...prevState, unoCall: true }
 
-
     case 'LOGIN_USER':
-      console.log("LOGIN USER", action.payload.data.id, action.payload.data.name)
-      
       return {...prevState, userId1: action.payload.data.id, player1: action.payload.data.name, gameId: action.payload.data.id}
     
     case 'NEW_GAME':
-      console.log("NEW GAME", action.payload.data.id)
-      
       return {...prevState, gameId: action.payload.data.id}
     
     case 'TOGGLE_GAME':
       return {...prevState, gameActive: !prevState.gameActive }
 
     case 'LOAD_USERGAMES':
-      console.log("LOAD USERGAMES")
-    
       return {...prevState, allUserGames: action.payload.data }
     
     case 'LOAD_USERS':
-      console.log("LOAD USERS")
-    
       return {...prevState, allUsers: action.payload.data }
     
     // activate demo mode (all CPU players)
     case 'DEMO_ACTIVE':
-      console.log("DEMO ACTIVE")
-    
       return {...prevState, demoMode:true}
     
      // reset store to original state
-      case 'CLEAR_GAME':
-      console.log("CLEAR_GAME")
-    
+    case 'CLEAR_GAME':
       return {...prevState,
         deck: [],
         pile:  [{color: 'black', value: '0', code:'B0', points:0, img:card_back }],
