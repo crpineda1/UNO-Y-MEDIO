@@ -12,7 +12,6 @@ class CPU extends Component {
     let playCard = null
     let colors =["red","blue","yellow","green"]
     let delay = this.props.delay // set in table component
-
   
     playerHand = this.props[`hand${this.props.player}`]
 
@@ -22,7 +21,7 @@ class CPU extends Component {
       
       // DECIDE MOVE
     
-      if (playerHand.find( card => card.color === this.props.currentColor)){
+      if (playerHand.find( card => card.color === this.props.currentColor)) {
         playCard =  playerHand.find( card => card.color === this.props.currentColor)
       } else {
         if (playerHand.find( card => card.value === this.props.currentValue)) {

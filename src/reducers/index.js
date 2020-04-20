@@ -342,7 +342,6 @@ let reducer = (prevState=defaultState, action) => {
     case 'ACTION_OFF':
       return {...prevState, actionCard: false, regCard: false, unoPenalty: false }
 
-
     case 'UNO_CALL':
       return {...prevState, unoCall: true }
 

@@ -18,7 +18,7 @@ class Navbar extends Component {
           </div>
           <br/>
           <div >
-            <button onClick = {this.props.stopGame}> END GAME</button>
+            <button onClick = {this.props.reloadPage}> END GAME</button>
           </div>
           <br/>
           <div >

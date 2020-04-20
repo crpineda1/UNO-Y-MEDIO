@@ -8,38 +8,45 @@ import {clearGameCreator} from '../actions';
 
 
 class Game extends Component {
+  state = {
+    
+  }
 
   toLeaderboard = () => {
     this.props.history.push("/leaderboard")
   }
 
-  stopGame = () => {
+  reloadPage = () => {
     window.location.reload();
   }
   
-  endGame = () => {
-    this.props.clearGame()
-    setTimeout(() => {
-      this.props.history.push("/leaderboard")
-    }, 100);
+  //sends to leaderboard
+  endGame = (active) => {
+    if(active){
+      this.props.clearGame()
+      setTimeout(() => {
+        this.toLeaderboard()
+      }, 100);
+    }
   }
 
-  exit = () => {
-    this.props.clearGame()
-    setTimeout(() => {
-      this.props.history.push("/")
-    }, 100);
+  exit = (active) => {
+    if(active){
+      this.props.clearGame()
+      setTimeout(() => {
+        this.props.history.push("/")
+      }, 100);
+    }
   }
 
-  
+
   render () {
     return (
       <div className = "game">  
         <Navbar 
-          exit = {this.exit} 
-          endGame = {this.endGame} 
-          leaderboard = {this.toLeaderboard} 
-          stopGame = {this.stopGame}
+          exit = {() => this.exit(this.props.gameActive)} 
+          endGame = {() => this.endGame(this.props.gameActive)} 
+          reloadPage = {this.reloadPage}
         />
         <Table toLeaderboard = {this.toLeaderboard}/>
       </div>
@@ -49,21 +56,8 @@ class Game extends Component {
 
 const mapStateToProps = (state) => {
   // console.log("state: ", state)
- 
   return { 
-    // cards: state.cards,
-    // deck: state.deck,
-    // value: state.currentValue,
-    // turn: state.turn,
-    // color: state.currentColor,
-    // action: state.actionCard,
-    // order: state.orderClockwise,
-    // unoPenalty: state.unoPenalty,
-    // regCard: state.regCard,
     gameActive: state.gameActive,
-    // allHands: [...state.hand1, ...state.hand2, ...state.hand3, ...state.hand4],
-    // userId: state.userId
-
 
   }
 }
